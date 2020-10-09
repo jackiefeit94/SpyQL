@@ -1,4 +1,5 @@
 const Question = require('./question')
+const Suspect = require('./suspects')
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -14,5 +15,6 @@ const Question = require('./question')
  * instead of: const User = require('../db/models/user')
  */
 module.exports = {
-  Question
+  Question,
+  Suspect
 }
