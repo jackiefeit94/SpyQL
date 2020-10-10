@@ -12,7 +12,8 @@ class LevelThree extends React.Component {
   constructor() {
     super()
     this.state = {
-      code: ''
+      code: '',
+      data: []
     }
     this.updateCode = this.updateCode.bind(this)
     this.createTable = this.createTable.bind(this)
@@ -23,16 +24,18 @@ class LevelThree extends React.Component {
   }
 
   async createTable() {
-    console.log('code: ', this.state.code)
     let {data} = await Axios.get(`/api/suspects/${this.state.code}`, {
       params: this.state.code
     })
-    console.log('rows: ', data[1].rows)
-    console.log('columns: ', data[1].fields)
+    this.setState({data: data})
+    console.log(this.state.data)
+    // console.log('rows: ', data[1].rows)
+    // console.log('columns: ', data[1].fields)
   }
 
   render() {
     const options = {lineNumbers: true}
+
     return (
       <div>
         <h3>This is Level Three</h3>
@@ -45,6 +48,34 @@ class LevelThree extends React.Component {
         <button type="submit" onClick={this.createTable}>
           Submit Query!
         </button>
+        <div>
+          <table>
+            <tbody>
+              <tr>
+                {this.state.data.length ? (
+                  this.state.data[1].fields.map(column => {
+                    return <th key={column.columnID}>{column.name}</th>
+                  })
+                ) : (
+                  <div />
+                )}
+              </tr>
+              {this.state.data.length ? (
+                this.state.data[1].rows.map(row => {
+                  return (
+                    <tr key={row.id}>
+                      {this.state.data[1].fields.map(column => {
+                        return <td key={column.columnID}>{row[column.name]}</td>
+                      })}
+                    </tr>
+                  )
+                })
+              ) : (
+                <div />
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     )
   }
