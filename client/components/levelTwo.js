@@ -7,8 +7,24 @@ import {connect} from 'react-redux'
  */
 const LevelTwo = () => {
   return (
-    <div>
-      <h3>This is Level Two</h3>
+    <div className="levelTwo-container">
+      <div className="flex-child-left">
+        <div id="textbox">
+          <p>Welcome, Special Agent Q...</p>
+        </div>
+        <div id="textbox">
+          <p>Enter SQL queries here.</p>
+        </div>
+        <div id="textbox">
+          <p>Enter more queries here.</p>
+        </div>
+      </div>
+
+      <div className="flex-child-right">
+        <div id="textbox-table">
+          <p id="table">Table goes here</p>
+        </div>
+      </div>
     </div>
   )
 }

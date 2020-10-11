@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  background-color: black;
 }
 
 a {
@@ -20,7 +21,51 @@ form div {
   display: inline-block;
 }
 
-/*Code Mirror*/
+.levelTwo-container {
+  height: 40vw;
+  display: flex;
+  color: white;
+  font-family: 'Courier New';
+}
+
+.navbar {
+  color: white;
+  background: black;
+  font-family: 'Courier New';
+  text-align: center;
+}
+
+.flex-child-left {
+  flex: 1;
+  border: 2px solid white;
+}
+
+.flex-child-right {
+  flex: 1;
+  background-image: url('https://techcrunch.com/wp-content/uploads/2014/12/matrix.jpg');
+  border: 2px solid white;
+}
+
+.flex-child-left:first-child {
+  margin-right: 5px;
+}
+
+#textbox {
+  width: 85%;
+  border: 5px solid green;
+  padding: 20px;
+  margin: 20px;
+}
+
+#textbox-table {
+  width: 35em;
+  border: 5px solid green;
+  background-color: white;
+  padding: 20px;
+  margin: 20px;
+}
+
+ /*Code Mirror*/
 /* BASICS */
 
 .CodeMirror {
