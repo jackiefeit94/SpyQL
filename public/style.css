@@ -527,3 +527,7 @@ th,
 td {
   padding: 5px;
 }
+
+#pre-render {
+  visibility: hidden;
+}

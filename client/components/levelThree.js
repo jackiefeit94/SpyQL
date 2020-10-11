@@ -57,7 +57,7 @@ class LevelThree extends React.Component {
                     return <th key={column.columnID}>{column.name}</th>
                   })
                 ) : (
-                  <div />
+                  <th id="pre-render" />
                 )}
               </tr>
               {this.state.data.length ? (
@@ -71,7 +71,7 @@ class LevelThree extends React.Component {
                   )
                 })
               ) : (
-                <div />
+                <tr id="pre-render" />
               )}
             </tbody>
           </table>
