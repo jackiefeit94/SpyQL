@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
 const Navbar = () => (
-  <div>
+  <div className="navbar">
     <h1>SpyQL</h1>
     <nav>
       <div>
@@ -16,7 +16,6 @@ const Navbar = () => (
         <Link to="/LevelThree">Level Three</Link>
       </div>
     </nav>
-    <hr />
   </div>
 )
 

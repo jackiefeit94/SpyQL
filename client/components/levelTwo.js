@@ -7,8 +7,25 @@ import {connect} from 'react-redux'
  */
 const LevelTwo = () => {
   return (
-    <div>
-      <h3>This is Level Two</h3>
+    <div id="levelTwo">
+      <div className="split left">
+        <div className="centered">
+          <div id="textbox">
+            <p>Welcome, Special Agent Q...</p>
+          </div>
+          <div id="textbox">
+            <p>Enter SQL queries here.</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="split right">
+        <div className="centered">
+          <div id="textbox-table">
+            <p id="table">Table goes here</p>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  background-color: black;
 }
 
 a {
@@ -18,4 +19,63 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+#levelTwo {
+  color: white;
+  background: black;
+  font-family: 'Courier New';
+}
+
+.navbar {
+  color: white;
+  background: black;
+  font-family: 'Courier New';
+  text-align: center;
+}
+
+.split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  overflow-x: hidden;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.left {
+  left: 0;
+  border: 2px solid white;
+}
+
+.right {
+  right: 0;
+  background-image: url('https://techcrunch.com/wp-content/uploads/2014/12/matrix.jpg');
+  border: 2px solid white;
+}
+
+.centered {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#textbox {
+  width: 35em;
+  border: 5px solid green;
+  padding: 20px;
+  margin: 20px;
+}
+
+#textbox-table {
+  width: 35em;
+  border: 5px solid green;
+  background-color: white;
+  padding: 20px;
+}
+
+#table {
+  color: black;
 }
