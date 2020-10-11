@@ -512,7 +512,7 @@ span.CodeMirror-selectedtext {
   background: none;
 }
 
-/*table*/
+/*table rendering*/
 table {
   border-collapse: collapse;
 }
