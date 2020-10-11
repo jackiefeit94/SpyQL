@@ -1,6 +1,7 @@
 body {
   font-family: sans-serif;
   background-color: black;
+  color: white;
 }
 
 a {
@@ -21,7 +22,7 @@ form div {
   display: inline-block;
 }
 
-.levelTwo-container {
+.level-container {
   height: 40vw;
   display: flex;
   color: white;
@@ -65,7 +66,7 @@ form div {
   margin: 20px;
 }
 
- /*Code Mirror*/
+/*Code Mirror*/
 /* BASICS */
 
 .CodeMirror {
