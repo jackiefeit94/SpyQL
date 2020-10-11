@@ -7,7 +7,7 @@ import {connect} from 'react-redux'
  */
 const LevelTwo = () => {
   return (
-    <div className="levelTwo-container">
+    <div className="level-container">
       <div className="flex-child-left">
         <div id="textbox">
           <p>Welcome, Special Agent Q...</p>
