@@ -1,5 +1,5 @@
 # SpyQL
 
-SpyQL is a murder mystery game that helps developers learn SQL. 
+SpyQL is a murder mystery browser-based game that helps developers learn SQL. 
 
 
