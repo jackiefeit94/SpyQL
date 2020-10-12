@@ -1,9 +1,16 @@
 body {
   font-family: sans-serif;
+  background-color: black;
+  color: white;
 }
 
 a {
   text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+  color: white;
 }
 
 label {
@@ -18,4 +25,91 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+.level-container {
+  height: 40vw;
+  display: flex;
+  color: white;
+  font-family: 'Courier New';
+}
+
+.navbar {
+  color: white;
+  background: black;
+  font-family: 'Courier New';
+  text-align: center;
+}
+
+.flex-child-left {
+  flex: 1;
+  border: 2px solid white;
+}
+
+.flex-child-right {
+  flex: 1;
+  background-image: url('https://techcrunch.com/wp-content/uploads/2014/12/matrix.jpg');
+  border: 2px solid white;
+}
+
+.flex-child-left:first-child {
+  margin-right: 5px;
+}
+
+#textbox {
+  width: 85%;
+  border: 5px solid green;
+  padding: 20px;
+  margin: 20px;
+}
+
+#textbox-table {
+  width: 35em;
+  border: 5px solid green;
+  background-color: white;
+  padding: 20px;
+  margin: 20px;
+}
+
+/*table rendering*/
+table {
+  border-collapse: collapse;
+}
+
+table,
+th,
+td {
+  border: 1px white;
+  background-color: black;
+}
+
+th,
+td {
+  padding: 5px;
+}
+
+#pre-render {
+  visibility: hidden;
+  background-color: white;
+}
+
+/* BUTTONS */
+
+button {
+  display: inline-block;
+  padding: 0.35em 1.2em;
+  border: 0.1em solid #ffffff;
+  margin: 0 0.3em 0.3em 0;
+  border-radius: 0.12em;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  color: #000000;
+  text-align: center;
+  transition: all 0.2s;
+}
+button:hover {
+  color: #ffffff;
+  background-color: #000000;
 }
