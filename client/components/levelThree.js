@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import Axios from 'axios'
 import CodeMirror from 'react-codemirror'
 import SQL from '../../node_modules/codemirror/mode/sql/sql.js'
+import Table from './table'
 
 /**
  * COMPONENT
@@ -64,42 +65,9 @@ class LevelThree extends React.Component {
             <p>Enter more queries here.</p>
           </div>
         </div>
-
         <div className="flex-child-right">
           <div id="textbox-table">
-            {/* table from db */}
-            {this.state.fields.length ? (
-              <table>
-                <tbody>
-                  <tr>
-                    {this.state.fields.map(column => {
-                      if (
-                        column.name !== 'createdAt' &&
-                        column.name !== 'updatedAt'
-                      )
-                        return <th key={column.columnID}>{column.name}</th>
-                    })}
-                  </tr>
-                  {this.state.rows.map(row => {
-                    return (
-                      <tr key={row.id}>
-                        {this.state.fields.map(column => {
-                          if (
-                            column.name !== 'createdAt' &&
-                            column.name !== 'updatedAt'
-                          )
-                            return (
-                              <td key={column.columnID}>{row[column.name]}</td>
-                            )
-                        })}
-                      </tr>
-                    )
-                  })}
-                </tbody>
-              </table>
-            ) : (
-              <div />
-            )}
+            <Table fields={this.state.fields} rows={this.state.rows} />
           </div>
         </div>
       </div>
