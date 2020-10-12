@@ -1,11 +1,11 @@
 import React from 'react'
 
-export default class gameOver extends React.Component {
-  render() {
-    return (
-      <div>
-        <h1>Game Over!</h1>
-      </div>
-    )
-  }
+export const gameOver = () => {
+  return (
+    <span>
+      <h1>Game Over!</h1>
+    </span>
+  )
 }
+
+export default gameOver
