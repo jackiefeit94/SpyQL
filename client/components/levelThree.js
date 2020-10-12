@@ -13,7 +13,8 @@ class LevelThree extends React.Component {
     super()
     this.state = {
       code: '',
-      data: []
+      fields: [],
+      rows: []
     }
     this.updateCode = this.updateCode.bind(this)
     this.createTable = this.createTable.bind(this)
@@ -29,53 +30,69 @@ class LevelThree extends React.Component {
     let {data} = await Axios.get(`/api/suspects/${this.state.code}`, {
       params: this.state.code
     })
-    this.setState({data: data})
+    this.setState({
+      fields: data[1].fields.slice(0, data[1].fields.length - 2),
+      rows: data[1].rows
+    })
   }
 
   render() {
     const options = {lineNumbers: true}
 
     return (
-      <div>
-        <h3>This is Level Three</h3>
-        {/* code editor component */}
-        <CodeMirror
-          value={this.state.code}
-          onChange={this.updateCode}
-          options={options}
-          mode={SQL}
-        />
-        <button type="submit" onClick={this.createTable}>
-          Submit Query!
-        </button>
-        <div>
-          {/* table from db */}
-          <table>
-            <tbody>
-              <tr>
-                {this.state.data.length ? (
-                  this.state.data[1].fields.map(column => {
-                    return <th key={column.columnID}>{column.name}</th>
+      <div className="level-container">
+        <div className="flex-child-left">
+          <div id="textbox">
+            <p>Welcome, Special Agent Q...</p>
+          </div>
+          <div id="textbox">
+            <CodeMirror
+              value={this.state.code}
+              onChange={this.updateCode}
+              options={options}
+              mode={SQL}
+            />
+            <button type="submit" onClick={this.createTable}>
+              Submit Query!
+            </button>
+          </div>
+          <div id="textbox">
+            <p>Enter more queries here.</p>
+          </div>
+        </div>
+
+        <div className="flex-child-right">
+          <div id="textbox-table">
+            {/* table from db */}
+            <table>
+              <tbody>
+                <tr>
+                  {this.state.fields.length ? (
+                    this.state.fields.map(column => {
+                      return <th key={column.columnID}>{column.name}</th>
+                    })
+                  ) : (
+                    <th id="pre-render" />
+                  )}
+                </tr>
+                {this.state.rows.length ? (
+                  this.state.rows.map(row => {
+                    return (
+                      <tr key={row.id}>
+                        {this.state.fields.map(column => {
+                          return (
+                            <td key={column.columnID}>{row[column.name]}</td>
+                          )
+                        })}
+                      </tr>
+                    )
                   })
                 ) : (
-                  <th id="pre-render" />
+                  <tr id="pre-render" />
                 )}
-              </tr>
-              {this.state.data.length ? (
-                this.state.data[1].rows.map(row => {
-                  return (
-                    <tr key={row.id}>
-                      {this.state.data[1].fields.map(column => {
-                        return <td key={column.columnID}>{row[column.name]}</td>
-                      })}
-                    </tr>
-                  )
-                })
-              ) : (
-                <tr id="pre-render" />
-              )}
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     )
