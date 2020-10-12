@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const gameOver = () => {
+export const GameOver = () => {
   console.log('this is on complete')
   return (
     <span>
@@ -9,4 +9,4 @@ export const gameOver = () => {
   )
 }
 
-export default gameOver
+export default GameOver

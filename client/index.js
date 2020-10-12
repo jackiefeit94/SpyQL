@@ -7,17 +7,15 @@ import store from './store'
 import App from './app'
 import clockRenderer from './components/countdownClock'
 import Countdown from 'react-countdown'
-import gameOver from './components/gameOver'
+import GameOver from './components/GameOver'
 
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <App />
-      <Countdown
-        date={Date.now() + 30000}
-        renderer={clockRenderer}
-        onComplete={() => gameOver()}
-      />
+      <Countdown date={Date.now() + 30000} renderer={clockRenderer}>
+        <GameOver />
+      </Countdown>
     </Router>
   </Provider>,
   document.getElementById('app')
