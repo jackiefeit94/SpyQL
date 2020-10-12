@@ -1,7 +1,6 @@
 const level1Q = [
   {
-    prompt:
-      'We’ve come up with a list of suspects, so your first task will be to find that list and examine it.',
+    prompt: 'We’ve come up with a list of suspects, so your first task will be to find that list and examine it.',
     plotQuestion: 'Great. How many rows does our suspect table have?',
     plotAnswer: '250',
     hint: 'hint img url',
