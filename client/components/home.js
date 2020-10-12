@@ -1,18 +1,13 @@
 import React from 'react'
 import Typed from 'typed.js'
-import {Button} from 'reactstrap'
+//May use at a later time
+//import {Button} from 'reactstrap'
 import {Link} from 'react-router-dom'
-import {createBrowserHistory} from 'history'
 // import 'bootstrap/dist/css/bootstrap.css'; causing error, need to fix
-
-import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import NavBar from './navbar'
 
 /**
  * COMPONENT
  */
-const history = createBrowserHistory()
 
 export default class Home extends React.Component {
   componentDidMount() {
@@ -39,7 +34,7 @@ export default class Home extends React.Component {
             }}
           />
         </div>
-        <button>
+        <button type="submit">
           <Link to="/LevelOne">Enter</Link>
         </button>
       </div>

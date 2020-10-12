@@ -13,7 +13,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <App />
-      <Countdown date={Date.now() + 30000} renderer={clockRenderer}>
+      <Countdown date={Date.now() + 60000} renderer={clockRenderer}>
         <GameOver />
       </Countdown>
     </Router>
