@@ -557,3 +557,23 @@ div.CodeMirror-dragcursors {
 span.CodeMirror-selectedtext {
   background: none;
 }
+
+/*table rendering*/
+table {
+  border-collapse: collapse;
+}
+
+table,
+th,
+td {
+  border: 1px solid #222222;
+}
+
+th,
+td {
+  padding: 5px;
+}
+
+#pre-render {
+  visibility: hidden;
+}
