@@ -20,7 +20,7 @@ class LevelThree extends React.Component {
     this.createTable = this.createTable.bind(this)
   }
 
-  //updating state with code in  editor
+  //updating state with code in editor
   updateCode(newCode) {
     this.setState({code: newCode})
   }
@@ -31,7 +31,7 @@ class LevelThree extends React.Component {
       params: this.state.code
     })
     this.setState({
-      fields: data[1].fields.slice(0, data[1].fields.length - 2),
+      fields: data[1].fields,
       rows: data[1].rows
     })
   }
@@ -52,7 +52,11 @@ class LevelThree extends React.Component {
               options={options}
               mode={SQL}
             />
-            <button type="submit" onClick={this.createTable}>
+            <button
+              type="submit"
+              className="button1"
+              onClick={this.createTable}
+            >
               Submit Query!
             </button>
           </div>
@@ -64,34 +68,38 @@ class LevelThree extends React.Component {
         <div className="flex-child-right">
           <div id="textbox-table">
             {/* table from db */}
-            <table>
-              <tbody>
-                <tr>
-                  {this.state.fields.length ? (
-                    this.state.fields.map(column => {
-                      return <th key={column.columnID}>{column.name}</th>
-                    })
-                  ) : (
-                    <th id="pre-render" />
-                  )}
-                </tr>
-                {this.state.rows.length ? (
-                  this.state.rows.map(row => {
+            {this.state.fields.length ? (
+              <table>
+                <tbody>
+                  <tr>
+                    {this.state.fields.map(column => {
+                      if (
+                        column.name !== 'createdAt' &&
+                        column.name !== 'updatedAt'
+                      )
+                        return <th key={column.columnID}>{column.name}</th>
+                    })}
+                  </tr>
+                  {this.state.rows.map(row => {
                     return (
                       <tr key={row.id}>
                         {this.state.fields.map(column => {
-                          return (
-                            <td key={column.columnID}>{row[column.name]}</td>
+                          if (
+                            column.name !== 'createdAt' &&
+                            column.name !== 'updatedAt'
                           )
+                            return (
+                              <td key={column.columnID}>{row[column.name]}</td>
+                            )
                         })}
                       </tr>
                     )
-                  })
-                ) : (
-                  <tr id="pre-render" />
-                )}
-              </tbody>
-            </table>
+                  })}
+                </tbody>
+              </table>
+            ) : (
+              <div />
+            )}
           </div>
         </div>
       </div>
