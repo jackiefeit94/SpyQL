@@ -1,4 +1,3 @@
-const Question = require('./question')
 const Suspect = require('./suspects')
 
 /**
@@ -15,6 +14,5 @@ const Suspect = require('./suspects')
  * instead of: const User = require('../db/models/user')
  */
 module.exports = {
-  Question,
   Suspect
 }
