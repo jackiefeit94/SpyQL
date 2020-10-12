@@ -16,7 +16,7 @@ ReactDOM.render(
       <Countdown
         date={Date.now() + 30000}
         renderer={clockRenderer}
-        onComplete={gameOver}
+        onComplete={() => gameOver()}
       />
     </Router>
   </Provider>,
