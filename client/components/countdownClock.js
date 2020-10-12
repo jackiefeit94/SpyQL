@@ -1,7 +1,7 @@
 import React from 'react'
 import GameOver from './GameOver'
 
-export const clockRenderer = ({hours, minutes, seconds, completed}) => {
+const clockRenderer = ({hours, minutes, seconds, completed}) => {
   if (completed) {
     return <GameOver />
   } else {
@@ -12,3 +12,5 @@ export const clockRenderer = ({hours, minutes, seconds, completed}) => {
     )
   }
 }
+
+export default clockRenderer
