@@ -1,6 +1,7 @@
 import React from 'react'
 import Typed from 'typed.js'
 import {Button} from 'reactstrap'
+import {Link} from 'react-router-dom'
 import {createBrowserHistory} from 'history'
 // import 'bootstrap/dist/css/bootstrap.css'; causing error, need to fix
 
@@ -38,10 +39,9 @@ export default class Home extends React.Component {
             }}
           />
         </div>
-        <Button color="danger" onClick={() => history.push('/levelOne')}>
-          {' '}
-          ENTER{' '}
-        </Button>
+        <button>
+          <Link to="/LevelOne">Enter</Link>
+        </button>
       </div>
     )
   }
