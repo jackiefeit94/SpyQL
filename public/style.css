@@ -150,3 +150,8 @@ button:hover {
   line-height: 1.4em;
   text-align: left;
 }
+
+/*error*/
+#error {
+  background-color: #000000;
+}
