@@ -13,8 +13,9 @@ export default class Home extends React.Component {
   componentDidMount() {
     const options = {
       strings: [
-        'Welcome, Special Agent Q. I’m Spymaster L. Today we’ve got a top-secret mission. Hit ENTER to accept . . .'
+        'Welcome, ^300 Special Agent Q. ^700 <br> I’m Spymaster L. ^300 <br> Today ^300 we’ve got a top-secret mission. ^1000 <br> Hit ENTER to accept...'
       ],
+      startDelay: 1000,
       typeSpeed: 70,
       backSpeed: 70
     }
@@ -27,12 +28,19 @@ export default class Home extends React.Component {
   render() {
     return (
       <div>
-        <div id="welcome">
-          <span
-            ref={el => {
-              this.el = el
-            }}
-          />
+        <div className="text-editor-wrap">
+          <div className="title-bar">
+            <span className="title">🔒Confidential-File - bash - 80x24</span>
+          </div>
+          <div className="text-body">
+            $
+            <span
+              ref={el => {
+                this.el = el
+              }}
+            />
+            <span className="typed-cursor" />
+          </div>
         </div>
         <button type="submit">
           <Link to="/LevelOne">Enter</Link>

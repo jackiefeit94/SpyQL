@@ -113,3 +113,40 @@ button:hover {
   color: #ffffff;
   background-color: #000000;
 }
+
+/* typedJs text box */
+.text-editor-wrap {
+  display: block;
+  margin: auto;
+  max-width: 530px;
+  border-radius: 10px;
+  box-shadow: rgba(92, 91, 91, 0.8) 0px 20px 70px;
+  clear: both;
+  overflow: hidden;
+}
+
+.title-bar {
+  padding: 5px 0;
+  font-family: 'Lucida Grande', sans-serif;
+  font-size: 10px;
+  color: #000000;
+  text-align: center;
+  background-color: #f8f8f8;
+  background-image: -webkit-linear-gradient(top, #e8e8e8, #bcbbbc);
+  background-image: -moz-linear-gradient(top, #e8e8e8, #bcbbbc);
+  background-image: linear-gradient(top, #e8e8e8, #bcbbbc);
+  box-shadow: inset rgba(255, 255, 255, 0.7) 0px 1px 1px;
+  border-bottom: #6a6a6a 1px solid;
+}
+
+.text-body {
+  height: 250px;
+  background-color: rgba(0, 0, 0, 0.85);
+  padding: 10px;
+  color: #f0f0f0;
+  font-family: 'Consolas', 'Courier New', 'Courier';
+  font-size: 1 em;
+  font-style: italic;
+  line-height: 1.4em;
+  text-align: left;
+}
