@@ -36,7 +36,9 @@ class LevelOne extends React.Component {
       showHint: false,
       code: '',
       fields: [],
-      rows: []
+      rows: [],
+      query: '',
+      err: ''
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -45,6 +47,7 @@ class LevelOne extends React.Component {
     this.updateCode = this.updateCode.bind(this)
     this.createTable = this.createTable.bind(this)
     this.handleQuery = this.handleQuery.bind(this)
+    this.formatQuery = this.formatQuery.bind(this)
   }
 
   componentDidMount() {
@@ -86,14 +89,37 @@ class LevelOne extends React.Component {
     })
   }
 
+  //format query to account for '%'
+  async formatQuery() {
+    let newQuery = ''
+    let query = this.state.code
+    for (let i = 0; i < query.length; i++) {
+      if (query[i] === '%') {
+        newQuery += '%25'
+      } else {
+        newQuery += query[i]
+      }
+    }
+    await this.setState({query: newQuery})
+  }
+
   async createTable() {
-    let {data} = await Axios.get(`/api/suspects/${this.state.code}`, {
-      params: this.state.code
-    })
-    this.setState({
-      fields: data[1].fields,
-      rows: data[1].rows
-    })
+    try {
+      let {data} = await Axios.get(
+        `/api/suspects/${
+          this.state.query.length ? this.state.query : this.state.code
+        }`,
+        {
+          params: this.state.code
+        }
+      )
+      this.setState({
+        fields: data[1].fields,
+        rows: data[1].rows
+      })
+    } catch (err) {
+      this.setState({err: "Don't forget your semicolon!"})
+    }
   }
 
   hintOnClick(e) {
@@ -103,7 +129,6 @@ class LevelOne extends React.Component {
 
   render() {
     const options = {lineNumbers: true}
-    console.log('allQs: ', this.props.allQs)
     return (
       <div className="level-container">
         <div className="flex-child-left">
@@ -127,9 +152,10 @@ class LevelOne extends React.Component {
             <button
               type="submit"
               className="button1"
-              onClick={() => {
-                this.createTable()
-                this.handleQuery()
+              onClick={async () => {
+                await this.formatQuery()
+                await this.createTable()
+                await this.handleQuery()
               }}
             >
               Submit Query!
@@ -162,7 +188,11 @@ class LevelOne extends React.Component {
 
         <div className="flex-child-right">
           <div id="textbox-table">
-            <Table fields={this.state.fields} rows={this.state.rows} />
+            {this.state.err ? (
+              <div id="error">{this.state.err}</div>
+            ) : (
+              <Table fields={this.state.fields} rows={this.state.rows} />
+            )}
           </div>
         </div>
       </div>
