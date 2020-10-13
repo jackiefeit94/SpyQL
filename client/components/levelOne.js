@@ -6,6 +6,7 @@ import Axios from 'axios'
 import CodeMirror from 'react-codemirror'
 import SQL from '../../node_modules/codemirror/mode/sql/sql.js'
 import Table from './table'
+import Typed from 'react-typed'
 
 /**
  * COMPONENT
@@ -103,21 +104,30 @@ class LevelOne extends React.Component {
 
   render() {
     const options = {lineNumbers: true}
-    console.log('allQs: ', this.props.allQs)
     return (
       <div className="level-container">
         <div className="flex-child-left">
-          <div id="textbox">
-            {this.props.allQs.length &&
-              this.state.showQuestion && (
-                <p>{this.props.allQs[this.state.idx].prompt}</p>
-              )}
-            {this.props.allQs.length &&
-              this.state.showPrompt && (
-                <p>⚠️{this.props.allQs[this.state.idx].plotQuestion}⚠️</p>
-              )}
-          </div>
-          <div id="textbox">
+          <div id="text-editor-wrap">
+            <div className="title-bar">
+              <span className="title">🔒Confidential-File - bash - 80x24</span>
+            </div>
+            <div className="text-body">
+              ${' '}
+              {this.props.allQs.length &&
+                this.state.showQuestion && (
+                  <Typed
+                    strings={[this.props.allQs[this.state.idx].prompt]}
+                    typeSpeed={40}
+                  />
+                )}
+              {this.props.allQs.length &&
+                this.state.showPrompt && (
+                  <Typed
+                    strings={[this.props.allQs[this.state.idx].plotQuestion]}
+                    typeSpeed={40}
+                  />
+                )}
+            </div>
             <CodeMirror
               value={this.state.code}
               onChange={this.updateCode}
@@ -135,29 +145,27 @@ class LevelOne extends React.Component {
               Submit Query!
             </button>
           </div>
-          <div id="textbox">
-            <form id="form" onSubmit={this.handleSubmit}>
-              <label>
-                <br />
-                <input
-                  type="text"
-                  value={this.state.value}
-                  onChange={this.handleChange}
-                />
-              </label>
-              <input type="submit" />
-            </form>
-            <form>
-              <button type="submit" onClick={this.hintOnClick}>
-                Hint
-              </button>
-              <div>
-                {this.state.showHint ? (
-                  <div>{this.props.question.hint}</div>
-                ) : null}
-              </div>
-            </form>
-          </div>
+          <form id="form" onSubmit={this.handleSubmit}>
+            <label>
+              <br />
+              <input
+                type="text"
+                value={this.state.value}
+                onChange={this.handleChange}
+              />
+            </label>
+            <input type="submit" />
+          </form>
+          <form>
+            <button type="submit" onClick={this.hintOnClick}>
+              Hint
+            </button>
+            <div>
+              {this.state.showHint ? (
+                <div>{this.props.question.hint}</div>
+              ) : null}
+            </div>
+          </form>
         </div>
 
         <div className="flex-child-right">

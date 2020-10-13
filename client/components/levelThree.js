@@ -1,17 +1,8 @@
 import React from 'react'
+import clockRenderer from './countdownClock'
+import Countdown from 'react-countdown'
 
-/**
- * COMPONENT
- */
 class LevelThree extends React.Component {
-  // constructor() {
-  //   super()
-  //   this.state = {
-
-  //   }
-
-  // }
-
   render() {
     return (
       <div className="level-container">
@@ -29,6 +20,7 @@ class LevelThree extends React.Component {
           <div id="textbox-table">
             <p id="table">Table goes here</p>
           </div>
+          <Countdown date={Date.now() + 10000} renderer={clockRenderer} />
         </div>
       </div>
     )
