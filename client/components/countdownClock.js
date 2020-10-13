@@ -1,9 +1,10 @@
 import React from 'react'
-import GameOver from './GameOver'
+import history from '../history'
 
 const clockRenderer = ({hours, minutes, seconds, completed}) => {
   if (completed) {
-    return <GameOver />
+    history.push('/gameover')
+    return <></>
   } else {
     return (
       <span>
