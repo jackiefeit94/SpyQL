@@ -91,7 +91,7 @@ class LevelOne extends React.Component {
   }
 
   //format query to account for '%'
-  async formatQuery() {
+  formatQuery() {
     let newQuery = ''
     let query = this.state.code
     for (let i = 0; i < query.length; i++) {
@@ -101,10 +101,11 @@ class LevelOne extends React.Component {
         newQuery += query[i]
       }
     }
-    await this.setState({query: newQuery})
+    this.setState({query: newQuery})
   }
 
   async createTable() {
+    console.log('creating table...')
     try {
       let {data} = await Axios.get(
         `/api/suspects/${
@@ -116,7 +117,8 @@ class LevelOne extends React.Component {
       )
       this.setState({
         fields: data[1].fields,
-        rows: data[1].rows
+        rows: data[1].rows,
+        err: ''
       })
     } catch (err) {
       this.setState({err: "Don't forget your semicolon!"})
