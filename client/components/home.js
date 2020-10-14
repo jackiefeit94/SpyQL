@@ -2,20 +2,11 @@ import React from 'react'
 import Typed from 'typed.js'
 //May use at a later time
 //import {Button} from 'reactstrap'
-import {Link} from 'react-router-dom'
 // import 'bootstrap/dist/css/bootstrap.css'; causing error, need to fix
 import history from '../history'
-
-/**
- * COMPONENT
- */
+import KeyboardEventHandler from 'react-keyboard-event-handler'
 
 export default class Home extends React.Component {
-  constructor() {
-    super()
-    this.handleEnter = this.handleEnter.bind(this)
-  }
-
   componentDidMount() {
     const options = {
       strings: [
@@ -32,17 +23,14 @@ export default class Home extends React.Component {
     this.typed.destroy()
   }
 
-  handleEnter(event) {
-    console.log('entering')
-    if (event.charCode === 13) {
-      history.push('/levelOne')
-    }
-  }
-
   render() {
     return (
       <div>
-        <div className="text-editor-wrap" onKeyDown={this.handleEnter}>
+        <KeyboardEventHandler
+          handleKeys={['enter', 'return']}
+          onKeyEvent={(key, e) => history.push('/levelOne')}
+        />
+        <div className="text-editor-wrap">
           <div className="title-bar">
             <span className="title">🔒Confidential-File - bash - 80x24</span>
           </div>
