@@ -1,12 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchQuestion, getAllQuestions} from '../store/questionStore'
 import Modal from 'react-modal'
 import Axios from 'axios'
-import CodeMirror from 'react-codemirror'
-import SQL from '../../node_modules/codemirror/mode/sql/sql.js'
 import Table from './table'
-import Typed from 'react-typed'
+import FakeTerminal from './FakeTerminal'
 
 /**
  * COMPONENT
@@ -39,7 +36,8 @@ class LevelOne extends React.Component {
       fields: [],
       rows: [],
       query: '',
-      err: ''
+      err: '',
+      displayMessage: ''
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -49,11 +47,6 @@ class LevelOne extends React.Component {
     this.createTable = this.createTable.bind(this)
     this.handleQuery = this.handleQuery.bind(this)
     this.formatQuery = this.formatQuery.bind(this)
-  }
-
-  componentDidMount() {
-    this.props.fetchQuestion()
-    this.props.getAllQuestions()
   }
 
   handleChange(event) {
@@ -134,45 +127,14 @@ class LevelOne extends React.Component {
     return (
       <div className="level-container">
         <div className="flex-child-left">
-          <div id="text-editor-wrap">
-            <div className="title-bar">
-              <span className="title">🔒Confidential-File - bash - 80x24</span>
-            </div>
-            <div className="text-body">
-              ${' '}
-              {this.props.allQs.length &&
-                this.state.showQuestion && (
-                  <Typed
-                    strings={[this.props.allQs[this.state.idx].prompt]}
-                    typeSpeed={40}
-                  />
-                )}
-              {this.props.allQs.length &&
-                this.state.showPrompt && (
-                  <Typed
-                    strings={[this.props.allQs[this.state.idx].plotQuestion]}
-                    typeSpeed={40}
-                  />
-                )}
-            </div>
-            <CodeMirror
-              value={this.state.code}
-              onChange={this.updateCode}
-              options={options}
-              mode={SQL}
-            />
-            <button
-              type="submit"
-              className="button1"
-              onClick={async () => {
-                await this.formatQuery()
-                await this.createTable()
-                await this.handleQuery()
-              }}
-            >
-              Submit Query!
-            </button>
-          </div>
+          <FakeTerminal
+            state={this.state}
+            options={options}
+            updateCode={this.updateCode}
+            formatQuery={this.formatQuery}
+            createTable={this.createTable}
+            handleQuery={this.handleQuery}
+          />
           <form id="form" onSubmit={this.handleSubmit}>
             <label>
               <br />
@@ -195,7 +157,6 @@ class LevelOne extends React.Component {
             </div>
           </form>
         </div>
-
         <div className="flex-child-right">
           <div id="textbox-table">
             {this.state.err ? (
@@ -217,15 +178,4 @@ const mapState = state => {
   }
 }
 
-const mapDispatch = dispatch => {
-  return {
-    fetchQuestion: () => {
-      dispatch(fetchQuestion())
-    },
-    getAllQuestions: () => {
-      dispatch(getAllQuestions())
-    }
-  }
-}
-
-export default connect(mapState, mapDispatch)(LevelOne)
+export default connect(mapState)(LevelOne)
