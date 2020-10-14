@@ -128,7 +128,30 @@ button:hover {
   background-color: black;
 }
 
-/* typedJs text box */
+/* typedJs text box - home page*/
+.text-editor-home {
+  display: block;
+  margin: auto;
+  max-width: 530px;
+  border-radius: 10px;
+  box-shadow: rgba(92, 91, 91, 0.8) 0px 20px 70px;
+  clear: both;
+  overflow: hidden;
+}
+
+.text-body-home {
+  height: 250px;
+  background-color: rgba(0, 0, 0, 0.85);
+  padding: 10px;
+  color: #f0f0f0;
+  font-family: 'Consolas', 'Courier New', 'Courier';
+  font-size: 1 em;
+  font-style: italic;
+  line-height: 1.4em;
+  text-align: left;
+}
+
+/* typedJs text box -level page */
 .text-editor-wrap {
   display: flex;
   margin: auto;
@@ -140,7 +163,7 @@ button:hover {
 }
 
 .title-bar {
-  padding: 5px 0;
+  padding: 2px 0;
   font-family: 'Lucida Grande', sans-serif;
   font-size: 10px;
   color: #000000;
@@ -165,24 +188,18 @@ button:hover {
   text-align: left;
   display: flex;
   flex-direction: column;
-  justify-items: start;
 }
 
-/* .text-body-flex-top {
+.text-body-flex-top {
   background-color: violet;
-} */
-/* .text-body-flex-bottom {
+}
+.text-body-flex-bottom {
   background-color: yellow;
-} */
+}
 
 input[type='text'] {
   background-color: rgb(128, 122, 122);
   background-position: 10px 10px;
   background-repeat: no-repeat;
   padding-left: 40px;
-}
-
-/*error*/
-#error {
-  background-color: #000000;
 }
