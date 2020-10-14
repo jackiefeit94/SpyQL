@@ -89,7 +89,6 @@ class LevelThree extends React.Component {
 
   render() {
     const options = {lineNumbers: true}
-    const theme = {theme: 'the-matrix'}
 
     return (
       <div className="level-container">
@@ -120,17 +119,16 @@ class LevelThree extends React.Component {
               onChange={this.updateCode}
               options={options}
               mode={SQL}
-              theme={theme}
             />
             <button
               type="submit"
-              className="button1"
+              className="button"
               onClick={() => {
                 this.createTable()
                 this.handleQuery()
               }}
             >
-              Submit Query!
+              Enter⏎
             </button>
           </div>
           <form id="form" onSubmit={this.handleSubmit}>

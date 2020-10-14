@@ -112,60 +112,69 @@ class LevelOne extends React.Component {
               <span className="title">🔒Confidential-File - bash - 80x24</span>
             </div>
             <div className="text-body">
-              ${' '}
-              {this.props.allQs.length &&
-                this.state.showQuestion && (
-                  <Typed
-                    strings={[this.props.allQs[this.state.idx].prompt]}
-                    typeSpeed={40}
-                  />
-                )}
-              {this.props.allQs.length &&
-                this.state.showPrompt && (
-                  <Typed
-                    strings={[this.props.allQs[this.state.idx].plotQuestion]}
-                    typeSpeed={40}
-                  />
-                )}
+              <div className="text-body-flex-top">
+                ${' '}
+                {this.props.allQs.length &&
+                  this.state.showQuestion && (
+                    <Typed
+                      strings={[this.props.allQs[this.state.idx].prompt]}
+                      typeSpeed={40}
+                    />
+                  )}
+                {this.props.allQs.length &&
+                  this.state.showPrompt && (
+                    <Typed
+                      strings={[this.props.allQs[this.state.idx].plotQuestion]}
+                      typeSpeed={40}
+                    />
+                  )}
+              </div>
+
+              <div className="text-body-flex-bottom">
+                <CodeMirror
+                  value={this.state.code}
+                  onChange={this.updateCode}
+                  options={options}
+                  mode={SQL}
+                />
+                <button
+                  type="submit"
+                  className="button"
+                  onClick={() => {
+                    this.createTable()
+                    this.handleQuery()
+                  }}
+                >
+                  Enter⏎
+                </button>
+                <form id="form" onSubmit={this.handleSubmit}>
+                  <label>
+                    <br />
+                    <input
+                      type="text"
+                      value={this.state.value}
+                      onChange={this.handleChange}
+                    />
+                  </label>
+                  <input type="submit" />
+                </form>
+                <form>
+                  <button
+                    type="submit"
+                    className="button"
+                    onClick={this.hintOnClick}
+                  >
+                    Hint
+                  </button>
+                  <div>
+                    {this.state.showHint ? (
+                      <div>{this.props.question.hint}</div>
+                    ) : null}
+                  </div>
+                </form>
+              </div>
             </div>
-            <CodeMirror
-              value={this.state.code}
-              onChange={this.updateCode}
-              options={options}
-              mode={SQL}
-            />
-            <button
-              type="submit"
-              className="button1"
-              onClick={() => {
-                this.createTable()
-                this.handleQuery()
-              }}
-            >
-              Submit Query!
-            </button>
           </div>
-          <form id="form" onSubmit={this.handleSubmit}>
-            <label>
-              <br />
-              <input
-                type="text"
-                value={this.state.value}
-                onChange={this.handleChange}
-              />
-            </label>
-            <input type="submit" />
-          </form>
-          <form>
-            <button type="submit" onClick={this.hintOnClick}>
-              Hint
-            </button>
-            <div>
-              {this.state.showHint ? (
-                <div>{this.props.question.hint}</div>
-              ) : null}
-            </div>
-          </form>
         </div>
 
         <div className="flex-child-right">
