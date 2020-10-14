@@ -58,6 +58,7 @@
     "react-codemirror": "^1.0.0",
     "react-countdown": "^2.2.2",
     "react-dom": "^16.13.1",
+    "react-keyboard-event-handler": "^1.5.4",
     "react-live-clock": "^5.0.6",
     "react-modal": "^3.11.2",
     "react-redux": "^7.0.1",

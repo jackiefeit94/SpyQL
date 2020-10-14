@@ -1,6 +1,7 @@
 import React from 'react'
 import Typed from 'typed.js'
-import {Link} from 'react-router-dom'
+import KeyboardEventHandler from 'react-keyboard-event-handler'
+import history from '../history'
 
 class GameOver extends React.Component {
   componentDidMount() {
@@ -22,6 +23,10 @@ class GameOver extends React.Component {
   render() {
     return (
       <div>
+        <KeyboardEventHandler
+          handleKeys={['enter', 'return']}
+          onKeyEvent={(key, e) => history.push('/levelOne')}
+        />
         <div className="text-editor-wrap">
           <div className="title-bar">
             <span className="title">🔒Confidential-File - bash - 80x24</span>
@@ -36,9 +41,6 @@ class GameOver extends React.Component {
             <span className="typed-cursor" />
           </div>
         </div>
-        <button type="submit">
-          <Link to="/LevelOne">Enter</Link>
-        </button>
       </div>
     )
   }
