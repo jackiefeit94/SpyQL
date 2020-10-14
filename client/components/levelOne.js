@@ -126,6 +126,7 @@ class LevelOne extends React.Component {
     const options = {lineNumbers: true}
     return (
       <div className="level-container">
+        {/* flex left */}
         <div className="flex-child-left">
           <FakeTerminal
             state={this.state}
@@ -157,6 +158,8 @@ class LevelOne extends React.Component {
             </div>
           </form>
         </div>
+
+        {/* flex right */}
         <div className="flex-child-right">
           <div id="textbox-table">
             {this.state.err ? (

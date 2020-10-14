@@ -1,5 +1,7 @@
 * {
   margin: 0;
+  /* padding: 20px; */
+  /* background-image: url('background-slow.gif'); */
 }
 
 body {
@@ -33,6 +35,7 @@ form div {
 
 .level-container {
   height: 40vw;
+  padding: 30px;
   display: flex;
   color: white;
   font-family: 'Courier New';
@@ -47,6 +50,7 @@ form div {
   background: black;
   font-family: 'Courier New';
   text-align: center;
+  padding: 30px;
 }
 
 .flex-child-left {
@@ -56,7 +60,7 @@ form div {
 
 .flex-child-right {
   flex: 1;
-  background-image: url('https://i.pinimg.com/originals/8b/e4/ef/8be4efc0a8e5bc4903aae00db82cb982.gif');
+  background-image: url('fakecode.gif');
   border: 2px solid white;
 }
 
@@ -66,15 +70,16 @@ form div {
 
 #textbox {
   width: 85%;
-  border: 5px solid green;
+  /* border: 5px solid rgb(81, 83, 81); */
+  text-shadow: 0 0 5px #c8c8c8;
   padding: 20px;
   margin: 20px;
 }
 
 #textbox-table {
   width: auto;
-  border: 5px solid green;
-  background-color: white;
+  border: 2px solid rgba(244, 248, 244, 0.241);
+  background-color: rgba(0, 0, 0, 0.536);
   padding: 20px;
   margin: 20px;
 }
