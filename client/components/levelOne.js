@@ -105,23 +105,22 @@ class LevelOne extends React.Component {
   }
 
   async createTable() {
-    console.log('creating table...')
-    try {
-      let {data} = await Axios.get(
-        `/api/suspects/${
-          this.state.query.length ? this.state.query : this.state.code
-        }`,
-        {
-          params: this.state.code
-        }
-      )
+    let {data} = await Axios.get(
+      `/api/suspects/${
+        this.state.query.length ? this.state.query : this.state.code
+      }`,
+      {
+        params: this.state.query.length ? this.state.query : this.state.code
+      }
+    )
+    if (typeof data !== 'string') {
       this.setState({
         fields: data[1].fields,
         rows: data[1].rows,
         err: ''
       })
-    } catch (err) {
-      this.setState({err: "Don't forget your semicolon!"})
+    } else {
+      this.setState({err: data})
     }
   }
 
