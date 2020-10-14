@@ -4,9 +4,10 @@
 .CodeMirror {
   /* Set height, width, borders, and global font properties here */
   font-family: monospace;
-  height: 100px;
-  color: black;
+  height: auto;
   direction: ltr;
+  /* color: white; */
+  text-shadow: 0 0 5px #c8c8c8;
 }
 
 /* PADDING */
@@ -27,33 +28,33 @@
 /* GUTTER */
 
 .CodeMirror-gutters {
-  border-right: 1px solid #ddd;
-  background-color: #f7f7f7;
+  border-right: 2px solid black;
+  background-color: #060;
   white-space: nowrap;
 }
-.CodeMirror-linenumbers {
-}
+
 .CodeMirror-linenumber {
   padding: 0 3px 0 5px;
   min-width: 20px;
   text-align: right;
-  color: #999;
+  /* color: #999; */
+  color: #0f0;
   white-space: nowrap;
 }
 
 .CodeMirror-guttermarker {
-  color: black;
+  color: #0f0;
 }
 .CodeMirror-guttermarker-subtle {
-  color: #999;
+  color: white;
 }
 
 /* CURSOR */
 
 .CodeMirror-cursor {
-  border-left: 1px solid black;
+  border-left: 1px solid #0f0;
   border-right: none;
-  width: 0;
+  width: 10;
 }
 /* Shown when moving in bi-directional text */
 .CodeMirror div.CodeMirror-secondarycursor {
@@ -162,7 +163,8 @@
 }
 
 .cm-s-default .cm-keyword {
-  color: #708;
+  color: #008803;
+  /* color: red */
 }
 .cm-s-default .cm-atom {
   color: #219;
@@ -173,10 +175,13 @@
 .cm-s-default .cm-def {
   color: #00f;
 }
-.cm-s-default .cm-variable,
+.cm-s-default .cm-variable {
+  color: #cccccc;
+}
 .cm-s-default .cm-punctuation,
 .cm-s-default .cm-property,
 .cm-s-default .cm-operator {
+  /* color: rgb(146, 5, 5) */
 }
 .cm-s-default .cm-variable-2 {
   color: #05a;
@@ -241,9 +246,9 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
 .CodeMirror-matchingtag {
   background: rgba(255, 150, 0, 0.3);
 }
-.CodeMirror-activeline-background {
-  background: #e8f2ff;
-}
+/* .CodeMirror-activeline-background {
+  background: #094ca4;
+} */
 
 /* STOP */
 
@@ -268,6 +273,10 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
   height: 100%;
   outline: none; /* Prevent dragging from highlighting the element */
   position: relative;
+  background: black;
+  background-image: radial-gradient(rgba(0, 150, 0, 0.75), black 120%);
+  min-height: 70px;
+  height: auto;
 }
 .CodeMirror-sizer {
   position: relative;
