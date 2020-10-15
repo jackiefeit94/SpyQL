@@ -2,12 +2,9 @@ import React from 'react'
 import Typed from 'typed.js'
 //May use at a later time
 //import {Button} from 'reactstrap'
-import {Link} from 'react-router-dom'
 // import 'bootstrap/dist/css/bootstrap.css'; causing error, need to fix
-
-/**
- * COMPONENT
- */
+import history from '../history'
+import KeyboardEventHandler from 'react-keyboard-event-handler'
 
 export default class Home extends React.Component {
   componentDidMount() {
@@ -21,6 +18,7 @@ export default class Home extends React.Component {
     }
     this.typed = new Typed(this.el, options)
   }
+
   componentWillUnmount() {
     this.typed.destroy()
   }
@@ -28,11 +26,15 @@ export default class Home extends React.Component {
   render() {
     return (
       <div>
-        <div className="text-editor-wrap">
+        <KeyboardEventHandler
+          handleKeys={['enter', 'return']}
+          onKeyEvent={(key, e) => history.push('/levelOne')}
+        />
+        <div className="text-editor-home">
           <div className="title-bar">
             <span className="title">🔒Confidential-File - bash - 80x24</span>
           </div>
-          <div className="text-body">
+          <div className="text-body-home">
             $
             <span
               ref={el => {
@@ -42,9 +44,6 @@ export default class Home extends React.Component {
             <span className="typed-cursor" />
           </div>
         </div>
-        <button type="submit">
-          <Link to="/LevelOne">Enter</Link>
-        </button>
       </div>
     )
   }
