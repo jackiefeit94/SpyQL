@@ -20,13 +20,6 @@ export const getAllQuestions = () => {
   }
 }
 
-export const getNextQuestion = idx => {
-  return dispatch => {
-    const question = level1Q[idx]
-    dispatch(getQuestion(question))
-  }
-}
-
 const initialState = {allQs: [], currentQ: {}}
 
 export default function questionReducer(state = initialState, action) {
