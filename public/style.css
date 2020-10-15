@@ -210,3 +210,8 @@ input[type='text'] {
   background-repeat: no-repeat;
   padding-left: 40px;
 }
+/*music player*/
+embed {
+  justify-self: center;
+  max-width: 100%;
+}
