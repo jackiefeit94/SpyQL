@@ -2,7 +2,7 @@ import React from 'react'
 
 const Table = props => {
   return props.fields.length ? (
-    <table>
+    <table id="scroll">
       <tbody>
         <tr>
           {props.fields.map(column => {
