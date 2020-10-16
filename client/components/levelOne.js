@@ -4,6 +4,7 @@ import Modal from 'react-modal'
 import Axios from 'axios'
 import Table from './table'
 import FakeTerminal from './FakeTerminal'
+import Popup from 'react-animated-popup'
 
 /**
  * COMPONENT
@@ -27,60 +28,22 @@ class LevelOne extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      value: '',
-      idx: 0,
-      showPrompt: false,
-      showQuestion: true,
-      showHint: false,
       code: '',
       fields: [],
       rows: [],
       query: '',
       err: '',
-      displayMessage: ''
+      visible: false
     }
 
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.hintOnClick = this.hintOnClick.bind(this)
     this.updateCode = this.updateCode.bind(this)
     this.createTable = this.createTable.bind(this)
-    this.handleQuery = this.handleQuery.bind(this)
     this.formatQuery = this.formatQuery.bind(this)
-  }
-
-  handleChange(event) {
-    this.setState({value: event.target.value})
   }
 
   //updating state with code in editor
   updateCode(newCode) {
     this.setState({code: newCode})
-  }
-
-  handleSubmit(event) {
-    event.preventDefault()
-    if (
-      this.state.value === this.props.question.plotAnswer &&
-      this.state.idx <= 3
-    ) {
-      alert(this.props.question.successText)
-      this.setState({
-        idx: this.state.idx + 1,
-        showPrompt: false,
-        showQuestion: true
-      })
-    } else {
-      alert('❗Access Prohibited❗')
-    }
-    this.setState({value: ''})
-  }
-
-  handleQuery() {
-    this.setState({
-      showPrompt: true,
-      showQuestion: false
-    })
   }
 
   //format query to account for '%'
@@ -117,11 +80,6 @@ class LevelOne extends React.Component {
     }
   }
 
-  hintOnClick(e) {
-    e.preventDefault()
-    this.setState({showHint: !this.state.showHint})
-  }
-
   render() {
     const options = {lineNumbers: true}
     return (
@@ -136,27 +94,20 @@ class LevelOne extends React.Component {
             createTable={this.createTable}
             handleQuery={this.handleQuery}
           />
-          <form id="form" onSubmit={this.handleSubmit}>
-            <label>
-              <br />
-              <input
-                type="text"
-                value={this.state.value}
-                onChange={this.handleChange}
-              />
-            </label>
-            <input type="submit" />
-          </form>
-          <form>
-            <button type="submit" onClick={this.hintOnClick}>
-              Hint
-            </button>
-            <div>
-              {this.state.showHint ? (
-                <div>{this.props.question.hint}</div>
-              ) : null}
-            </div>
-          </form>
+          <button
+            type="submit"
+            onClick={() => this.setState({visible: !this.state.visible})}
+          >
+            Teach me
+          </button>
+          <Popup
+            visible={this.state.visible}
+            onClose={() => this.setState({visible: false})}
+          >
+            <p>
+              <img src="imgur.com/a/Fqoxl8Y" />
+            </p>
+          </Popup>
         </div>
 
         {/* flex right */}

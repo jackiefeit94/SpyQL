@@ -55,6 +55,7 @@
     "pg-hstore": "^2.3.2",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
+    "react-animated-popup": "^0.1.1",
     "react-codemirror": "^1.0.0",
     "react-countdown": "^2.2.2",
     "react-dom": "^16.13.1",
