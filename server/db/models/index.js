@@ -1,4 +1,5 @@
 const Suspect = require('./suspects')
+const Evidence = require('./evidence')
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -13,6 +14,9 @@ const Suspect = require('./suspects')
  * for example, we can say: const {User} = require('../db/models')
  * instead of: const User = require('../db/models/user')
  */
+
+Evidence.belongsTo(Suspect)
 module.exports = {
-  Suspect
+  Suspect,
+  Evidence
 }

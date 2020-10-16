@@ -2,6 +2,7 @@
 
 const db = require('../server/db')
 const {Suspect} = require('../server/db/models')
+const {Evidence} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -360,9 +361,40 @@ async function seed() {
     }
   ]
 
+  const seedData2 = [
+    {
+      type: 'item',
+      description: 'hammer',
+      location: 'crime scene'
+    },
+    {
+      type: 'witness',
+      description: 'heard screams at the time of the murder',
+      location: 'adjacent apt, building 204'
+    },
+    {
+      type: 'fingerprints',
+      description: 'right index and thumbprint',
+      location: 'countertops'
+    },
+    {
+      type: 'item',
+      description: 'gun',
+      location: 'crime scene'
+    },
+    {
+      type: 'fingerprints',
+      description: 'left hand',
+      location: 'crime scene walls'
+    }
+  ]
+
   const suspects = await Promise.all(seedData.map(el => Suspect.create(el)))
 
+  const evidence = await Promise.all(seedData2.map(el => Evidence.create(el)))
+
   console.log(`seeded ${suspects.length} suspects`)
+  console.log(`seeded ${evidence.length} pieces of evidence`)
   console.log(`seeded successfully`)
 }
 
