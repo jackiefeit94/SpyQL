@@ -6,7 +6,9 @@ const level1Q = [
     plotAnswer: '50',
     hint: 'https://ibb.co/dpm1MXh',
     successText:
-      'That’s right. Hm, that’s a lot of suspects. Let’s see if we can narrow it down at all. Maybe this map has some information…'
+      'That’s right. Hm, that’s a lot of suspects. Let’s see if we can narrow it down at all. Maybe this map has some information…',
+    clue:
+      'https://www.citymetric.com/sites/default/files/images/Manhattan%20London%202.png'
   },
   {
     prompt:
@@ -14,7 +16,8 @@ const level1Q = [
     plotQuestion: 'Plot question 2',
     plotAnswer: 'Answer 2',
     hint: 'hint image url',
-    successText: 'Great work, agent. What’s this?'
+    successText: 'Great work, agent. What’s this?',
+    clue: 'https://i.ibb.co/ry8rVfd/Screen-Shot-2020-10-16-at-3-33-35-PM.png'
   },
   {
     prompt:
@@ -23,15 +26,18 @@ const level1Q = [
     plotAnswer: 'Answer 3',
     hint: 'hint image url',
     successText:
-      'Excellent! I’ve just received word that one of our witnesses has some information to give you.'
+      'Excellent! I’ve just received word that one of our witnesses has some information to give you.',
+    clue: ''
   },
+
   {
     prompt:
       'I met the hacker! I swear it was him. He was at a tech conference, just boasting about how he was going to get away with stealing people’s bank data. He didn’t say his last name, but his first name was Steven. Or Stephen? Maybe Stephan? It definitely starts with ‘Ste’…',
     plotQuestion: 'Plot question 4',
     plotAnswer: 'Answer 4',
     hint: 'hint image url',
-    successText: 'yay'
+    successText: 'yay',
+    clue: ''
   },
   {
     prompt:
@@ -40,7 +46,8 @@ const level1Q = [
     plotAnswer: 'Answer 5',
     hint: 'hint image url',
     successText:
-      'Good work, Agent. We’re dispatching special operatives now to track down those two and learn more about them…'
+      'Good work, Agent. We’re dispatching special operatives now to track down those two and learn more about them…',
+    clue: ''
   }
 ]
 

@@ -1,10 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {
-  getAllQuestions,
-  fetchQuestion,
-  getNextQuestion
-} from '../store/questionStore'
+import {getAllQuestions, fetchQuestion} from '../store/questionStore'
 
 class LevelTwo extends React.Component {
   // constructor() {
@@ -55,9 +51,6 @@ const mapDispatch = dispatch => {
     },
     getAllQuestions: () => {
       dispatch(getAllQuestions())
-    },
-    getNextQuestion: idx => {
-      dispatch(getNextQuestion(idx))
     }
   }
 }

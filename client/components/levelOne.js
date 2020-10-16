@@ -10,25 +10,12 @@ import Popup from 'react-animated-popup'
  * COMPONENT
  */
 
-//Style needs to be incorporated
-// const customStyles = {
-//   content: {
-//     top: '50%',
-//     left: '50%',
-//     right: 'auto',
-//     bottom: 'auto',
-//     marginRight: '-50%',
-//     transform: 'translate(-50%, -50%)',
-//   },
-// }
-
 Modal.setAppElement(document.getElementById('form'))
 
 class LevelOne extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      code: '',
       fields: [],
       rows: [],
       query: '',
@@ -43,13 +30,13 @@ class LevelOne extends React.Component {
 
   //updating state with code in editor
   updateCode(newCode) {
-    this.setState({code: newCode})
+    this.setState({query: newCode})
   }
 
   //format query to account for '%'
   formatQuery() {
     let newQuery = ''
-    let query = this.state.code
+    let query = this.state.query
     for (let i = 0; i < query.length; i++) {
       if (query[i] === '%') {
         newQuery += '%25'
@@ -61,14 +48,9 @@ class LevelOne extends React.Component {
   }
 
   async createTable() {
-    let {data} = await Axios.get(
-      `/api/suspects/${
-        this.state.query.length ? this.state.query : this.state.code
-      }`,
-      {
-        params: this.state.query.length ? this.state.query : this.state.code
-      }
-    )
+    let {data} = await Axios.get(`/api/suspects/${this.state.query}`, {
+      params: this.state.query
+    })
     if (typeof data !== 'string') {
       this.setState({
         fields: data[1].fields,

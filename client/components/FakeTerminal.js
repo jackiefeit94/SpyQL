@@ -47,7 +47,7 @@ class FakeTerminal extends React.Component {
         displayMessage: this.props.allQs[this.state.questionIdx].successText,
         questionIdx: this.state.questionIdx + 1,
         answer: '',
-        clue: 'you get a clue'
+        clue: this.props.allQs[this.state.questionIdx].clue
       })
     } else if (
       this.state.answer ===
@@ -93,7 +93,7 @@ class FakeTerminal extends React.Component {
                   })
                 }}
               >
-                Clue Here
+                <img id="clue" src={this.state.clue} />
               </button>
             )}
           </div>
