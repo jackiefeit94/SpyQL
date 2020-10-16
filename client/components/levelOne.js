@@ -4,7 +4,6 @@ import Modal from 'react-modal'
 import Axios from 'axios'
 import Table from './table'
 import FakeTerminal from './FakeTerminal'
-import Popup from 'react-animated-popup'
 
 /**
  * COMPONENT
@@ -19,8 +18,7 @@ class LevelOne extends React.Component {
       fields: [],
       rows: [],
       query: '',
-      err: '',
-      visible: false
+      err: ''
     }
 
     this.updateCode = this.updateCode.bind(this)
@@ -77,20 +75,6 @@ class LevelOne extends React.Component {
             handleQuery={this.handleQuery}
             err={this.state.err}
           />
-          <button
-            type="submit"
-            onClick={() => this.setState({visible: !this.state.visible})}
-          >
-            Teach me
-          </button>
-          <Popup
-            visible={this.state.visible}
-            onClose={() => this.setState({visible: false})}
-          >
-            <p>
-              <img id="hint" src="https://i.imgur.com/rxPQk9m.png" />
-            </p>
-          </Popup>
         </div>
 
         {/* flex right */}
