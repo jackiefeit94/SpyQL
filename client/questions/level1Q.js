@@ -3,7 +3,7 @@ const level1Q = [
     prompt:
       'We’ve come up with a list of suspects, so your first task will be to find that list and examine it.',
     plotQuestion: "Let's see... How many rows does our suspect table have?",
-    plotAnswer: '250',
+    plotAnswer: '50',
     hint: 'https://ibb.co/dpm1MXh',
     successText:
       'That’s right. Hm, that’s a lot of suspects. Let’s see if we can narrow it down at all. Maybe this map has some information…'

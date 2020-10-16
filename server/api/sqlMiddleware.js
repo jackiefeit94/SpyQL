@@ -32,7 +32,10 @@ const sqlMiddleware = (req, res, next) => {
 //middleware to prohibit players from altering table
 
 const disableMiddleware = (req, res, next) => {
-  let query = req.params.query.toLowerCase().split(' ')
+  let query = req.params.query
+  if (query[query.length - 1] === ';') {
+    query = query.slice(0, -1).split(' ')
+  }
   let isProhibited = false
   for (let i = 0; i < query.length; i++) {
     if (!prohibited.includes(query[i])) {

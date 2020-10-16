@@ -21,9 +21,13 @@ class FakeTerminal extends React.Component {
 
   handleQuery() {
     this.typed.reset()
-    this.setState({
-      displayMessage: this.props.allQs[this.state.questionIdx].plotQuestion
-    })
+    if (this.props.err.length) {
+      this.setState({displayMessage: this.props.err})
+    } else {
+      this.setState({
+        displayMessage: this.props.allQs[this.state.questionIdx].plotQuestion
+      })
+    }
   }
 
   handleChange(event) {

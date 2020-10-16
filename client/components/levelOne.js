@@ -93,6 +93,7 @@ class LevelOne extends React.Component {
             formatQuery={this.formatQuery}
             createTable={this.createTable}
             handleQuery={this.handleQuery}
+            err={this.state.err}
           />
           <button
             type="submit"
@@ -105,7 +106,7 @@ class LevelOne extends React.Component {
             onClose={() => this.setState({visible: false})}
           >
             <p>
-              <img src="imgur.com/a/Fqoxl8Y" />
+              <img id="hint" src="https://i.imgur.com/rxPQk9m.png" />
             </p>
           </Popup>
         </div>
@@ -114,7 +115,7 @@ class LevelOne extends React.Component {
         <div className="flex-child-right">
           <div id="textbox-table">
             {this.state.err ? (
-              <div id="error">{this.state.err}</div>
+              <div />
             ) : (
               <Table fields={this.state.fields} rows={this.state.rows} />
             )}
