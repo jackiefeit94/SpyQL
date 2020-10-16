@@ -8,6 +8,7 @@ body {
   font-family: sans-serif;
   background-color: black;
   color: white;
+  padding: 5px;
 }
 
 a {
@@ -207,4 +208,10 @@ input[type='text'] {
   background-position: 10px 10px;
   background-repeat: no-repeat;
   padding-left: 40px;
+}
+
+/* hint button modal */
+
+#buttonTextStyle {
+  color: black;
 }
