@@ -83,6 +83,8 @@ form div {
   background-color: rgba(0, 0, 0, 0.536);
   padding: 20px;
   margin: 20px;
+  height: 300px;
+  overflow-y: scroll;
 }
 
 /*table rendering*/
@@ -210,8 +212,7 @@ input[type='text'] {
   padding-left: 40px;
 }
 
-/* hint button modal */
-
-#buttonTextStyle {
-  color: black;
+embed {
+  justify-self: center;
+  max-width: 100%;
 }
