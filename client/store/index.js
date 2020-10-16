@@ -8,6 +8,7 @@ const reducer = combineReducers({question: questionReducer})
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )
+
 const store = createStore(reducer, middleware)
 
 export default store

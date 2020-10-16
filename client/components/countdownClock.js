@@ -3,7 +3,7 @@ import history from '../history'
 
 const clockRenderer = ({hours, minutes, seconds, completed}) => {
   if (completed) {
-    history.push('/gameover')
+    history.push('/home')
     return <></>
   } else {
     return (
