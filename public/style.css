@@ -216,3 +216,8 @@ embed {
   justify-self: center;
   max-width: 100%;
 }
+
+#hint {
+  height: 300px;
+  width: 400px;
+}
