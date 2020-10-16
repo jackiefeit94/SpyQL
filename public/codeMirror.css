@@ -7,7 +7,6 @@
   height: auto;
   direction: ltr;
   /* color: white; */
-  text-shadow: 0 0 5px #c8c8c8;
 }
 
 /* PADDING */
@@ -164,7 +163,9 @@
 
 .cm-s-default .cm-keyword {
   color: #008803;
-  /* color: red */
+  font-weight: bold;
+
+   font-size: 15px;
 }
 .cm-s-default .cm-atom {
   color: #219;
@@ -194,7 +195,7 @@
   color: #a50;
 }
 .cm-s-default .cm-string {
-  color: #a11;
+  color: gray;
 }
 .cm-s-default .cm-string-2 {
   color: #f50;
