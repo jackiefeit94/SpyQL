@@ -4,7 +4,6 @@ import Countdown from 'react-countdown'
 
 import {connect} from 'react-redux'
 import {fetchQuestion, getAllQuestions} from '../store/questionStore'
-import Modal from 'react-modal'
 import Axios from 'axios'
 import CodeMirror from 'react-codemirror'
 import SQL from '../../node_modules/codemirror/mode/sql/sql.js'

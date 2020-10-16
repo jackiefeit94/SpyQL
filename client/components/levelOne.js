@@ -28,11 +28,11 @@ class LevelOne extends React.Component {
     super(props)
     this.state = {
       value: '',
+      code: '',
       idx: 0,
       showPrompt: false,
       showQuestion: true,
       showHint: false,
-      code: '',
       fields: [],
       rows: [],
       query: '',
