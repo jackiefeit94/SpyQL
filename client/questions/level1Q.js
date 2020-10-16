@@ -28,7 +28,8 @@ const level1Q = [
     hint: 'hint image url',
     successText:
       'Excellent! I’ve just received word that one of our witnesses has some information to give you.',
-    clue: ''
+    clue:
+      'https://www.google.com/url?sa=i&url=https%3A%2F%2Furbandojo.com%2Fhome%2Fdefault-image%2F&psig=AOvVaw2wleds1gGSpnTnq7Jnvwmo&ust=1602966062373000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCMDkmIn4uewCFQAAAAAdAAAAABAD'
   },
 
   {
@@ -49,7 +50,8 @@ const level1Q = [
     hint: 'hint image url',
     successText:
       'Good work, Agent. We’re dispatching special operatives now to track down those two and learn more about them…',
-    clue: ''
+    clue:
+      'https://www.google.com/url?sa=i&url=https%3A%2F%2Furbandojo.com%2Fhome%2Fdefault-image%2F&psig=AOvVaw2wleds1gGSpnTnq7Jnvwmo&ust=1602966062373000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCMDkmIn4uewCFQAAAAAdAAAAABAD'
   }
 ]
 
