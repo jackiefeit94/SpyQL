@@ -92,75 +92,79 @@ class LevelThree extends React.Component {
     const theme = {theme: 'the-matrix'}
 
     return (
-      <div className="level-container">
-        <div className="flex-child-left">
-          <div id="text-editor-wrap">
-            <div className="title-bar">
-              <span className="title">🔒Confidential-File - bash - 80x24</span>
-            </div>
-            <div className="text-body">
-              ${' '}
-              {this.props.allQs.length &&
-                this.state.showQuestion && (
-                  <Typed
-                    strings={[this.props.allQs[this.state.idx].prompt]}
-                    typeSpeed={40}
-                  />
-                )}
-              {this.props.allQs.length &&
-                this.state.showPrompt && (
-                  <Typed
-                    strings={[this.props.allQs[this.state.idx].plotQuestion]}
-                    typeSpeed={40}
-                  />
-                )}
-            </div>
-            <CodeMirror
-              value={this.state.code}
-              onChange={this.updateCode}
-              options={options}
-              mode={SQL}
-              theme={theme}
-            />
-            <button
-              type="submit"
-              className="button1"
-              onClick={() => {
-                this.createTable()
-                this.handleQuery()
-              }}
-            >
-              Submit Query!
-            </button>
-          </div>
-          <form id="form" onSubmit={this.handleSubmit}>
-            <label>
-              <br />
-              <input
-                type="text"
-                value={this.state.value}
-                onChange={this.handleChange}
+      <div style={{backgroundColor: 'indigo'}}>
+        <div className="level-container">
+          <div className="flex-child-left">
+            <div id="text-editor-wrap">
+              <div className="title-bar">
+                <span className="title">
+                  🔒Confidential-File - bash - 80x24
+                </span>
+              </div>
+              <div className="text-body">
+                ${' '}
+                {this.props.allQs.length &&
+                  this.state.showQuestion && (
+                    <Typed
+                      strings={[this.props.allQs[this.state.idx].prompt]}
+                      typeSpeed={40}
+                    />
+                  )}
+                {this.props.allQs.length &&
+                  this.state.showPrompt && (
+                    <Typed
+                      strings={[this.props.allQs[this.state.idx].plotQuestion]}
+                      typeSpeed={40}
+                    />
+                  )}
+              </div>
+              <CodeMirror
+                value={this.state.code}
+                onChange={this.updateCode}
+                options={options}
+                mode={SQL}
+                theme={theme}
               />
-            </label>
-            <input type="submit" />
-          </form>
-          <form>
-            <button type="submit" onClick={this.hintOnClick}>
-              Hint
-            </button>
-            <div>
-              {this.state.showHint ? (
-                <div>{this.props.question.hint}</div>
-              ) : null}
+              <button
+                type="submit"
+                className="button1"
+                onClick={() => {
+                  this.createTable()
+                  this.handleQuery()
+                }}
+              >
+                Submit Query!
+              </button>
             </div>
-          </form>
-        </div>
-
-        <div className="flex-child-right">
-          <div id="textbox-table">
-            <Table fields={this.state.fields} rows={this.state.rows} />
+            <form id="form" onSubmit={this.handleSubmit}>
+              <label>
+                <br />
+                <input
+                  type="text"
+                  value={this.state.value}
+                  onChange={this.handleChange}
+                />
+              </label>
+              <input type="submit" />
+            </form>
+            <form>
+              <button type="submit" onClick={this.hintOnClick}>
+                Hint
+              </button>
+              <div>
+                {this.state.showHint ? (
+                  <div>{this.props.question.hint}</div>
+                ) : null}
+              </div>
+            </form>
           </div>
-          <Countdown date={Date.now() + 10000} renderer={clockRenderer} />
+
+          <div className="flex-child-right">
+            <div id="textbox-table">
+              <Table fields={this.state.fields} rows={this.state.rows} />
+            </div>
+            <Countdown date={Date.now() + 10000} renderer={clockRenderer} />
+          </div>
         </div>
       </div>
     )
