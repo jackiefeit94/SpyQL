@@ -8,12 +8,10 @@ router.get(
   disableMiddleware,
   async (req, res, next) => {
     try {
-      console.log('we are inside try')
       const data = await client.query(req.params.query)
       res.send(data)
     } catch (err) {
-      console.log('we are inside catch')
-      next(err)
+      res.send('There may be an issue with your query!')
     }
   }
 )
