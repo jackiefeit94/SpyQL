@@ -38,8 +38,16 @@ form div {
   height: 40vw;
   padding: 30px;
   display: flex;
+  flex-direction: row;
   color: white;
   font-family: 'Courier New';
+}
+
+@media screen and (max-width: 700px) {
+  .row,
+  .navbar {
+    flex-direction: column;
+  }
 }
 
 /* .level-container > * {
@@ -52,6 +60,7 @@ form div {
   font-family: 'Courier New';
   text-align: center;
   padding: 30px;
+  display: flex;
 }
 
 .flex-child-left {
