@@ -1,7 +1,14 @@
+* {
+  margin: 0;
+  /* padding: 20px; */
+  /* background-image: url('background-slow.gif'); */
+}
+
 body {
   font-family: sans-serif;
   background-color: black;
   color: white;
+  padding: 5px;
 }
 
 a {
@@ -29,16 +36,22 @@ form div {
 
 .level-container {
   height: 40vw;
+  padding: 30px;
   display: flex;
   color: white;
   font-family: 'Courier New';
 }
+
+/* .level-container > * {
+  padding: 20px;
+} */
 
 .navbar {
   color: white;
   background: black;
   font-family: 'Courier New';
   text-align: center;
+  padding: 30px;
 }
 
 .flex-child-left {
@@ -48,7 +61,7 @@ form div {
 
 .flex-child-right {
   flex: 1;
-  background-image: url('https://techcrunch.com/wp-content/uploads/2014/12/matrix.jpg');
+  background-image: url('fakecode.gif');
   border: 2px solid white;
 }
 
@@ -58,17 +71,20 @@ form div {
 
 #textbox {
   width: 85%;
-  border: 5px solid green;
+  /* border: 5px solid rgb(81, 83, 81); */
+  text-shadow: 0 0 5px #c8c8c8;
   padding: 20px;
   margin: 20px;
 }
 
 #textbox-table {
-  width: 35em;
-  border: 5px solid green;
-  background-color: white;
+  width: auto;
+  border: 2px solid rgba(244, 248, 244, 0.241);
+  background-color: rgba(0, 0, 0, 0.536);
   padding: 20px;
   margin: 20px;
+  height: 300px;
+  overflow-y: scroll;
 }
 
 /*table rendering*/
@@ -97,25 +113,31 @@ td {
 
 button {
   display: inline-block;
-  padding: 0.35em 1.2em;
-  border: 0.1em solid #ffffff;
-  margin: 0 0.3em 0.3em 0;
-  border-radius: 0.12em;
+  /* padding: 0.35em 1.2em; */
+  /* border: 0.1em solid #e9e7e7b6; */
+  margin: 0;
+  /* border-radius: 0.12em; */
   box-sizing: border-box;
-  text-decoration: none;
+  text-decoration: auto;
   font-family: 'Roboto', sans-serif;
-  font-weight: 300;
-  color: #000000;
+  font-weight: 700;
+  color: rgba(0, 255, 0, 0.673);
+  background-color: black;
   text-align: center;
   transition: all 0.2s;
 }
+/* :focus {
+    outline: -webkit-focus-ring-color unset 1px;
+} */
+
 button:hover {
-  color: #ffffff;
-  background-color: #000000;
+  color: #008802a6;
+  /* color: black; */
+  background-color: black;
 }
 
-/* typedJs text box */
-.text-editor-wrap {
+/* typedJs text box - home page*/
+.text-editor-home {
   display: block;
   margin: auto;
   max-width: 530px;
@@ -125,8 +147,31 @@ button:hover {
   overflow: hidden;
 }
 
+.text-body-home {
+  height: 250px;
+  background-color: rgba(0, 0, 0, 0.85);
+  padding: 10px;
+  color: #f0f0f0;
+  font-family: 'Consolas', 'Courier New', 'Courier';
+  font-size: 1 em;
+  font-style: italic;
+  line-height: 1.4em;
+  text-align: left;
+}
+
+/* typedJs text box -level page */
+.text-editor-wrap {
+  display: flex;
+  margin: auto;
+  max-width: 530px;
+  border-radius: 10px;
+  box-shadow: rgba(92, 91, 91, 0.8) 0px 20px 70px;
+  clear: both;
+  overflow: hidden;
+}
+
 .title-bar {
-  padding: 5px 0;
+  padding: 2px 0;
   font-family: 'Lucida Grande', sans-serif;
   font-size: 10px;
   color: #000000;
@@ -149,4 +194,35 @@ button:hover {
   font-style: italic;
   line-height: 1.4em;
   text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.text-body-flex-top {
+  background-color: violet;
+}
+.text-body-flex-bottom {
+  background-color: yellow;
+}
+
+input[type='text'] {
+  background-color: rgb(128, 122, 122);
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  padding-left: 40px;
+}
+
+embed {
+  justify-self: center;
+  max-width: 100%;
+}
+
+#hint {
+  height: 300px;
+  width: 400px;
+}
+
+#clue {
+  max-width: 100%;
+  max-height: 250px;
 }
