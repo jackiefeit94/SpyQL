@@ -68,7 +68,6 @@ class LevelOne extends React.Component {
 
         <div className="level-container">
           {/* flex left */}
-
           <div className="flex-child-left">
             <FakeTerminal
               state={this.state}
