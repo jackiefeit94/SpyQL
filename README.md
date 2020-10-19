@@ -1,6 +1,6 @@
 # SpyQL
 
-SpyQL is a murder mystery browser-based game that helps developers learn SQL.
+SpyQL is a murder mystery browser-based game that helps developers learn SQL, deployed here: https://spyql.herokuapp.com/.
 
 Libraries that were used in this project:
 
