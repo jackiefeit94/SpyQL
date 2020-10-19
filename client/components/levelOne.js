@@ -1,15 +1,15 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import Modal from 'react-modal'
+
 import Axios from 'axios'
 import Table from './table'
 import FakeTerminal from './FakeTerminal'
+import clock from './clock'
+import {CountdownCircleTimer} from 'react-countdown-circle-timer'
 
 /**
  * COMPONENT
  */
-
-Modal.setAppElement(document.getElementById('form'))
 
 class LevelOne extends React.Component {
   constructor(props) {
@@ -63,28 +63,33 @@ class LevelOne extends React.Component {
   render() {
     const options = {lineNumbers: true}
     return (
-      <div className="level-container">
-        {/* flex left */}
-        <div className="flex-child-left">
-          <FakeTerminal
-            state={this.state}
-            options={options}
-            updateCode={this.updateCode}
-            formatQuery={this.formatQuery}
-            createTable={this.createTable}
-            handleQuery={this.handleQuery}
-            err={this.state.err}
-          />
-        </div>
+      <div>
+        <div id="clock">{clock()}</div>
 
-        {/* flex right */}
-        <div className="flex-child-right">
-          <div id="textbox-table">
-            {this.state.err ? (
-              <div />
-            ) : (
-              <Table fields={this.state.fields} rows={this.state.rows} />
-            )}
+        <div className="level-container">
+          {/* flex left */}
+
+          <div className="flex-child-left">
+            <FakeTerminal
+              state={this.state}
+              options={options}
+              updateCode={this.updateCode}
+              formatQuery={this.formatQuery}
+              createTable={this.createTable}
+              handleQuery={this.handleQuery}
+              err={this.state.err}
+            />
+          </div>
+
+          {/* flex right */}
+          <div className="flex-child-right">
+            <div id="textbox-table">
+              {this.state.err ? (
+                <div />
+              ) : (
+                <Table fields={this.state.fields} rows={this.state.rows} />
+              )}
+            </div>
           </div>
         </div>
       </div>
