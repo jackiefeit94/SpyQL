@@ -1,11 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {fetchQuestion, getAllQuestions} from '../store/questionStore'
+import {getAllQuestions} from '../store/questionStore'
 
 class Navbar extends React.Component {
   componentDidMount() {
-    this.props.fetchQuestion()
     this.props.getAllQuestions()
   }
 
@@ -28,9 +27,6 @@ class Navbar extends React.Component {
 
 const mapDispatch = dispatch => {
   return {
-    fetchQuestion: () => {
-      dispatch(fetchQuestion())
-    },
     getAllQuestions: () => {
       dispatch(getAllQuestions())
     }
