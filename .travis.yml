@@ -17,11 +17,11 @@ before_script:
 script:
   - npm test # test the code
   - npm run build-client # make the bundle
-before_deploy:
-  - rm -rf node_modules # omit from the tarball, since we skip cleanup
-deploy:
-  skip_cleanup: true # prevents travis from deleting the build
-  provider: heroku
-  app: spyql # see README
-  api_key:
-    secure: 623f20ed-72d6-4f33-b834-2efca6e15686 # see README
+# before_deploy:
+#   - rm -rf node_modules # omit from the tarball, since we skip cleanup
+# deploy:
+#   skip_cleanup: true # prevents travis from deleting the build
+#   provider: heroku
+#   app: spyql # see README
+#   api_key:
+#     secure:  # see README
