@@ -38,7 +38,8 @@ const level1Q = [
     plotQuestion: 'Now how many have we narrowed it down to?',
     plotAnswer: '5',
     hint: 'hint image url',
-    clue: '',
+    clue:
+      'https://www.google.com/url?sa=i&url=https%3A%2F%2Furbandojo.com%2Fhome%2Fdefault-image%2F&psig=AOvVaw2wleds1gGSpnTnq7Jnvwmo&ust=1602966062373000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCMDkmIn4uewCFQAAAAAdAAAAABAD',
     successText: "So what's left?"
   },
   {
