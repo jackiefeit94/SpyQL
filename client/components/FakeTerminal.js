@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {CodeEditor} from './CodeEditor'
 import Typed from 'react-typed'
 import Popup from 'react-animated-popup'
+import KeyboardEventHandler from 'react-keyboard-event-handler'
 
 class FakeTerminal extends React.Component {
   constructor() {
@@ -18,6 +19,7 @@ class FakeTerminal extends React.Component {
     this.handleQuery = this.handleQuery.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.enterKeyDown = this.enterKeyDown.bind(this)
   }
 
   handleQuery() {
@@ -35,9 +37,17 @@ class FakeTerminal extends React.Component {
     this.setState({answer: event.target.value})
   }
 
+  enterKeyDown(event) {
+    if (event.key === 'Enter') {
+      console.log('event in enterkeydown', event)
+      event.preventDefault()
+      this.handleSubmit(event)
+    }
+  }
+
   handleSubmit(event) {
     event.preventDefault()
-
+    console.log('triggered')
     this.typed.reset()
     if (
       this.state.answer ===
@@ -138,16 +148,16 @@ class FakeTerminal extends React.Component {
             </Popup>
           )}
         </div>
-        <form id="form" onSubmit={this.handleSubmit}>
+        <form id="form">
           <label>
             <br />
             <input
               type="text"
               value={this.state.answer}
               onChange={this.handleChange}
+              onKeyDown={this.enterKeyDown}
             />
           </label>
-          <input type="submit" />
         </form>
       </div>
     )
