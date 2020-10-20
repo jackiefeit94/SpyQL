@@ -27,11 +27,11 @@ class GameOver extends React.Component {
           handleKeys={['enter', 'return']}
           onKeyEvent={(key, e) => history.push('/levelOne')}
         />
-        <div className="text-editor-wrap">
+        <div className="text-editor-home">
           <div className="title-bar">
             <span className="title">🔒Confidential-File - bash - 80x24</span>
           </div>
-          <div className="text-body">
+          <div className="text-body-home">
             $
             <span
               ref={el => {
