@@ -59,7 +59,28 @@ class LevelOne extends React.Component {
       this.setState({err: data})
     }
   }
+  componentWillMount() {
+    Promise.all([
+      localStorage.getItem('fields'),
+      localStorage.getItem('rows'),
+      localStorage.getItem('query'),
+      localStorage.getItem('err')
+    ]).then(() => {
+      this.setState({
+        fields: JSON.parse(localStorage.getItem('fields')),
+        rows: JSON.parse(localStorage.getItem('rows')),
+        query: JSON.parse(localStorage.getItem('query')),
+        err: JSON.parse(localStorage.getItem('err'))
+      })
+    })
+  }
 
+  componentWillUpdate(nextProps, nextState) {
+    localStorage.setItem('fields', JSON.stringify(nextState.fields))
+    localStorage.setItem('rows', JSON.stringify(nextState.rows))
+    localStorage.setItem('query', JSON.stringify(nextState.query))
+    localStorage.setItem('err', JSON.stringify(nextState.err))
+  }
   render() {
     const options = {lineNumbers: true}
     return (
