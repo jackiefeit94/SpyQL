@@ -110,7 +110,7 @@ class FakeTerminal extends React.Component {
             )}
           </div>
           <CodeEditor
-            code={this.props.state.code}
+            //code={this.props.state.code}
             options={this.props.options}
             updateCode={this.props.updateCode}
             formatQuery={this.props.formatQuery}
