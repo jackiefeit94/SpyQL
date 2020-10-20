@@ -59,8 +59,6 @@ form div {
   background: black;
   font-family: 'Courier New';
   text-align: center;
-  padding: 30px;
-  display: flex;
 }
 
 .flex-child-left {
@@ -234,4 +232,10 @@ embed {
 #clue {
   max-width: 100%;
   max-height: 250px;
+}
+
+#clock {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
