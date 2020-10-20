@@ -24,4 +24,5 @@ deploy:
   provider: heroku
   app: spyql # see README
   api_key:
-    secure: 59c65e32-3358-48d0-95c3-0e3e620dcbdf # see README //59c65e32-3358-48d0-95c3-0e3e620dcbdf
+    secure: d090c1bc-468d-4c3a-b90b-cafcd1958d72
+  # see README //59c65e32-3358-48d0-95c3-0e3e620dcbdf
