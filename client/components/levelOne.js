@@ -68,7 +68,7 @@ class LevelOne extends React.Component {
 
         <div className="level-container">
           {/* flex left */}
-          <div className="flex-child-left">
+          <div className="item flex-child-left">
             <FakeTerminal
               state={this.state}
               options={options}
@@ -81,7 +81,7 @@ class LevelOne extends React.Component {
           </div>
 
           {/* flex right */}
-          <div className="flex-child-right">
+          <div className="item flex-child-right">
             <div id="textbox-table">
               {this.state.err ? (
                 <div />
