@@ -2,15 +2,19 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {CodeEditor} from './CodeEditor'
 import Typed from 'react-typed'
+
 import Popup from 'react-animated-popup'
 import KeyboardEventHandler from 'react-keyboard-event-handler'
+
 
 class FakeTerminal extends React.Component {
   constructor() {
     super()
     this.state = {
-      displayMessage:
-        'I knew I could count on you. Here’s the deal: there’s been a breach. Someone has stolen a document containing the data of millions of civilians. If we don’t find the source and stop it, people’s personal information could be compromised…',
+      displayMessage: `I knew I could count on you. Here’s the deal: there’s been a breach. Someone has stolen a document containing the data of millions of civilians.
+        If we don’t find the source and stop it, people’s personal information could be compromised…<br><br>
+
+        We’ve come up with a list of suspects, so your first task will be to find that list and examine it.`,
       questionIdx: 0,
       answer: '',
       clue: '',
@@ -39,7 +43,6 @@ class FakeTerminal extends React.Component {
 
   enterKeyDown(event) {
     if (event.key === 'Enter') {
-      console.log('event in enterkeydown', event)
       event.preventDefault()
       this.handleSubmit(event)
     }
@@ -47,7 +50,6 @@ class FakeTerminal extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    console.log('triggered')
     this.typed.reset()
     if (
       this.state.answer ===
@@ -93,16 +95,6 @@ class FakeTerminal extends React.Component {
               />
             )}
             <br />
-            {this.props.allQs.length &&
-              this.state.displayMessage.includes('count') && (
-                <Typed
-                  strings={[this.props.allQs[0].prompt]}
-                  startDelay={14000}
-                  typeSpeed={35}
-                  showCursor={false}
-                />
-              )}
-
             {this.state.clue.length > 0 && (
               <button
                 type="submit"
@@ -120,7 +112,6 @@ class FakeTerminal extends React.Component {
             )}
           </div>
           <CodeEditor
-            code={this.props.state.code}
             options={this.props.options}
             updateCode={this.props.updateCode}
             formatQuery={this.props.formatQuery}
@@ -130,23 +121,15 @@ class FakeTerminal extends React.Component {
 
           <button
             type="submit"
-            onClick={() => this.setState({visible: !this.state.visible})}
+            onClick={() => {
+              this.typed.reset()
+              this.setState({
+                displayMessage: this.props.allQs[this.state.questionIdx].hint
+              })
+            }}
           >
             Teach me
           </button>
-          {this.props.allQs.length && (
-            <Popup
-              visible={this.state.visible}
-              onClose={() => this.setState({visible: false})}
-            >
-              <p>
-                <img
-                  id="hint"
-                  src={this.props.allQs[this.state.questionIdx].hint}
-                />
-              </p>
-            </Popup>
-          )}
         </div>
         <form id="form">
           <label>
