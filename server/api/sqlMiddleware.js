@@ -23,7 +23,11 @@ const sqlMiddleware = (req, res, next) => {
   //split on new line
   let query = req.params.query.split('/\r?\n/')
   //join on space
-  query = query.join(' ')
+  query = query
+    .join(' ')
+    .toLowerCase()
+    .trim()
+  req.params.query = query
   if (query[query.length - 1] !== ';') {
     res.send("Don't forget your semicolon!")
   } else next()

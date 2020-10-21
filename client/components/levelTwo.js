@@ -50,14 +50,16 @@ class LevelTwo extends React.Component {
     this.setState({query: newQuery})
   }
 
-  async createTable() {
-    let {data} = await Axios.get(`/api/suspects/${this.state.query}`, {
-      params: this.state.query
-    })
+  async createTable(idx) {
+    let table = this.props.allQs[idx]
+    // check query in backend for semicolon, new-lines, parens
+    let {data} = await Axios.get(
+      `/api/alibis/${this.state.query}/${table.plotAnswer}`
+    )
     if (typeof data !== 'string') {
       this.setState({
-        fields: data[1].fields,
-        rows: data[1].rows,
+        fields: table.data.fields,
+        rows: table.data.rows,
         err: ''
       })
     } else {
@@ -71,9 +73,16 @@ class LevelTwo extends React.Component {
       this.setState({displayMessage: this.state.err})
     } else {
       this.setState({
-        questionIdx: this.state.questionIdx + 1,
-        displayMessage: this.props.allQs[this.state.questionIdx].prompt
+        questionIdx: this.state.questionIdx + 1
       })
+      this.state.questionIdx < 6
+        ? this.setState({
+            displayMessage: this.props.allQs[this.state.questionIdx].prompt
+          })
+        : this.setState({
+            displayMessage: this.props.allQs[this.state.questionIdx - 1]
+              .successText
+          })
     }
   }
 
@@ -106,10 +115,11 @@ class LevelTwo extends React.Component {
                 )}
               </div>
               <CodeEditor
-                options={this.props.options}
+                options={options}
                 updateCode={this.updateCode}
                 formatQuery={this.formatQuery}
                 createTable={this.createTable}
+                id={this.state.questionIdx}
                 handleQuery={this.handleQuery}
               />
 
@@ -124,12 +134,16 @@ class LevelTwo extends React.Component {
                   visible={this.state.visible}
                   onClose={() => this.setState({visible: false})}
                 >
-                  <p>
-                    <img
-                      id="hint"
-                      src={this.props.allQs[this.state.questionIdx].hint}
-                    />
-                  </p>
+                  {this.props.allQs[this.state.questionIdx] ? (
+                    <p>
+                      <img
+                        id="hint"
+                        src={this.props.allQs[this.state.questionIdx].hint}
+                      />
+                    </p>
+                  ) : (
+                    <p />
+                  )}
                 </Popup>
               )}
             </div>

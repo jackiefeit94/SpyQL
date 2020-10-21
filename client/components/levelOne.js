@@ -46,9 +46,7 @@ class LevelOne extends React.Component {
   }
 
   async createTable() {
-    let {data} = await Axios.get(`/api/suspects/${this.state.query}`, {
-      params: this.state.query
-    })
+    let {data} = await Axios.get(`/api/suspects/${this.state.query}`)
     if (typeof data !== 'string') {
       this.setState({
         fields: data[1].fields,

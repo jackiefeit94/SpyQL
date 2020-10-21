@@ -6,7 +6,6 @@ export const CodeEditor = props => {
   return (
     <div>
       <CodeMirror
-        //value={props.code}
         onChange={props.updateCode}
         options={props.options}
         mode={SQL}
@@ -16,8 +15,12 @@ export const CodeEditor = props => {
         className="button1"
         onClick={async () => {
           await props.formatQuery()
-          await props.createTable()
+          if (props.id !== undefined) {
+            await props.createTable(props.id)
+          } else await props.createTable()
+          console.log('before handle query')
           await props.handleQuery()
+          console.log('after handle query')
         }}
       >
         Submit Query!
