@@ -6,7 +6,7 @@ export const CodeEditor = props => {
   return (
     <div>
       <CodeMirror
-        value={props.code}
+        //value={props.code}
         onChange={props.updateCode}
         options={props.options}
         mode={SQL}

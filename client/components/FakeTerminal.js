@@ -2,14 +2,15 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {CodeEditor} from './CodeEditor'
 import Typed from 'react-typed'
-import Popup from 'react-animated-popup'
 
 class FakeTerminal extends React.Component {
   constructor() {
     super()
     this.state = {
-      displayMessage:
-        'I knew I could count on you. Here’s the deal: there’s been a breach. Someone has stolen a document containing the data of millions of civilians. If we don’t find the source and stop it, people’s personal information could be compromised…',
+      displayMessage: `I knew I could count on you. Here’s the deal: there’s been a breach. Someone has stolen a document containing the data of millions of civilians.
+        If we don’t find the source and stop it, people’s personal information could be compromised…<br><br>
+
+        We’ve come up with a list of suspects, so your first task will be to find that list and examine it.`,
       questionIdx: 0,
       answer: '',
       clue: '',
@@ -63,6 +64,37 @@ class FakeTerminal extends React.Component {
         displayMessage: "That isn't quite right. Try again?"
       })
     }
+    console.log('this is the props', this.props)
+    console.log('this is the state', this.state)
+
+    localStorage.setItem('answer', JSON.stringify(this.state.answer))
+    localStorage.setItem('clue', JSON.stringify(this.state.clue))
+    localStorage.setItem(
+      'displayMessage',
+      JSON.stringify(this.state.displayMessage)
+    )
+    localStorage.setItem('questionIdx', JSON.stringify(this.state.questionIdx))
+    localStorage.setItem('visible', JSON.stringify(this.state.visible))
+    localStorage.setItem('hasLocalStorage', true)
+  }
+
+  componentDidMount() {
+    let hasLocalStorage = localStorage.getItem('hasLocalStorage')
+    if (hasLocalStorage) {
+      const answer = JSON.parse(localStorage.getItem('answer'))
+      const clue = JSON.parse(localStorage.getItem('clue'))
+      const displayMessage = JSON.parse(localStorage.getItem('displayMessage'))
+      const questionIdx = JSON.parse(localStorage.getItem('questionIdx'))
+      const visible = JSON.parse(localStorage.getItem('visible'))
+
+      this.setState({
+        answer: answer,
+        clue: clue,
+        displayMessage: displayMessage,
+        questionIdx: questionIdx,
+        visible: visible
+      })
+    }
   }
 
   render() {
@@ -83,16 +115,6 @@ class FakeTerminal extends React.Component {
               />
             )}
             <br />
-            {this.props.allQs.length &&
-              this.state.displayMessage.includes('count') && (
-                <Typed
-                  strings={[this.props.allQs[0].prompt]}
-                  startDelay={14000}
-                  typeSpeed={35}
-                  showCursor={false}
-                />
-              )}
-
             {this.state.clue.length > 0 && (
               <button
                 type="submit"
@@ -110,7 +132,7 @@ class FakeTerminal extends React.Component {
             )}
           </div>
           <CodeEditor
-            code={this.props.state.code}
+            //code={this.props.state.code}
             options={this.props.options}
             updateCode={this.props.updateCode}
             formatQuery={this.props.formatQuery}
@@ -120,23 +142,15 @@ class FakeTerminal extends React.Component {
 
           <button
             type="submit"
-            onClick={() => this.setState({visible: !this.state.visible})}
+            onClick={() => {
+              this.typed.reset()
+              this.setState({
+                displayMessage: this.props.allQs[this.state.questionIdx].hint
+              })
+            }}
           >
             Teach me
           </button>
-          {this.props.allQs.length && (
-            <Popup
-              visible={this.state.visible}
-              onClose={() => this.setState({visible: false})}
-            >
-              <p>
-                <img
-                  id="hint"
-                  src={this.props.allQs[this.state.questionIdx].hint}
-                />
-              </p>
-            </Popup>
-          )}
         </div>
         <form id="form" onSubmit={this.handleSubmit}>
           <label>

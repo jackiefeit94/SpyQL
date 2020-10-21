@@ -1,4 +1,5 @@
 import level1Q from '../questions/level1Q'
+import level2Q from '../questions/level2Q'
 
 const GET_QUESTION = 'GET_QUESTION'
 const FETCH_QUESTIONS = 'FETCH_QUESTIONS'
@@ -16,6 +17,13 @@ export const fetchQuestion = () => {
 export const getAllQuestions = () => {
   return dispatch => {
     const questions = level1Q
+    dispatch(fetchQuestions(questions))
+  }
+}
+
+export const getLevelTwoQuestions = () => {
+  return dispatch => {
+    const questions = level2Q
     dispatch(fetchQuestions(questions))
   }
 }

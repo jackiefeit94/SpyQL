@@ -1,15 +1,15 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import Modal from 'react-modal'
+
 import Axios from 'axios'
 import Table from './table'
 import FakeTerminal from './FakeTerminal'
+import clock from './clock'
+import {CountdownCircleTimer} from 'react-countdown-circle-timer'
 
 /**
  * COMPONENT
  */
-
-Modal.setAppElement(document.getElementById('form'))
 
 class LevelOne extends React.Component {
   constructor(props) {
@@ -59,53 +59,36 @@ class LevelOne extends React.Component {
       this.setState({err: data})
     }
   }
-  componentWillMount() {
-    Promise.all([
-      localStorage.getItem('fields'),
-      localStorage.getItem('rows'),
-      localStorage.getItem('query'),
-      localStorage.getItem('err')
-    ]).then(() => {
-      this.setState({
-        fields: JSON.parse(localStorage.getItem('fields')),
-        rows: JSON.parse(localStorage.getItem('rows')),
-        query: JSON.parse(localStorage.getItem('query')),
-        err: JSON.parse(localStorage.getItem('err'))
-      })
-    })
-  }
 
-  componentWillUpdate(nextProps, nextState) {
-    localStorage.setItem('fields', JSON.stringify(nextState.fields))
-    localStorage.setItem('rows', JSON.stringify(nextState.rows))
-    localStorage.setItem('query', JSON.stringify(nextState.query))
-    localStorage.setItem('err', JSON.stringify(nextState.err))
-  }
   render() {
     const options = {lineNumbers: true}
     return (
-      <div className="level-container">
-        {/* flex left */}
-        <div className="flex-child-left">
-          <FakeTerminal
-            state={this.state}
-            options={options}
-            updateCode={this.updateCode}
-            formatQuery={this.formatQuery}
-            createTable={this.createTable}
-            handleQuery={this.handleQuery}
-            err={this.state.err}
-          />
-        </div>
+      <div>
+        <div id="clock">{clock()}</div>
 
-        {/* flex right */}
-        <div className="flex-child-right">
-          <div id="textbox-table">
-            {this.state.err ? (
-              <div />
-            ) : (
-              <Table fields={this.state.fields} rows={this.state.rows} />
-            )}
+        <div className="level-container">
+          {/* flex left */}
+          <div className="flex-child-left">
+            <FakeTerminal
+              state={this.state}
+              options={options}
+              updateCode={this.updateCode}
+              formatQuery={this.formatQuery}
+              createTable={this.createTable}
+              handleQuery={this.handleQuery}
+              err={this.state.err}
+            />
+          </div>
+
+          {/* flex right */}
+          <div className="flex-child-right">
+            <div id="textbox-table">
+              {this.state.err ? (
+                <div />
+              ) : (
+                <Table fields={this.state.fields} rows={this.state.rows} />
+              )}
+            </div>
           </div>
         </div>
       </div>
