@@ -143,21 +143,6 @@ class LevelThree extends React.Component {
                   />
                 )}
                 <br />
-                {this.state.clue.length > 0 && (
-                  <button
-                    type="submit"
-                    onClick={() => {
-                      this.typed.reset()
-                      this.setState({
-                        displayMessage: this.props.allQs[this.state.questionIdx]
-                          .prompt,
-                        clue: ''
-                      })
-                    }}
-                  >
-                    <img id="clue" src={this.state.clue} />
-                  </button>
-                )}
               </div>
               <button
                 type="submit"
