@@ -15,20 +15,41 @@ const prohibited = [
   'revoke',
   'set',
   'truncate',
-  'update'
+  'update',
+  'add'
+]
+
+const allowed = [
+  'select',
+  'from',
+  'where',
+  'between',
+  'into',
+  'union',
+  'inner',
+  'outer',
+  'left',
+  'right',
+  'join',
+  'order',
+  'by'
 ]
 
 //middleware to parse query
 const sqlMiddleware = (req, res, next) => {
   //split on new line
   let query = req.params.query.split('/\r?\n/')
-  //join on space
-  query = query
-    .join(' ')
-    .toLowerCase()
-    .trim()
+  query.forEach((word, i) => {
+    if (
+      allowed.includes(word.toLowerCase()) ||
+      prohibited.includes(word.toLowerCase())
+    ) {
+      query[i] = word.toLowerCase()
+    }
+  })
+  //join on space and trim
+  query = query.join(' ').trim()
   req.params.query = query
-  console.log('query: ', req.params.query)
   if (query[query.length - 1] !== ';') {
     res.send("Don't forget your semicolon!")
   } else next()
