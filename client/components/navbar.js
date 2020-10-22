@@ -11,7 +11,9 @@ class Navbar extends React.Component {
   render() {
     return (
       <div className="navbar">
-        <h1>SpyQL</h1>
+        <h1>
+          <Link to="/home">SpyQL</Link>
+        </h1>
         <nav>
           <div>
             <Link to="/home">Home</Link>
