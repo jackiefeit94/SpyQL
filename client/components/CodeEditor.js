@@ -18,9 +18,7 @@ export const CodeEditor = props => {
           if (props.id !== undefined) {
             await props.createTable(props.id)
           } else await props.createTable()
-          console.log('before handle query')
           await props.handleQuery()
-          console.log('after handle query')
         }}
       >
         Submit Query!

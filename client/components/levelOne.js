@@ -2,7 +2,6 @@ import React from 'react'
 import {connect} from 'react-redux'
 import Axios from 'axios'
 import Table from './table'
-import FakeTerminal from './FakeTerminal'
 import clock from './clock'
 import {CodeEditor} from './CodeEditor'
 import Typed from 'react-typed'
@@ -39,7 +38,7 @@ class LevelOne extends React.Component {
 
   handleQuery() {
     this.typed.reset()
-    if (this.props.err.length) {
+    if (this.state.err.length) {
       this.setState({displayMessage: this.props.err})
     } else {
       this.setState({
@@ -206,7 +205,7 @@ class LevelOne extends React.Component {
               )}
             </div>
             <CodeEditor
-              options={this.options}
+              options={options}
               updateCode={this.updateCode}
               formatQuery={this.formatQuery}
               createTable={this.createTable}
