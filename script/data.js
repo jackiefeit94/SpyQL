@@ -356,18 +356,6 @@ const seedAlibis = [
     location: 'Block Party'
   },
   {
-    location: 'Block Party'
-  },
-  {
-    location: 'Block Party'
-  },
-  {
-    location: 'Block Party'
-  },
-  {
-    location: 'Block Party'
-  },
-  {
     location: 'Barn Joo Restaurant'
   },
   {

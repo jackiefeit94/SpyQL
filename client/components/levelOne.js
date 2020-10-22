@@ -5,6 +5,7 @@ import Table from './table'
 import clock from './clock'
 import {CodeEditor} from './CodeEditor'
 import Typed from 'react-typed'
+import {getLevelOneQuestions} from '../store/questionStore'
 
 class LevelOne extends React.Component {
   constructor(props) {
@@ -32,10 +33,14 @@ class LevelOne extends React.Component {
     this.enterKeyDown = this.enterKeyDown.bind(this)
   }
 
+  componentDidMount() {
+    this.props.getLevelOneQuestions()
+  }
+
   handleQuery() {
     this.typed.reset()
     if (this.state.err.length) {
-      this.setState({displayMessage: this.props.err})
+      this.setState({displayMessage: this.state.err})
     } else {
       this.setState({
         displayMessage: this.props.allQs[this.state.questionIdx].plotQuestion
@@ -141,7 +146,6 @@ class LevelOne extends React.Component {
                   />
                 )}
               </div>
-
               {this.state.clue.length > 0 && (
                 <button
                   type="submit"
@@ -157,6 +161,7 @@ class LevelOne extends React.Component {
                   <img id="clue" src={this.state.clue} />
                 </button>
               )}
+
             </div>
             <form id="form">
               <input
@@ -205,9 +210,16 @@ class LevelOne extends React.Component {
 
 const mapState = state => {
   return {
-    question: state.question.currentQ,
     allQs: state.question.allQs
   }
 }
 
-export default connect(mapState)(LevelOne)
+const mapDispatch = dispatch => {
+  return {
+    getLevelOneQuestions: () => {
+      dispatch(getLevelOneQuestions())
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch)(LevelOne)

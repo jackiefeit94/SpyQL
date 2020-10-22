@@ -1,166 +1,192 @@
 import React from 'react'
-import clockRenderer from './countdownClock'
-import Countdown from 'react-countdown'
-
 import {connect} from 'react-redux'
-import {fetchQuestion, getAllQuestions} from '../store/questionStore'
-import Modal from 'react-modal'
 import Axios from 'axios'
-import CodeMirror from 'react-codemirror'
-import SQL from '../../node_modules/codemirror/mode/sql/sql.js'
 import Table from './table'
+import clock from './clock'
+import {CodeEditor} from './CodeEditor'
 import Typed from 'react-typed'
+import {getLevelThreeQuestions} from '../store/questionStore'
 
 class LevelThree extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      value: '',
-      idx: 0,
-      showPrompt: false,
-      showQuestion: true,
-      showHint: false,
-      code: '',
       fields: [],
-      rows: []
+      rows: [],
+      query: '',
+      err: '',
+      displayMessage: `prompt1`,
+      questionIdx: 0,
+      answer: ''
     }
 
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.hintOnClick = this.hintOnClick.bind(this)
     this.updateCode = this.updateCode.bind(this)
     this.createTable = this.createTable.bind(this)
+    this.formatQuery = this.formatQuery.bind(this)
     this.handleQuery = this.handleQuery.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.enterKeyDown = this.enterKeyDown.bind(this)
   }
 
   componentDidMount() {
-    this.props.fetchQuestion()
-    this.props.getAllQuestions()
+    this.props.getLevelThreeQuestions()
+  }
+
+  handleQuery() {
+    this.typed.reset()
+    if (this.state.err.length) {
+      this.setState({displayMessage: this.state.err})
+    } else {
+      this.setState({
+        displayMessage: this.props.allQs[this.state.questionIdx].plotQuestion
+      })
+    }
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value})
+    this.setState({answer: event.target.value})
   }
 
-  //updating state with code in editor
-  updateCode(newCode) {
-    this.setState({code: newCode})
+  enterKeyDown(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+      this.handleSubmit(event)
+    }
   }
 
   handleSubmit(event) {
     event.preventDefault()
+    this.typed.reset()
     if (
-      this.state.value === this.props.question.plotAnswer &&
-      this.state.idx <= 3
+      this.state.answer ===
+        this.props.allQs[this.state.questionIdx].plotAnswer &&
+      this.state.questionIdx <= 3
     ) {
-      alert(this.props.question.successText)
       this.setState({
-        idx: this.state.idx + 1,
-        showPrompt: false,
-        showQuestion: true
+        displayMessage: this.props.allQs[this.state.questionIdx].successText,
+        questionIdx: this.state.questionIdx + 1,
+        answer: '',
+        clue: this.props.allQs[this.state.questionIdx].clue
+      })
+    } else if (
+      this.state.answer ===
+        this.props.allQs[this.state.questionIdx].plotAnswer &&
+      this.state.questionIdx === 4
+    ) {
+      this.setState({
+        displayMessage: this.props.allQs[this.state.questionIdx].successText
       })
     } else {
-      alert('❗Access Prohibited❗')
+      this.setState({
+        displayMessage: "That isn't quite right. Try again?"
+      })
     }
-    this.setState({value: ''})
   }
 
-  handleQuery() {
-    this.setState({
-      showPrompt: true,
-      showQuestion: false
-    })
+  //updating state with code in editor
+  updateCode(newCode) {
+    this.setState({query: newCode})
   }
 
+  //format query to account for '%'
+  formatQuery() {
+    let newQuery = ''
+    let query = this.state.query
+    for (let i = 0; i < query.length; i++) {
+      if (query[i] === '%') {
+        newQuery += '%25'
+      } else {
+        newQuery += query[i]
+      }
+    }
+    this.setState({query: newQuery})
+  }
+
+  //needs to be edited
   async createTable() {
-    let {data} = await Axios.get(`/api/suspects/${this.state.code}`, {
-      params: this.state.code
-    })
-    this.setState({
-      fields: data[1].fields,
-      rows: data[1].rows
-    })
-  }
-
-  hintOnClick(e) {
-    e.preventDefault()
-    this.setState({showHint: !this.state.showHint})
+    let {data} = await Axios.get(`/api/suspects/${this.state.query}`)
+    if (typeof data !== 'string') {
+      this.setState({
+        fields: data[1].fields,
+        rows: data[1].rows,
+        err: ''
+      })
+    } else {
+      this.setState({err: data})
+    }
   }
 
   render() {
     const options = {lineNumbers: true}
-    const theme = {theme: 'the-matrix'}
-
     return (
-      <div className="level-container">
-        <div className="flex-child-left">
-          <div id="text-editor-wrap">
-            <div className="title-bar">
-              <span className="title">🔒Confidential-File - bash - 80x24</span>
-            </div>
-            <div className="text-body">
-              ${' '}
-              {this.props.allQs.length &&
-                this.state.showQuestion && (
-                  <Typed
-                    strings={[this.props.allQs[this.state.idx].prompt]}
-                    typeSpeed={40}
-                  />
-                )}
-              {this.props.allQs.length &&
-                this.state.showPrompt && (
-                  <Typed
-                    strings={[this.props.allQs[this.state.idx].plotQuestion]}
-                    typeSpeed={40}
-                  />
-                )}
-            </div>
-            <CodeMirror
-              value={this.state.code}
-              onChange={this.updateCode}
-              options={options}
-              mode={SQL}
-              theme={theme}
-            />
-            <button
-              type="submit"
-              className="button1"
-              onClick={() => {
-                this.createTable()
-                this.handleQuery()
-              }}
-            >
-              Submit Query!
-            </button>
-          </div>
-          <form id="form" onSubmit={this.handleSubmit}>
-            <label>
-              <br />
-              <input
-                type="text"
-                value={this.state.value}
-                onChange={this.handleChange}
-              />
-            </label>
-            <input type="submit" />
-          </form>
-          <form>
-            <button type="submit" onClick={this.hintOnClick}>
-              Hint
-            </button>
-            <div>
-              {this.state.showHint ? (
-                <div>{this.props.question.hint}</div>
-              ) : null}
-            </div>
-          </form>
-        </div>
+      <div>
+        <div id="clock">{clock()}</div>
 
-        <div className="flex-child-right">
-          <div id="textbox-table">
-            <Table fields={this.state.fields} rows={this.state.rows} />
+        <div className="level-container">
+          {/* flex left */}
+          <div className="item flex-child-left">
+            <div id="text-editor-wrap">
+              <div className="title-bar">
+                <span className="title">
+                  🔒Confidential-File - bash - 80x24
+                </span>
+              </div>
+              <div className="text-body">
+                {this.props.allQs.length && (
+                  <Typed
+                    strings={['$ ' + this.state.displayMessage]}
+                    typedRef={typed => {
+                      this.typed = typed
+                    }}
+                    typeSpeed={35}
+                  />
+                )}
+                <br />
+              </div>
+              <button
+                type="submit"
+                onClick={() => {
+                  this.typed.reset()
+                  this.setState({
+                    displayMessage: this.props.allQs[this.state.questionIdx]
+                      .hint
+                  })
+                }}
+              >
+                Teach me
+              </button>
+            </div>
+            <form id="form">
+              <label>
+                <br />
+                <input
+                  type="text"
+                  value={this.state.answer}
+                  onChange={this.handleChange}
+                  onKeyDown={this.enterKeyDown}
+                />
+              </label>
+            </form>
           </div>
-          <Countdown date={Date.now() + 10000} renderer={clockRenderer} />
+
+          {/* flex right */}
+          <div className="item flex-child-right">
+            <div id="textbox-table">
+              {this.state.err ? (
+                <div />
+              ) : (
+                <Table fields={this.state.fields} rows={this.state.rows} />
+              )}
+            </div>
+            <CodeEditor
+              options={options}
+              updateCode={this.updateCode}
+              formatQuery={this.formatQuery}
+              createTable={this.createTable}
+              handleQuery={this.handleQuery}
+            />
+          </div>
         </div>
       </div>
     )
@@ -176,11 +202,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    fetchQuestion: () => {
-      dispatch(fetchQuestion())
-    },
-    getAllQuestions: () => {
-      dispatch(getAllQuestions())
+    getLevelThreeQuestions: () => {
+      dispatch(getLevelThreeQuestions())
     }
   }
 }
