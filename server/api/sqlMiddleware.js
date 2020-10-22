@@ -28,6 +28,7 @@ const sqlMiddleware = (req, res, next) => {
     .toLowerCase()
     .trim()
   req.params.query = query
+  console.log('query: ', req.params.query)
   if (query[query.length - 1] !== ';') {
     res.send("Don't forget your semicolon!")
   } else next()
