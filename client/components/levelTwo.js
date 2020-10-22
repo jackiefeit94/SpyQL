@@ -6,6 +6,7 @@ import Popup from 'react-animated-popup'
 import Axios from 'axios'
 import Table from './table'
 import {getLevelTwoQuestions} from '../store/questionStore'
+import clock from './clock'
 
 class LevelTwo extends React.Component {
   constructor(props) {
@@ -25,6 +26,7 @@ class LevelTwo extends React.Component {
     this.formatQuery = this.formatQuery.bind(this)
     this.handleQuery = this.handleQuery.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.enterKeyDown = this.enterKeyDown.bind(this)
   }
 
   componentDidMount() {
@@ -90,13 +92,23 @@ class LevelTwo extends React.Component {
     this.setState({answer: event.target.value})
   }
 
+  enterKeyDown(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+      alert('No handleSubmit yet!')
+      this.handleSubmit(event)
+    }
+  }
+
   render() {
     const options = {lineNumbers: true}
     return (
-      <div className="level-container">
-        {/* flex left */}
-        <div className="flex-child-left">
-          <div>
+      <div>
+        <div id="clock">{clock()}</div>
+
+        <div className="level-container">
+          {/* flex left */}
+          <div className="item flex-child-left">
             <div id="text-editor-wrap">
               <div className="title-bar">
                 <span className="title">
@@ -114,21 +126,7 @@ class LevelTwo extends React.Component {
                   />
                 )}
               </div>
-              <CodeEditor
-                options={options}
-                updateCode={this.updateCode}
-                formatQuery={this.formatQuery}
-                createTable={this.createTable}
-                id={this.state.questionIdx}
-                handleQuery={this.handleQuery}
-              />
 
-              <button
-                type="submit"
-                onClick={() => this.setState({visible: !this.state.visible})}
-              >
-                Teach me
-              </button>
               {this.props.allQs.length && (
                 <Popup
                   visible={this.state.visible}
@@ -146,18 +144,40 @@ class LevelTwo extends React.Component {
                   )}
                 </Popup>
               )}
+              <form id="form">
+                <input
+                  type="text"
+                  value={this.state.answer}
+                  onChange={this.handleChange}
+                  onKeyDown={this.enterKeyDown}
+                />
+              </form>
             </div>
           </div>
-        </div>
+          {/* flex right */}
+          <div className="item flex-child-right">
+            <div id="textbox-table">
+              {this.state.err ? (
+                <div />
+              ) : (
+                <Table fields={this.state.fields} rows={this.state.rows} />
+              )}
+            </div>
 
-        {/* flex right */}
-        <div className="flex-child-right">
-          <div id="textbox-table">
-            {this.state.err ? (
-              <div />
-            ) : (
-              <Table fields={this.state.fields} rows={this.state.rows} />
-            )}
+            <CodeEditor
+              options={options}
+              updateCode={this.updateCode}
+              formatQuery={this.formatQuery}
+              createTable={this.createTable}
+              id={this.state.questionIdx}
+              handleQuery={this.handleQuery}
+            />
+            <button
+              type="submit"
+              onClick={() => this.setState({visible: !this.state.visible})}
+            >
+              Teach me
+            </button>
           </div>
         </div>
       </div>
