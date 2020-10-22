@@ -2,7 +2,6 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {CodeEditor} from './CodeEditor'
 import Typed from 'react-typed'
-import Popup from 'react-animated-popup'
 import Axios from 'axios'
 import Table from './table'
 import {getLevelTwoQuestions} from '../store/questionStore'
@@ -26,7 +25,6 @@ class LevelTwo extends React.Component {
     this.formatQuery = this.formatQuery.bind(this)
     this.handleQuery = this.handleQuery.bind(this)
     this.handleChange = this.handleChange.bind(this)
-    this.enterKeyDown = this.enterKeyDown.bind(this)
   }
 
   componentDidMount() {
@@ -92,14 +90,6 @@ class LevelTwo extends React.Component {
     this.setState({answer: event.target.value})
   }
 
-  enterKeyDown(event) {
-    if (event.key === 'Enter') {
-      event.preventDefault()
-      alert('No handleSubmit yet!')
-      this.handleSubmit(event)
-    }
-  }
-
   render() {
     const options = {lineNumbers: true}
     return (
@@ -126,32 +116,6 @@ class LevelTwo extends React.Component {
                   />
                 )}
               </div>
-
-              {this.props.allQs.length && (
-                <Popup
-                  visible={this.state.visible}
-                  onClose={() => this.setState({visible: false})}
-                >
-                  {this.props.allQs[this.state.questionIdx] ? (
-                    <p>
-                      <img
-                        id="hint"
-                        src={this.props.allQs[this.state.questionIdx].hint}
-                      />
-                    </p>
-                  ) : (
-                    <p />
-                  )}
-                </Popup>
-              )}
-              <form id="form">
-                <input
-                  type="text"
-                  value={this.state.answer}
-                  onChange={this.handleChange}
-                  onKeyDown={this.enterKeyDown}
-                />
-              </form>
             </div>
           </div>
           {/* flex right */}
@@ -173,10 +137,11 @@ class LevelTwo extends React.Component {
               handleQuery={this.handleQuery}
             />
             <button
+              className="hint-button"
               type="submit"
               onClick={() => this.setState({visible: !this.state.visible})}
             >
-              Teach me
+              ?
             </button>
           </div>
         </div>

@@ -20,8 +20,7 @@ class LevelOne extends React.Component {
         We’ve come up with a list of suspects, so your first task will be to find that list and examine it.`,
       questionIdx: 0,
       answer: '',
-      clue: '',
-      visible: false
+      clue: ''
     }
 
     this.updateCode = this.updateCode.bind(this)
