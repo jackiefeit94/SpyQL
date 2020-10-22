@@ -2,10 +2,10 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {CodeEditor} from './CodeEditor'
 import Typed from 'react-typed'
-import Popup from 'react-animated-popup'
 import Axios from 'axios'
 import Table from './table'
 import {getLevelTwoQuestions} from '../store/questionStore'
+import clock from './clock'
 
 class LevelTwo extends React.Component {
   constructor(props) {
@@ -93,10 +93,12 @@ class LevelTwo extends React.Component {
   render() {
     const options = {lineNumbers: true}
     return (
-      <div className="level-container">
-        {/* flex left */}
-        <div className="flex-child-left">
-          <div>
+      <div>
+        <div id="clock">{clock()}</div>
+
+        <div className="level-container">
+          {/* flex left */}
+          <div className="item flex-child-left">
             <div id="text-editor-wrap">
               <div className="title-bar">
                 <span className="title">
@@ -114,50 +116,33 @@ class LevelTwo extends React.Component {
                   />
                 )}
               </div>
-              <CodeEditor
-                options={options}
-                updateCode={this.updateCode}
-                formatQuery={this.formatQuery}
-                createTable={this.createTable}
-                id={this.state.questionIdx}
-                handleQuery={this.handleQuery}
-              />
-
-              <button
-                type="submit"
-                onClick={() => this.setState({visible: !this.state.visible})}
-              >
-                Teach me
-              </button>
-              {this.props.allQs.length && (
-                <Popup
-                  visible={this.state.visible}
-                  onClose={() => this.setState({visible: false})}
-                >
-                  {this.props.allQs[this.state.questionIdx] ? (
-                    <p>
-                      <img
-                        id="hint"
-                        src={this.props.allQs[this.state.questionIdx].hint}
-                      />
-                    </p>
-                  ) : (
-                    <p />
-                  )}
-                </Popup>
-              )}
             </div>
           </div>
-        </div>
+          {/* flex right */}
+          <div className="item flex-child-right">
+            <div id="textbox-table">
+              {this.state.err ? (
+                <div />
+              ) : (
+                <Table fields={this.state.fields} rows={this.state.rows} />
+              )}
+            </div>
 
-        {/* flex right */}
-        <div className="flex-child-right">
-          <div id="textbox-table">
-            {this.state.err ? (
-              <div />
-            ) : (
-              <Table fields={this.state.fields} rows={this.state.rows} />
-            )}
+            <CodeEditor
+              options={options}
+              updateCode={this.updateCode}
+              formatQuery={this.formatQuery}
+              createTable={this.createTable}
+              id={this.state.questionIdx}
+              handleQuery={this.handleQuery}
+            />
+            <button
+              className="hint-button"
+              type="submit"
+              onClick={() => this.setState({visible: !this.state.visible})}
+            >
+              ?
+            </button>
           </div>
         </div>
       </div>

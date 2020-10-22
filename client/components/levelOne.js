@@ -145,46 +145,31 @@ class LevelOne extends React.Component {
                     typeSpeed={35}
                   />
                 )}
-                <br />
-                {this.state.clue.length > 0 && (
-                  <button
-                    type="submit"
-                    onClick={() => {
-                      this.typed.reset()
-                      this.setState({
-                        displayMessage: this.props.allQs[this.state.questionIdx]
-                          .prompt,
-                        clue: ''
-                      })
-                    }}
-                  >
-                    <img id="clue" src={this.state.clue} />
-                  </button>
-                )}
               </div>
-              <button
-                type="submit"
-                onClick={() => {
-                  this.typed.reset()
-                  this.setState({
-                    displayMessage: this.props.allQs[this.state.questionIdx]
-                      .hint
-                  })
-                }}
-              >
-                Teach me
-              </button>
+              {this.state.clue.length > 0 && (
+                <button
+                  type="submit"
+                  onClick={() => {
+                    this.typed.reset()
+                    this.setState({
+                      displayMessage: this.props.allQs[this.state.questionIdx]
+                        .prompt,
+                      clue: ''
+                    })
+                  }}
+                >
+                  <img id="clue" src={this.state.clue} />
+                </button>
+              )}
+
             </div>
             <form id="form">
-              <label>
-                <br />
-                <input
-                  type="text"
-                  value={this.state.answer}
-                  onChange={this.handleChange}
-                  onKeyDown={this.enterKeyDown}
-                />
-              </label>
+              <input
+                type="text"
+                value={this.state.answer}
+                onChange={this.handleChange}
+                onKeyDown={this.enterKeyDown}
+              />
             </form>
           </div>
 
@@ -197,6 +182,18 @@ class LevelOne extends React.Component {
                 <Table fields={this.state.fields} rows={this.state.rows} />
               )}
             </div>
+            <button
+              className="hint-button"
+              type="submit"
+              onClick={() => {
+                this.typed.reset()
+                this.setState({
+                  displayMessage: this.props.allQs[this.state.questionIdx].hint
+                })
+              }}
+            >
+              ?
+            </button>
             <CodeEditor
               options={options}
               updateCode={this.updateCode}
