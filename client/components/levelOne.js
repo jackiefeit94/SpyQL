@@ -161,7 +161,6 @@ class LevelOne extends React.Component {
                   <img id="clue" src={this.state.clue} />
                 </button>
               )}
-
             </div>
             <form id="form">
               <input
@@ -192,7 +191,7 @@ class LevelOne extends React.Component {
                 })
               }}
             >
-              ?
+              Query Hint
             </button>
             <CodeEditor
               options={options}

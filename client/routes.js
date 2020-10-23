@@ -1,6 +1,13 @@
 import React, {Component} from 'react'
 import {withRouter, Route, Switch} from 'react-router-dom'
-import {Home, LevelOne, LevelTwo, LevelThree, GameOver} from './components'
+import {
+  Home,
+  LevelOne,
+  LevelTwo,
+  LevelThree,
+  GameOver,
+  Victory
+} from './components'
 
 /**
  * COMPONENT
@@ -16,6 +23,7 @@ class Routes extends Component {
         <Route path="/levelTwo" component={LevelTwo} />
         <Route path="/levelThree" component={LevelThree} />
         <Route path="/gameover" component={GameOver} />
+        <Route path="/victory" component={Victory} />
       </Switch>
     )
   }

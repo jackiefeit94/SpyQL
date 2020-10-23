@@ -6,6 +6,7 @@ import clock from './clock'
 import {CodeEditor} from './CodeEditor'
 import Typed from 'react-typed'
 import {getLevelThreeQuestions} from '../store/questionStore'
+import history from '../history'
 
 class LevelThree extends React.Component {
   constructor(props) {
@@ -74,6 +75,7 @@ class LevelThree extends React.Component {
         this.props.allQs[this.state.questionIdx].plotAnswer &&
       this.state.questionIdx === 4
     ) {
+      history.push('/victory')
       this.setState({
         displayMessage: this.props.allQs[this.state.questionIdx].successText
       })
