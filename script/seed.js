@@ -2,14 +2,20 @@
 
 const db = require('../server/db')
 const {Suspect, Guest, Alibi} = require('../server/db/models')
-const {seedSuspects, seedAlibis, seedGuests} = require('./data')
+const {seedSuspects, seedGuests} = require('./data')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
   const suspects = await Promise.all(seedSuspects.map(el => Suspect.create(el)))
-  const alibis = await Promise.all(seedAlibis.map(el => Alibi.create(el)))
+  await Alibi.create({id: 1, place: 'Block Party'})
+  await Alibi.create({id: 2, place: 'Barn Joo Restaurant'})
+  await Alibi.create({id: 3, place: 'Museum of Natural History Exhibit'})
+  await Alibi.create({id: 4, place: 'Greats of Craft Bar'})
+  await Alibi.create({id: 5, place: 'PSY 101, Hunter College'})
+  await Alibi.create({id: 6, place: 'Blink Gym Yoga Class'})
+
   const guests = await Promise.all(seedGuests.map(el => Guest.create(el)))
 
   const partyAlibi = await Alibi.findByPk(1)
@@ -19,18 +25,19 @@ async function seed() {
   const classAlibi = await Alibi.findByPk(5)
   const yogaAlibi = await Alibi.findByPk(6)
 
-  const alibiArray = [
-    partyAlibi,
-    restoAlibi,
-    museumAlibi,
-    barAlibi,
-    classAlibi,
-    yogaAlibi
-  ]
+  const alibiArray = [restoAlibi, museumAlibi, barAlibi, classAlibi, yogaAlibi]
 
   //placing guilty suspects at block party
-  const guiltyOne = await Suspect.findByPk(4)
-  const guiltyTwo = await Suspect.findByPk(8)
+  const guiltyOne = await Suspect.findOne({
+    where: {
+      last_name: 'Brottslig'
+    }
+  })
+  const guiltyTwo = await Suspect.findOne({
+    where: {
+      last_name: 'Verbrecher'
+    }
+  })
 
   await guiltyOne.setAlibi(partyAlibi)
   await guiltyTwo.setAlibi(partyAlibi)
@@ -58,7 +65,7 @@ async function seed() {
     })
   }
 
-  //assigning party-goer alibis
+  //assigning party-goer dates
   let counter = 17
   for (let i = 1; i <= 8; i++) {
     let guest = await Guest.findByPk(i)
@@ -68,11 +75,20 @@ async function seed() {
     counter = counter - 1
   }
 
-  console.log(
-    `seeded ${suspects.length} suspects, ${alibis.length} alibis, and ${
-      guests.length
-    } guests`
-  )
+  let allSuspects = await Suspect.findAll({
+    include: [Alibi]
+  })
+  console.log('suspects: ', allSuspects.length)
+  function getRandom(min, max) {
+    return Math.floor(Math.random() * (max - min) + min)
+  }
+  for (let i = 0; i < allSuspects.length; i++) {
+    let num = getRandom(0, alibiArray.length)
+    console.log('num: ', num)
+    if (allSuspects[i].alibiId === null) {
+      await allSuspects[i].setAlibi(alibiArray[num])
+    }
+  }
   console.log(`seeded successfully`)
 }
 

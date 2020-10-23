@@ -35,22 +35,49 @@ const allowed = [
   'by'
 ]
 
+const indices = ['alibiId', 'suspectId', 'guestId']
+
 //middleware to parse query
 const sqlMiddleware = (req, res, next) => {
-  //split on new line
-  let query = req.params.query.split('/\r?\n/')
-  query.forEach((word, i) => {
+  let query = req.params.query
+  //handle quotes for joins
+  for (let i = 0; i < indices.length; i++) {
+    while (query.indexOf(indices[i]) !== -1) {
+      let frontIndex = req.params.query.indexOf(indices[i])
+      let backIndex = frontIndex + indices[i].length + 1
+      query = req.params.query.split('')
+      query.splice(frontIndex, 0, '"')
+      query.splice(backIndex, 0, '"')
+    }
+  }
+  //if encountered quotes, join string back together
+  if (Array.isArray(query)) {
+    query = query.join('')
+  }
+  //split on new line and trim
+  let newQuery = query.split('\n')
+  newQuery = newQuery.map(line => {
+    return line.trim()
+  })
+
+  //join on new line and split on space
+  newQuery = newQuery.join(' ')
+  newQuery = newQuery.split(' ')
+
+  newQuery.forEach((word, i) => {
+    word = word.trim()
     if (
       allowed.includes(word.toLowerCase()) ||
       prohibited.includes(word.toLowerCase())
     ) {
-      query[i] = word.toLowerCase()
+      newQuery[i] = word.toLowerCase()
     }
   })
   //join on space and trim
-  query = query.join(' ').trim()
-  req.params.query = query
-  if (query[query.length - 1] !== ';') {
+  newQuery = newQuery.join(' ').trim()
+
+  req.params.query = newQuery.trim()
+  if (newQuery[newQuery.length - 1] !== ';') {
     res.send("Don't forget your semicolon!")
   } else next()
 }

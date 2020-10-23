@@ -351,27 +351,6 @@ const seedSuspects = [
   }
 ]
 
-const seedAlibis = [
-  {
-    location: 'Block Party'
-  },
-  {
-    location: 'Barn Joo Restaurant'
-  },
-  {
-    location: 'Museum of Natural History Exhibit'
-  },
-  {
-    location: 'Greats of Craft Bar'
-  },
-  {
-    location: 'PSY 101, Hunter College'
-  },
-  {
-    location: 'Blink Gym Yoga Class'
-  }
-]
-
 const seedGuests = [
   {
     first_name: 'Mr.',
@@ -403,4 +382,4 @@ const seedGuests = [
   }
 ]
 
-module.exports = {seedSuspects, seedGuests, seedAlibis}
+module.exports = {seedSuspects, seedGuests}

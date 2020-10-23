@@ -5,17 +5,17 @@ const Table = props => {
     <table id="scroll">
       <tbody>
         <tr>
-          {props.fields.map(column => {
+          {props.fields.map((column, i) => {
             if (column.name !== 'createdAt' && column.name !== 'updatedAt')
-              return <th key={column.columnID}>{column.name}</th>
+              return <th key={i}>{column.name}</th>
           })}
         </tr>
         {props.rows.map(row => {
           return (
             <tr key={row.id}>
-              {props.fields.map(column => {
+              {props.fields.map((column, i) => {
                 if (column.name !== 'createdAt' && column.name !== 'updatedAt')
-                  return <td key={column.columnID}>{row[column.name]}</td>
+                  return <td key={i}>{row[column.name]}</td>
               })}
             </tr>
           )

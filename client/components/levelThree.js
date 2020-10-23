@@ -16,7 +16,6 @@ class LevelThree extends React.Component {
       query: '',
       err: '',
       displayMessage: `The first thing we need to know is which alibis belong to which suspect.<br><br>
-
       Hurry, there's not much time left!`,
       questionIdx: 0,
       answer: ''
@@ -66,10 +65,12 @@ class LevelThree extends React.Component {
       this.state.questionIdx <= 3
     ) {
       this.setState({
-        displayMessage: this.props.allQs[this.state.questionIdx].successText,
+        displayMessage:
+          this.props.allQs[this.state.questionIdx].successText +
+          ` \n ` +
+          this.props.allQs[this.state.questionIdx + 1].prompt,
         questionIdx: this.state.questionIdx + 1,
-        answer: '',
-        clue: this.props.allQs[this.state.questionIdx].clue
+        answer: ''
       })
     } else if (
       this.state.answer ===
@@ -98,6 +99,8 @@ class LevelThree extends React.Component {
     for (let i = 0; i < query.length; i++) {
       if (query[i] === '%') {
         newQuery += '%25'
+      } else if (query[i] === '\n') {
+        newQuery += '%0A'
       } else {
         newQuery += query[i]
       }
@@ -108,6 +111,7 @@ class LevelThree extends React.Component {
   //needs to be edited
   async createTable() {
     let {data} = await Axios.get(`/api/suspects/${this.state.query}`)
+    console.log('query: ', this.state.query)
     if (typeof data !== 'string') {
       this.setState({
         fields: data[1].fields,
@@ -197,7 +201,6 @@ class LevelThree extends React.Component {
 
 const mapState = state => {
   return {
-    question: state.question.currentQ,
     allQs: state.question.allQs
   }
 }
