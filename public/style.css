@@ -256,3 +256,13 @@ embed {
 #app {
   margin: auto;
 }
+
+/* victory screen */
+#victory {
+  background-image: url('https://media.giphy.com/media/g9582DNuQppxC/giphy.gif');
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+}

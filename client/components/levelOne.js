@@ -205,7 +205,7 @@ class LevelOne extends React.Component {
                 })
               }}
             >
-              ?
+              Query Hint
             </button>
             <CodeEditor
               options={options}
