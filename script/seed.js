@@ -12,6 +12,62 @@ async function seed() {
   const alibis = await Promise.all(seedAlibis.map(el => Alibi.create(el)))
   const guests = await Promise.all(seedGuests.map(el => Guest.create(el)))
 
+  const partyAlibi = await Alibi.findByPk(1)
+  const restoAlibi = await Alibi.findByPk(2)
+  const museumAlibi = await Alibi.findByPk(3)
+  const barAlibi = await Alibi.findByPk(4)
+  const classAlibi = await Alibi.findByPk(5)
+  const yogaAlibi = await Alibi.findByPk(6)
+
+  const alibiArray = [
+    partyAlibi,
+    restoAlibi,
+    museumAlibi,
+    barAlibi,
+    classAlibi,
+    yogaAlibi
+  ]
+
+  //placing guilty suspects at block party
+  const guiltyOne = await Suspect.findByPk(4)
+  const guiltyTwo = await Suspect.findByPk(8)
+
+  await guiltyOne.setAlibi(partyAlibi)
+  await guiltyTwo.setAlibi(partyAlibi)
+
+  await Guest.create({
+    first_name: guiltyOne.first_name,
+    last_name: guiltyOne.last_name,
+    suspectId: guiltyOne.id
+  })
+
+  await Guest.create({
+    first_name: guiltyTwo.first_name,
+    last_name: guiltyTwo.last_name,
+    suspectId: guiltyTwo.id
+  })
+
+  //creating guests
+  for (let i = 9; i < 17; i++) {
+    let currentSuspect = await Suspect.findByPk(i)
+    await currentSuspect.setAlibi(partyAlibi)
+    await Guest.create({
+      first_name: currentSuspect.first_name,
+      last_name: currentSuspect.last_name,
+      suspectId: currentSuspect.id
+    })
+  }
+
+  //assigning party-goer alibis
+  let counter = 17
+  for (let i = 1; i <= 8; i++) {
+    let guest = await Guest.findByPk(i)
+    let date = await Guest.findByPk(counter)
+    await guest.setDate(date)
+    await date.setDate(guest)
+    counter = counter - 1
+  }
+
   console.log(
     `seeded ${suspects.length} suspects, ${alibis.length} alibis, and ${
       guests.length

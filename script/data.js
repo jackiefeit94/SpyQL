@@ -353,44 +353,22 @@ const seedSuspects = [
 
 const seedAlibis = [
   {
-    location: 'Block Party',
-    date: new Date(Date.UTC(2020, 0, 1))
+    location: 'Block Party'
   },
   {
-    location: 'Block Party',
-    date: new Date(Date.UTC(2020, 0, 1))
+    location: 'Barn Joo Restaurant'
   },
   {
-    location: 'Block Party',
-    date: new Date(Date.UTC(2020, 0, 1))
+    location: 'Museum of Natural History Exhibit'
   },
   {
-    location: 'Block Party',
-    date: new Date(Date.UTC(2020, 0, 1))
+    location: 'Greats of Craft Bar'
   },
   {
-    location: 'Block Party',
-    date: new Date(Date.UTC(2020, 0, 1))
+    location: 'PSY 101, Hunter College'
   },
   {
-    location: 'Barn Joo Restaurant',
-    date: new Date(Date.UTC(2020, 0, 1))
-  },
-  {
-    location: 'Museum of Natural History Exhibit',
-    date: new Date(Date.UTC(2020, 0, 1))
-  },
-  {
-    location: 'Greats of Craft Bar',
-    date: new Date(Date.UTC(2020, 0, 1))
-  },
-  {
-    location: 'PSY 101, Hunter College',
-    date: new Date(Date.UTC(2020, 0, 1))
-  },
-  {
-    location: 'Blink Gym Yoga Class',
-    date: new Date(Date.UTC(2020, 0, 1))
+    location: 'Blink Gym Yoga Class'
   }
 ]
 

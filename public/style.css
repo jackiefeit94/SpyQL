@@ -11,6 +11,11 @@ body {
   padding: 5px;
 }
 
+audio {
+  height: 25px;
+  width: 300px;
+}
+
 a {
   text-decoration: none;
 }
@@ -35,16 +40,32 @@ form div {
 }
 
 .level-container {
-  height: 40vw;
-  padding: 30px;
   display: flex;
-  color: white;
-  font-family: 'Courier New';
+  flex-flow: row wrap;
+  text-align: center;
 }
 
-/* .level-container > * {
-  padding: 20px;
-} */
+.level-container > * {
+  padding: 10px;
+  margin: 10px;
+  flex: 1 100%;
+  border-radius: 10px;
+}
+
+@media (max-width: 800px) {
+  .flex-child-left {
+    order: 1;
+  }
+  .flex-child-right {
+    order: 2;
+  }
+}
+
+@media all and (min-width: 600px) {
+  .item {
+    flex: 1;
+  }
+}
 
 .navbar {
   color: white;
@@ -216,9 +237,9 @@ embed {
   max-width: 100%;
 }
 
-#hint {
-  height: 300px;
-  width: 400px;
+#hint-button {
+  font-family: 'Courier New', EmptyFont2;
+  font-size: 50px;
 }
 
 #clue {
@@ -230,4 +251,8 @@ embed {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+#app {
+  margin: auto;
 }

@@ -1,17 +1,13 @@
 import React from 'react'
-import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {getAllQuestions} from '../store/questionStore'
 
 class Navbar extends React.Component {
-  componentDidMount() {
-    this.props.getAllQuestions()
-  }
-
   render() {
     return (
       <div className="navbar">
-        <h1>SpyQL</h1>
+        <h1>
+          <Link to="/home">SpyQL</Link>
+        </h1>
         <nav>
           <div>
             <Link to="/home">Home</Link>
@@ -25,12 +21,4 @@ class Navbar extends React.Component {
   }
 }
 
-const mapDispatch = dispatch => {
-  return {
-    getAllQuestions: () => {
-      dispatch(getAllQuestions())
-    }
-  }
-}
-
-export default connect(null, mapDispatch)(Navbar)
+export default Navbar
