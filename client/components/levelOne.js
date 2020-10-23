@@ -6,6 +6,8 @@ import clock from './clock'
 import {CodeEditor} from './CodeEditor'
 import Typed from 'react-typed'
 import {getLevelOneQuestions} from '../store/questionStore'
+import history from '../history'
+import KeyboardEventHandler from 'react-keyboard-event-handler'
 
 class LevelOne extends React.Component {
   constructor(props) {
@@ -79,7 +81,8 @@ class LevelOne extends React.Component {
       this.state.questionIdx === 4
     ) {
       this.setState({
-        displayMessage: this.props.allQs[this.state.questionIdx].successText
+        displayMessage: this.props.allQs[this.state.questionIdx].successText,
+        questionIdx: this.state.questionIdx + 1
       })
     } else {
       this.setState({
@@ -162,6 +165,11 @@ class LevelOne extends React.Component {
                 </button>
               )}
             </div>
+            {this.state.questionIdx === 5 ? (
+              <button onClick={() => history.push('/LevelTwo')} type="submit">
+                ✉️
+              </button>
+            ) : null}
             <form id="form">
               <input
                 type="text"
