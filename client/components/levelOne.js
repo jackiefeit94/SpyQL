@@ -109,9 +109,17 @@ class LevelOne extends React.Component {
 
   async createTable() {
     let {data} = await Axios.get(`/api/suspects/${this.state.query}`)
+    let stateFields = data[1].fields
+    let index
+    for (let i = 0; i < data[1].fields.length; i++) {
+      if (data[1].fields[i].name === 'alibiId') {
+        index = i
+      }
+    }
+    stateFields.splice(index, 1)
     if (typeof data !== 'string') {
       this.setState({
-        fields: data[1].fields,
+        fields: stateFields,
         rows: data[1].rows,
         err: ''
       })
@@ -161,7 +169,6 @@ class LevelOne extends React.Component {
                   <img id="clue" src={this.state.clue} />
                 </button>
               )}
-
             </div>
             <form id="form">
               <input

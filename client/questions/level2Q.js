@@ -1,3 +1,10 @@
+const question2Line1 =
+  '(id, location) values: (1, Party) (2, Barn Joo Restaurant)'
+const question2Line2 =
+  '(3, Museum of Natural History Exhibit) (4, Greats of Craft Bar)'
+const question2Line3 =
+  '(5, PSY 101, Hunter College) (6, Blink Gym Yoga Class) (7, null)'
+
 const level2Q = [
   {
     prompt:
@@ -7,11 +14,7 @@ const level2Q = [
     hint: 'https://i.imgur.com/rxPQk9m.png'
   },
   {
-    prompt: `Excellent. Now it’s time to take down all the information we have and put it in our database. Here is the information we need to insert: (id, location) values: (1, Party) (2, Barn Joo Restaurant) <br>
-
-      (3, Museum of Natural History Exhibit) (4, Greats of Craft Bar) (5, PSY 101, Hunter College) <br>
-
-      (6, Blink Gym Yoga Class) (7, null);`,
+    prompt: `Excellent. Now it’s time to take down all the information we have and put it in our database. Here is the information we need to insert: ${question2Line1} <br> ${question2Line2} <br> ${question2Line3};`,
     plotAnswer:
       'insert into alibis (id, location) values: (1, Party) (2, Barn Joo Restaurant) (3, Museum of Natural History Exhibit) (4, Greats of Craft Bar) (5, PSY 101, Hunter College) (6, Blink Gym Yoga Class) (7, null);',
     data: {

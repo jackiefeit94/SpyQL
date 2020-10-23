@@ -35,22 +35,39 @@ const allowed = [
   'by'
 ]
 
+const indices = ['alibiId', 'suspectId', 'guestId']
+
 //middleware to parse query
 const sqlMiddleware = (req, res, next) => {
+  let query = req.params.query
+  //handle quotes for joins
+  for (let i = 0; i < indices.length; i++) {
+    while (query.indexOf(indices[i]) !== -1) {
+      let frontIndex = req.params.query.indexOf(indices[i])
+      let backIndex = frontIndex + indices[i].length + 1
+      query = req.params.query.split('')
+      query.splice(frontIndex, 0, '"')
+      query.splice(backIndex, 0, '"')
+    }
+  }
+  if (Array.isArray(query)) {
+    query = query.join('')
+  }
   //split on new line
-  let query = req.params.query.split('/\r?\n/')
-  query.forEach((word, i) => {
+  let newQuery = query.split(' ')
+  console.log('new query: ', newQuery)
+  newQuery.forEach((word, i) => {
     if (
       allowed.includes(word.toLowerCase()) ||
       prohibited.includes(word.toLowerCase())
     ) {
-      query[i] = word.toLowerCase()
+      newQuery[i] = word.toLowerCase()
     }
   })
   //join on space and trim
-  query = query.join(' ').trim()
-  req.params.query = query
-  if (query[query.length - 1] !== ';') {
+  newQuery = newQuery.join(' ').trim()
+  req.params.query = newQuery
+  if (newQuery[newQuery.length - 1] !== ';') {
     res.send("Don't forget your semicolon!")
   } else next()
 }

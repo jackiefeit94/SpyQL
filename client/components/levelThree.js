@@ -15,7 +15,7 @@ class LevelThree extends React.Component {
       rows: [],
       query: '',
       err: '',
-      displayMessage: `prompt1`,
+      displayMessage: `prompt1 <br>`,
       questionIdx: 0,
       answer: ''
     }
@@ -64,10 +64,12 @@ class LevelThree extends React.Component {
       this.state.questionIdx <= 3
     ) {
       this.setState({
-        displayMessage: this.props.allQs[this.state.questionIdx].successText,
+        displayMessage:
+          this.props.allQs[this.state.questionIdx].successText +
+          ` \n ` +
+          this.props.allQs[this.state.questionIdx + 1].prompt,
         questionIdx: this.state.questionIdx + 1,
-        answer: '',
-        clue: this.props.allQs[this.state.questionIdx].clue
+        answer: ''
       })
     } else if (
       this.state.answer ===
@@ -195,7 +197,6 @@ class LevelThree extends React.Component {
 
 const mapState = state => {
   return {
-    question: state.question.currentQ,
     allQs: state.question.allQs
   }
 }
