@@ -117,6 +117,14 @@ class LevelTwo extends React.Component {
                     typeSpeed={35}
                   />
                 )}
+                {this.state.questionIdx === 5 ? (
+                  <button
+                    onClick={() => history.push('/LevelThree')}
+                    type="submit"
+                  >
+                    ✉️
+                  </button>
+                ) : null}
               </div>
             </div>
           </div>
@@ -143,7 +151,7 @@ class LevelTwo extends React.Component {
               type="submit"
               onClick={() => this.setState({visible: !this.state.visible})}
             >
-              ?
+              Query Hint
             </button>
           </div>
         </div>
