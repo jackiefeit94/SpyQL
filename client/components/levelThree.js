@@ -15,7 +15,8 @@ class LevelThree extends React.Component {
       rows: [],
       query: '',
       err: '',
-      displayMessage: `prompt1 <br>`,
+      displayMessage: `The first thing we need to know is which alibis belong to which suspect.<br><br>
+      Hurry, there's not much time left!`,
       questionIdx: 0,
       answer: ''
     }
