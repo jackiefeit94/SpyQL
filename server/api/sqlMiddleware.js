@@ -50,13 +50,22 @@ const sqlMiddleware = (req, res, next) => {
       query.splice(backIndex, 0, '"')
     }
   }
+  //if encountered quotes, join string back together
   if (Array.isArray(query)) {
     query = query.join('')
   }
-  //split on new line
-  let newQuery = query.split(' ')
-  console.log('new query: ', newQuery)
+  //split on new line and trim
+  let newQuery = query.split('\n')
+  newQuery = newQuery.map(line => {
+    return line.trim()
+  })
+
+  //join on new line and split on space
+  newQuery = newQuery.join(' ')
+  newQuery = newQuery.split(' ')
+
   newQuery.forEach((word, i) => {
+    word = word.trim()
     if (
       allowed.includes(word.toLowerCase()) ||
       prohibited.includes(word.toLowerCase())
@@ -66,7 +75,8 @@ const sqlMiddleware = (req, res, next) => {
   })
   //join on space and trim
   newQuery = newQuery.join(' ').trim()
-  req.params.query = newQuery
+
+  req.params.query = newQuery.trim()
   if (newQuery[newQuery.length - 1] !== ';') {
     res.send("Don't forget your semicolon!")
   } else next()

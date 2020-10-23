@@ -100,6 +100,8 @@ class LevelOne extends React.Component {
     for (let i = 0; i < query.length; i++) {
       if (query[i] === '%') {
         newQuery += '%25'
+      } else if (query[i] === '\n') {
+        newQuery += '%0A'
       } else {
         newQuery += query[i]
       }
@@ -109,17 +111,21 @@ class LevelOne extends React.Component {
 
   async createTable() {
     let {data} = await Axios.get(`/api/suspects/${this.state.query}`)
-    let stateFields = data[1].fields
     let index
-    for (let i = 0; i < data[1].fields.length; i++) {
-      if (data[1].fields[i].name === 'alibiId') {
-        index = i
+    if (data[1].fields) {
+      for (let i = 0; i < data[1].fields.length; i++) {
+        if (data[1].fields[i].name === 'alibiId') {
+          index = i
+        }
+      }
+
+      if (index !== undefined) {
+        data[1].fields.splice(index, 1)
       }
     }
-    stateFields.splice(index, 1)
     if (typeof data !== 'string') {
       this.setState({
-        fields: stateFields,
+        fields: data[1].fields,
         rows: data[1].rows,
         err: ''
       })

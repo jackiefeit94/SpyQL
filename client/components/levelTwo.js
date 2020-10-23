@@ -43,6 +43,8 @@ class LevelTwo extends React.Component {
     for (let i = 0; i < query.length; i++) {
       if (query[i] === '%') {
         newQuery += '%25'
+      } else if (query[i] === '\n') {
+        newQuery += '%0A'
       } else {
         newQuery += query[i]
       }

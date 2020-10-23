@@ -98,6 +98,8 @@ class LevelThree extends React.Component {
     for (let i = 0; i < query.length; i++) {
       if (query[i] === '%') {
         newQuery += '%25'
+      } else if (query[i] === '\n') {
+        newQuery += '%0A'
       } else {
         newQuery += query[i]
       }
@@ -108,6 +110,7 @@ class LevelThree extends React.Component {
   //needs to be edited
   async createTable() {
     let {data} = await Axios.get(`/api/suspects/${this.state.query}`)
+    console.log('query: ', this.state.query)
     if (typeof data !== 'string') {
       this.setState({
         fields: data[1].fields,
