@@ -2,48 +2,64 @@ const level2Q = [
   {
     prompt:
       'We’ve got our list of suspects narrowed down. Let’s make a new table so we can start recording alibis…',
-    plotAnswer: 'create table alibis (id integer primary key, location text);',
+    plotAnswer: 'create table alibis (id integer primary key, place text);',
     data: {fields: [{name: 'id'}, {name: 'location'}], rows: []},
-    hint: 'https://i.imgur.com/rxPQk9m.png'
+    hint: `CREATE table table_name (column_name column_type, column_name column_type);<br><br>
+
+    Let's call the table alibis.<br><br>
+
+    Here, the information we need after CREATE table is (id integer PRIMARY KEY, place TEXT)`
   },
   {
-    prompt: `Excellent. Now it’s time to take down all the information we have and put it in our database. Here is the information we need to insert: (id, location) values: (1, Party) (2, Barn Joo Restaurant) <br>
+    prompt: `Excellent. Now it’s time to take down all the information we have and put it in our database. Here is the information we need to insert: (id, place) values: (1, Party) (2, Barn Joo Restaurant) <br>
 
       (3, Museum of Natural History Exhibit) (4, Greats of Craft Bar) (5, PSY 101, Hunter College) <br>
 
       (6, Blink Gym Yoga Class) (7, null);`,
     plotAnswer:
-      'insert into alibis (id, location) values: (1, Party) (2, Barn Joo Restaurant) (3, Museum of Natural History Exhibit) (4, Greats of Craft Bar) (5, PSY 101, Hunter College) (6, Blink Gym Yoga Class) (7, null);',
+      'insert into alibis (id, place) values: (1, Party) (2, Barn Joo Restaurant) (3, Museum of Natural History Exhibit) (4, Greats of Craft Bar) (5, PSY 101, Hunter College) (6, Blink Gym Yoga Class) (7, null);',
     data: {
       fields: [{name: 'id'}, {name: 'location'}],
       rows: [
-        {id: 1, location: 'Party'},
-        {id: 2, location: 'Barn Joo Restaurant'},
-        {id: 3, location: 'Museum of Natural History Exhibit'},
-        {id: 4, location: 'Greats of Craft Bar'},
-        {id: 5, location: 'PSY 101, Hunter College'},
-        {id: 6, location: 'Blink Gym Yoga Class'},
+        {id: 1, place: 'Party'},
+        {id: 2, place: 'Barn Joo Restaurant'},
+        {id: 3, place: 'Museum of Natural History Exhibit'},
+        {id: 4, place: 'Greats of Craft Bar'},
+        {id: 5, place: 'PSY 101, Hunter College'},
+        {id: 6, place: 'Blink Gym Yoga Class'},
         {id: 7}
       ]
     },
-    hint: 'https://i.imgur.com/ZWJz3hB.png'
+    hint: `INSERT INTO table VALUES: (column1_value, column2_value);<br><br>
+
+    The table name is alibis<br><br>
+
+    Here is the information we need to insert after VALUES: (1, Party)<br>
+    (2, Barn Joo Restaurant)<br>
+    (3, Museum of Natural History Exhibit)<br>
+    (4, Greats of Craft Bar)<br>
+    (5, PSY 101, Hunter College)<br>
+    (6, Blink Gym Yoga Class)<br>
+    (7, null);`
   },
   {
     prompt:
       'How did that last one get in there? It’s not so helpful, is it? Let’s get rid of it.',
     plotAnswer: 'delete from alibis where location is null;',
     data: {
-      fields: [{name: 'id'}, {name: 'location'}],
+      fields: [{name: 'id'}, {name: 'place'}],
       rows: [
-        {id: 1, location: 'Party'},
-        {id: 2, location: 'Barn Joo Restaurant'},
-        {id: 3, location: 'Museum of Natural History Exhibit'},
-        {id: 4, location: 'Greats of Craft Bar'},
-        {id: 5, location: 'PSY 101, Hunter College'},
-        {id: 6, location: 'Blink Gym Yoga Class'}
+        {id: 1, place: 'Party'},
+        {id: 2, place: 'Barn Joo Restaurant'},
+        {id: 3, place: 'Museum of Natural History Exhibit'},
+        {id: 4, place: 'Greats of Craft Bar'},
+        {id: 5, place: 'PSY 101, Hunter College'},
+        {id: 6, place: 'Blink Gym Yoga Class'}
       ]
     },
-    hint: 'hint image url'
+    hint: `DELETE FROM table_name WHERE column_name IS NULL;<br><br>
+
+    The table name is alibis and the column name is place.`
   },
 
   {
@@ -51,41 +67,51 @@ const level2Q = [
       'You know what we still need? A place where we can take down the date of all these alibis, in case we come by that information.',
     plotAnswer: 'alter table alibis add column alibi_date date;',
     data: {
-      fields: [{name: 'id'}, {name: 'location'}, {name: 'date'}],
+      fields: [{name: 'id'}, {name: 'place'}, {name: 'alibi_date'}],
       rows: [
-        {id: 1, location: 'Party'},
-        {id: 2, location: 'Barn Joo Restaurant'},
-        {id: 3, location: 'Museum of Natural History Exhibit'},
-        {id: 4, location: 'Greats of Craft Bar'},
-        {id: 5, location: 'PSY 101, Hunter College'},
-        {id: 6, location: 'Blink Gym Yoga Class'}
+        {id: 1, place: 'Party'},
+        {id: 2, place: 'Barn Joo Restaurant'},
+        {id: 3, place: 'Museum of Natural History Exhibit'},
+        {id: 4, place: 'Greats of Craft Bar'},
+        {id: 5, place: 'PSY 101, Hunter College'},
+        {id: 6, place: 'Blink Gym Yoga Class'}
       ]
     },
-    hint: 'hint image url'
+    hint: `ALTER TABLE table_name ADD COLUMN column_name column_type;<br><br>
+
+    The table name is alibis and let's call the new column alibi_date.<br><br>
+
+    The column_type on alibi_date will be DATE.`
   },
   {
     prompt:
       'A witness tells us the party in question was actually a block party. Let’s make sure to take that down.',
-    plotAnswer: 'update alibis set location = ‘block party’ where id = 1;',
+    plotAnswer: 'update alibis set place = ‘block party’ where id = 1;',
     data: {
-      fields: [{name: 'id'}, {name: 'location'}, {name: 'date'}],
+      fields: [{name: 'id'}, {name: 'place'}, {name: 'date'}],
       rows: [
-        {id: 1, location: 'Block Party'},
-        {id: 2, location: 'Barn Joo Restaurant'},
-        {id: 3, location: 'Museum of Natural History Exhibit'},
-        {id: 4, location: 'Greats of Craft Bar'},
-        {id: 5, location: 'PSY 101, Hunter College'},
-        {id: 6, location: 'Blink Gym Yoga Class'}
+        {id: 1, place: 'Block Party'},
+        {id: 2, place: 'Barn Joo Restaurant'},
+        {id: 3, place: 'Museum of Natural History Exhibit'},
+        {id: 4, place: 'Greats of Craft Bar'},
+        {id: 5, place: 'PSY 101, Hunter College'},
+        {id: 6, place: 'Blink Gym Yoga Class'}
       ]
     },
-    hint: 'hint image url'
+    hint: `UPDATE table_name SET column_name = 'new name' WHERE condition;<br><br>
+
+    The table name is alibis and the column name is place. Let's make the new name 'block party'<br><br>
+
+    The condition is WHERE id = 1, or WHERE place = 'party'.`
   },
   {
     prompt:
       'You need to cover your tracks, so let’s learn how to delete a table completely. Be careful! When I say delete, I really mean delete…',
     plotAnswer: 'drop table alibis;',
     data: {fields: [], rows: []},
-    hint: 'hint image url',
+    hint: `DROP TABLE table_name;<br><br>
+
+    The table name is alibis. Yep, it's as simple as that!`,
     successText:
       'And… it’s gone. Don’t worry - a colleague of yours made a copy of all the alibis. Let’s dig into them and see what we can find.'
   }
