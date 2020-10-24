@@ -147,9 +147,12 @@ class LevelTwo extends React.Component {
               handleQuery={this.handleQuery}
             />
             <button
-              className="hint-button"
-              type="submit"
-              onClick={() => this.setState({visible: !this.state.visible})}
+              onClick={() => {
+                this.typed.reset()
+                this.setState({
+                  displayMessage: this.props.allQs[this.state.questionIdx].hint
+                })
+              }}
             >
               Query Hint
             </button>

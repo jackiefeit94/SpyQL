@@ -16,7 +16,9 @@ const prohibited = [
   'set',
   'truncate',
   'update',
-  'add'
+  'add',
+  'column',
+  'table'
 ]
 
 const allowed = [
@@ -32,19 +34,22 @@ const allowed = [
   'right',
   'join',
   'order',
-  'by'
+  'by',
+  'text',
+  'primary',
+  'key'
 ]
 
-const indices = ['alibiId', 'suspectId', 'guestId']
+const quotationIndices = ['alibiId', 'suspectId', 'guestId']
 
 //middleware to parse query
 const sqlMiddleware = (req, res, next) => {
   let query = req.params.query
-  //handle quotes for joins
-  for (let i = 0; i < indices.length; i++) {
-    while (query.indexOf(indices[i]) !== -1) {
-      let frontIndex = req.params.query.indexOf(indices[i])
-      let backIndex = frontIndex + indices[i].length + 1
+  //handle quotes for joins on entire query string
+  for (let i = 0; i < quotationIndices.length; i++) {
+    while (query.indexOf(quotationIndices[i]) !== -1) {
+      let frontIndex = req.params.query.indexOf(quotationIndices[i])
+      let backIndex = frontIndex + quotationIndices[i].length + 1
       query = req.params.query.split('')
       query.splice(frontIndex, 0, '"')
       query.splice(backIndex, 0, '"')
@@ -60,23 +65,24 @@ const sqlMiddleware = (req, res, next) => {
     return line.trim()
   })
 
-  //join on new line and split on space
+  //join on space and split on space
   newQuery = newQuery.join(' ')
   newQuery = newQuery.split(' ')
 
-  newQuery.forEach((word, i) => {
-    word = word.trim()
+  newQuery = newQuery.map(word => {
+    let placeHolderWord = word.trim().toLowerCase()
     if (
-      allowed.includes(word.toLowerCase()) ||
-      prohibited.includes(word.toLowerCase())
+      allowed.includes(placeHolderWord) ||
+      prohibited.includes(placeHolderWord)
     ) {
-      newQuery[i] = word.toLowerCase()
+      word = placeHolderWord
     }
+    return word
   })
   //join on space and trim
-  newQuery = newQuery.join(' ').trim()
-
+  newQuery = newQuery.join(' ')
   req.params.query = newQuery.trim()
+  console.log('req.params.query: ', req.params.query)
   if (newQuery[newQuery.length - 1] !== ';') {
     res.send("Don't forget your semicolon!")
   } else next()
