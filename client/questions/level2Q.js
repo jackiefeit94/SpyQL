@@ -12,11 +12,11 @@ const level2Q = [
   },
   {
     prompt: `Excellent. Now it’s time to take down all the information we have and put it in our database. Here is the information we need to insert: (id, place) values: <br>
-    (1, Party) (2, Barn Joo Restaurant) <br>
-
-      (3, Museum of Natural History Exhibit) (4, Greats of Craft Bar) (5, PSY 101, Hunter College) <br>
-
-      (6, Blink Gym Yoga Class) (7, null);`,
+    (1, Party) <br>
+    (2, Barn Joo Restaurant) <br>
+    (3, Museum of Natural History Exhibit) <br>
+    (4, Greats of Craft Bar) (5, PSY 101, Hunter College) <br>
+    (6, Blink Gym Yoga Class) (7, null);`,
     plotAnswer:
       'insert into alibis (id, place) values: (1, Party) (2, Barn Joo Restaurant) (3, Museum of Natural History Exhibit) (4, Greats of Craft Bar) (5, PSY 101, Hunter College) (6, Blink Gym Yoga Class) (7, null);',
     data: {

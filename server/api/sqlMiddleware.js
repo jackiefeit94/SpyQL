@@ -18,7 +18,9 @@ const prohibited = [
   'update',
   'add',
   'column',
-  'table'
+  'table',
+  'value:',
+  'value'
 ]
 
 const allowed = [
@@ -40,7 +42,7 @@ const allowed = [
   'key'
 ]
 
-const quotationIndices = ['alibiId', 'suspectId', 'guestId']
+const quotationIndices = ['alibiId', 'suspectId', 'guestId', 'dateId']
 
 //middleware to parse query
 const sqlMiddleware = (req, res, next) => {
@@ -55,20 +57,21 @@ const sqlMiddleware = (req, res, next) => {
       query.splice(backIndex, 0, '"')
     }
   }
+
   //if encountered quotes, join string back together
   if (Array.isArray(query)) {
     query = query.join('')
   }
+
   //split on new line and trim
   let newQuery = query.split('\n')
   newQuery = newQuery.map(line => {
     return line.trim()
   })
 
-  //join on space and split on space
+  //join on space and split on space to handle capitalization
   newQuery = newQuery.join(' ')
   newQuery = newQuery.split(' ')
-
   newQuery = newQuery.map(word => {
     let placeHolderWord = word.trim().toLowerCase()
     if (
@@ -79,13 +82,24 @@ const sqlMiddleware = (req, res, next) => {
     }
     return word
   })
+
+  //handle ordering if no order by in query and no join
+  let orderBy = ' order by id '
+  let bool = false
+  if (newQuery.includes('order') || newQuery.includes('join')) {
+    bool = true
+  }
+  newQuery = newQuery.join(' ').trim()
   //join on space and trim
-  newQuery = newQuery.join(' ')
-  req.params.query = newQuery.trim()
-  console.log('req.params.query: ', req.params.query)
   if (newQuery[newQuery.length - 1] !== ';') {
     res.send("Don't forget your semicolon!")
-  } else next()
+  } else if (!bool) {
+    newQuery = newQuery.split(';')
+    req.params.query = newQuery[0] + orderBy + newQuery[1]
+  } else {
+    req.params.query = newQuery
+  }
+  next()
 }
 
 //middleware to prohibit players from altering table

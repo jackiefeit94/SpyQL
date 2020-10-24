@@ -41,7 +41,7 @@ const level1Q = [
       'So we know our suspect must’ve logged in one of these times. Let’s update our search to look for everyone whose activity was between the shortest and longest durations here…',
     plotQuestion:
       'Neat-o. So how many of those suspects are NOT from Manhattan?',
-    plotAnswer: '5',
+    plotAnswer: '3',
     hint: `SELECT * FROM table-name WHERE column-name BETWEEN shortest AND longest;<br><br>
 
 The column name is ‘logged_in_duration’<br><br>
