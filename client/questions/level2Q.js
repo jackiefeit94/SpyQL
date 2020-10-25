@@ -88,9 +88,7 @@ const level2Q = [
   {
     prompt:
       'A witness tells us the party in question was actually a block party. Let’s make sure to take that down.',
-    plotAnswer:
-      `update alibis set place = 'Block Party' where id = 1;` ||
-      `update alibis set place = 'Block Party' where place = 'Party;`,
+    plotAnswer: `update alibis set place = 'Block Party' where place = 'Party';`,
     data: {
       fields: [{name: 'id'}, {name: 'place'}, {name: 'alibi_date'}],
       rows: [
@@ -106,7 +104,7 @@ const level2Q = [
 
     The table name is alibis and the column name is place. Let's make the new name 'block party'<br><br>
 
-    The condition is WHERE id = 1, or WHERE place = 'party'.`
+    The condition is WHERE place = 'party'.`
   },
   {
     prompt:

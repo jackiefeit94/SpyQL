@@ -102,6 +102,54 @@ const sqlMiddleware = (req, res, next) => {
   next()
 }
 
+const levelTwoMiddleware = (req, res, next) => {
+  let query = req.params.query
+  //handle quotes for joins on entire query string
+  for (let i = 0; i < quotationIndices.length; i++) {
+    while (query.indexOf(quotationIndices[i]) !== -1) {
+      let frontIndex = req.params.query.indexOf(quotationIndices[i])
+      let backIndex = frontIndex + quotationIndices[i].length + 1
+      query = req.params.query.split('')
+      query.splice(frontIndex, 0, '"')
+      query.splice(backIndex, 0, '"')
+    }
+  }
+
+  //if encountered quotes, join string back together
+  if (Array.isArray(query)) {
+    query = query.join('')
+  }
+
+  //split on new line and trim
+  let newQuery = query.split('\n')
+  newQuery = newQuery.map(line => {
+    return line.trim()
+  })
+
+  //join on space and split on space to handle capitalization
+  newQuery = newQuery.join(' ')
+  newQuery = newQuery.split(' ')
+  newQuery = newQuery.map(word => {
+    let placeHolderWord = word.trim().toLowerCase()
+    if (
+      allowed.includes(placeHolderWord) ||
+      prohibited.includes(placeHolderWord)
+    ) {
+      word = placeHolderWord
+    }
+    return word
+  })
+
+  newQuery = newQuery.join(' ').trim()
+  //join on space and trim
+  if (newQuery[newQuery.length - 1] !== ';') {
+    res.send("Don't forget your semicolon!")
+  } else {
+    req.params.query = newQuery
+  }
+  next()
+}
+
 //middleware to prohibit players from altering table
 
 const disableMiddleware = (req, res, next) => {
@@ -122,4 +170,4 @@ const disableMiddleware = (req, res, next) => {
   } else next()
 }
 
-module.exports = {sqlMiddleware, disableMiddleware}
+module.exports = {sqlMiddleware, disableMiddleware, levelTwoMiddleware}
