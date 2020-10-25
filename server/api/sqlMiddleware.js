@@ -49,18 +49,12 @@ const sqlMiddleware = (req, res, next) => {
   let query = req.params.query
   //handle quotes for joins on entire query string
   for (let i = 0; i < quotationIndices.length; i++) {
-    while (query.indexOf(quotationIndices[i]) !== -1) {
-      let frontIndex = req.params.query.indexOf(quotationIndices[i])
-      let backIndex = frontIndex + quotationIndices[i].length + 1
-      query = req.params.query.split('')
-      query.splice(frontIndex, 0, '"')
-      query.splice(backIndex, 0, '"')
+    query = query.split(quotationIndices[i])
+    if (query.length > 1) {
+      query = query.join(`"${quotationIndices[i]}"`)
+    } else {
+      query = query.join('')
     }
-  }
-
-  //if encountered quotes, join string back together
-  if (Array.isArray(query)) {
-    query = query.join('')
   }
 
   //split on new line and trim
@@ -104,22 +98,6 @@ const sqlMiddleware = (req, res, next) => {
 
 const levelTwoMiddleware = (req, res, next) => {
   let query = req.params.query
-  //handle quotes for joins on entire query string
-  for (let i = 0; i < quotationIndices.length; i++) {
-    while (query.indexOf(quotationIndices[i]) !== -1) {
-      let frontIndex = req.params.query.indexOf(quotationIndices[i])
-      let backIndex = frontIndex + quotationIndices[i].length + 1
-      query = req.params.query.split('')
-      query.splice(frontIndex, 0, '"')
-      query.splice(backIndex, 0, '"')
-    }
-  }
-
-  //if encountered quotes, join string back together
-  if (Array.isArray(query)) {
-    query = query.join('')
-  }
-
   //split on new line and trim
   let newQuery = query.split('\n')
   newQuery = newQuery.map(line => {

@@ -6,6 +6,7 @@ import Axios from 'axios'
 import Table from './table'
 import {getLevelTwoQuestions} from '../store/questionStore'
 import clock from './clock'
+import history from '../history'
 
 class LevelTwo extends React.Component {
   constructor(props) {
@@ -117,7 +118,7 @@ class LevelTwo extends React.Component {
                     typeSpeed={35}
                   />
                 )}
-                {this.state.questionIdx === 5 ? (
+                {this.state.questionIdx === 6 ? (
                   <button
                     onClick={() => history.push('/LevelThree')}
                     type="submit"

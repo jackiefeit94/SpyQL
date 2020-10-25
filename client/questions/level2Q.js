@@ -102,9 +102,9 @@ const level2Q = [
     },
     hint: `UPDATE table_name SET column_name = 'new name' WHERE condition;<br><br>
 
-    The table name is alibis and the column name is place. Let's make the new name 'block party'<br><br>
+    The table name is alibis and the column name is place. Let's make the new name 'Block Party'<br><br>
 
-    The condition is WHERE place = 'party'.`
+    The condition is WHERE place = 'Party'.`
   },
   {
     prompt:
