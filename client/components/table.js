@@ -4,7 +4,7 @@ const Table = props => {
   //ordering fields and rows for level 3
   let newPropsFields
   let newPropsRows
-
+  console.log('fields: ', props.fields)
   //helper function to order columns properly
   const orderColumns = fields => {
     let newFields = []
