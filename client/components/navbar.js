@@ -26,16 +26,13 @@ const Styles = styled.div`
 `
 
 class Navbar extends React.Component {
-  componentDidMount() {
-    this.props.getLevelOneQuestions()
-    this.props.getLevelTwoQuestions()
-    this.props.getLevelThreeQuestions()
+  constructor(props) {
+    super(props)
   }
-
   render() {
     return (
       <Styles>
-        {this.props.level ? (
+        {this.state.level ? (
           <NavbarBootstrap align="center">
             <NavbarBootstrap.Brand href="/">
               <h1>SpyQL</h1>
@@ -102,12 +99,6 @@ const mapDispatch = dispatch => {
   return {
     getLevelOneQuestions: () => {
       dispatch(getLevelOneQuestions())
-    },
-    getLevelTwoQuestions: () => {
-      dispatch(getLevelTwoQuestions())
-    },
-    getLevelThreeQuestions: () => {
-      dispatch(getLevelThreeQuestions())
     }
   }
 }
