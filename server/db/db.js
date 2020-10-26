@@ -11,8 +11,7 @@ const db = new Sequelize(
 )
 module.exports = db
 
-// This is a global Mocha hook used for resource cleanup.
-// Otherwise, Mocha v4+ does not exit after tests.
+// Global Mocha hook used for resource cleanup.
 if (process.env.NODE_ENV === 'test') {
   after('close database connection', () => db.close())
 }

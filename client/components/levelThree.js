@@ -1,9 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import Axios from 'axios'
+import Typed from 'react-typed'
 import Table from './table'
 import {CodeEditor} from './CodeEditor'
-import Typed from 'react-typed'
 import {getLevelThreeQuestions} from '../store/questionStore'
 import history from '../history'
 
@@ -18,7 +18,8 @@ class LevelThree extends React.Component {
       displayMessage: `The first thing we need to know is which alibis belong to which suspect.<br><br>
       Hurry, there's not much time left!`,
       questionIdx: 0,
-      answer: ''
+      answer: '',
+      submitField: false
     }
 
     this.updateCode = this.updateCode.bind(this)
@@ -34,21 +35,26 @@ class LevelThree extends React.Component {
     this.props.getLevelThreeQuestions()
   }
 
+  /* If player SQL query from code editor results in error
+  display error in terminal, otherwise, move to plot question  */
   handleQuery() {
     this.typed.reset()
     if (this.state.err.length) {
       this.setState({displayMessage: this.state.err})
     } else {
       this.setState({
-        displayMessage: this.props.allQs[this.state.questionIdx].plotQuestion
+        displayMessage: this.props.allQs[this.state.questionIdx].plotQuestion,
+        submitField: true
       })
     }
   }
 
+  /* Track answer submission */
   handleChange(event) {
     this.setState({answer: event.target.value})
   }
 
+  /* Allow players to hit 'enter' to submit answer */
   enterKeyDown(event) {
     if (event.key === 'Enter') {
       event.preventDefault()
@@ -56,9 +62,11 @@ class LevelThree extends React.Component {
     }
   }
 
+  /* Handle plot answer submission, updating display message accordingly */
   handleSubmit(event) {
     event.preventDefault()
     this.typed.reset()
+    /* correct answer and not last question */
     if (
       this.state.answer ===
         this.props.allQs[this.state.questionIdx].plotAnswer &&
@@ -67,11 +75,13 @@ class LevelThree extends React.Component {
       this.setState({
         displayMessage:
           this.props.allQs[this.state.questionIdx].successText +
-          ` \n ` +
+          `<br>` +
           this.props.allQs[this.state.questionIdx + 1].prompt,
         questionIdx: this.state.questionIdx + 1,
-        answer: ''
+        answer: '',
+        submitField: false
       })
+      /* correct answer and last question */
     } else if (
       this.state.answer ===
         this.props.allQs[this.state.questionIdx].plotAnswer &&
@@ -79,8 +89,10 @@ class LevelThree extends React.Component {
     ) {
       history.push('/victory')
       this.setState({
-        displayMessage: this.props.allQs[this.state.questionIdx].successText
+        displayMessage: this.props.allQs[this.state.questionIdx].successText,
+        submitField: false
       })
+      /* incorrect answer */
     } else {
       this.setState({
         displayMessage: "That isn't quite right. Try again?"
@@ -88,12 +100,12 @@ class LevelThree extends React.Component {
     }
   }
 
-  //updating state with code in editor
+  /* updating state with code in editor */
   updateCode(newCode) {
     this.setState({query: newCode})
   }
 
-  //format query to account for '%'
+  /* handle escape chars in api request url */
   formatQuery() {
     let newQuery = ''
     let query = this.state.query
@@ -109,9 +121,11 @@ class LevelThree extends React.Component {
     this.setState({query: newQuery})
   }
 
-  //needs to be edited
+  /* make api request with player's sql query, and generate
+  table based on query */
   async createTable() {
     let {data} = await Axios.get(`/api/suspects/${this.state.query}`)
+    /* handle data returned from backend */
     if (typeof data !== 'string') {
       this.setState({
         fields: data[1].fields,
@@ -130,6 +144,7 @@ class LevelThree extends React.Component {
         <div className="level-container">
           {/* flex left */}
           <div className="item flex-child-left">
+            {/* fake terminal */}
             <div id="text-editor-wrap">
               <div className="title-bar">
                 <span className="title">
@@ -146,32 +161,20 @@ class LevelThree extends React.Component {
                     typeSpeed={35}
                   />
                 )}
-                <br />
               </div>
-              <button
-                type="submit"
-                onClick={() => {
-                  this.typed.reset()
-                  this.setState({
-                    displayMessage: this.props.allQs[this.state.questionIdx]
-                      .hint
-                  })
-                }}
-              >
-                Teach me
-              </button>
+              <br />
+              {this.state.submitField ? (
+                <form id="form">
+                  {'>>'}
+                  <input
+                    type="text"
+                    value={this.state.answer}
+                    onChange={this.handleChange}
+                    onKeyDown={this.enterKeyDown}
+                  />
+                </form>
+              ) : null}
             </div>
-            <form id="form">
-              <label>
-                <br />
-                <input
-                  type="text"
-                  value={this.state.answer}
-                  onChange={this.handleChange}
-                  onKeyDown={this.enterKeyDown}
-                />
-              </label>
-            </form>
           </div>
 
           {/* flex right */}
@@ -195,6 +198,17 @@ class LevelThree extends React.Component {
               createTable={this.createTable}
               handleQuery={this.handleQuery}
             />
+            <button
+              type="submit"
+              onClick={() => {
+                this.typed.reset()
+                this.setState({
+                  displayMessage: this.props.allQs[this.state.questionIdx].hint
+                })
+              }}
+            >
+              Query Hint
+            </button>
           </div>
         </div>
       </div>

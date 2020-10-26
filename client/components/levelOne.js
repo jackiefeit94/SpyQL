@@ -1,9 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import Axios from 'axios'
+import Typed from 'react-typed'
 import Table from './table'
 import {CodeEditor} from './CodeEditor'
-import Typed from 'react-typed'
 import {getLevelOneQuestions} from '../store/questionStore'
 import history from '../history'
 import KeyboardEventHandler from 'react-keyboard-event-handler'
@@ -44,6 +44,8 @@ class LevelOne extends React.Component {
     this.props.getLevelOneQuestions()
   }
 
+  /* If player SQL query from code editor results in error
+  display error in terminal, otherwise, move to plot question  */
   handleQuery() {
     this.typed.reset()
     if (this.state.err.length) {
@@ -56,10 +58,12 @@ class LevelOne extends React.Component {
     }
   }
 
+  /* Track answer submission */
   handleChange(event) {
     this.setState({answer: event.target.value})
   }
 
+  /* Allow players to hit 'enter' to submit answer */
   enterKeyDown(event) {
     if (event.key === 'Enter') {
       event.preventDefault()
@@ -67,9 +71,11 @@ class LevelOne extends React.Component {
     }
   }
 
+  /* Handle plot answer submission, updating display message accordingly */
   handleSubmit(event) {
     event.preventDefault()
     this.typed.reset()
+    /* correct answer and not last question */
     if (
       this.state.answer ===
         this.props.allQs[this.state.questionIdx].plotAnswer &&
@@ -82,6 +88,7 @@ class LevelOne extends React.Component {
         clue: this.props.allQs[this.state.questionIdx].clue,
         submitField: false
       })
+      /* correct answer and last question */
     } else if (
       this.state.answer ===
         this.props.allQs[this.state.questionIdx].plotAnswer &&
@@ -92,6 +99,7 @@ class LevelOne extends React.Component {
         questionIdx: this.state.questionIdx + 1,
         submitField: false
       })
+      /* incorrect answer */
     } else {
       this.setState({
         displayMessage: "That isn't quite right. Try again?"
@@ -99,12 +107,12 @@ class LevelOne extends React.Component {
     }
   }
 
-  //updating state with code in editor
+  /* updating state with code in editor */
   updateCode(newCode) {
     this.setState({query: newCode})
   }
 
-  //format query to account for '%'
+  /* handle escape chars in api request url */
   formatQuery() {
     let newQuery = ''
     let query = this.state.query
@@ -120,20 +128,24 @@ class LevelOne extends React.Component {
     this.setState({query: newQuery})
   }
 
+  /* make api request with player's sql query, and generate
+  table based on query */
   async createTable() {
+    /* make backend request */
     let {data} = await Axios.get(`/api/suspects/${this.state.query}`)
     let index
+    /* remove irrelevant columns in level 1 */
     if (data[1].fields) {
       for (let i = 0; i < data[1].fields.length; i++) {
         if (data[1].fields[i].name === 'alibiId') {
           index = i
         }
       }
-
       if (index !== undefined) {
         data[1].fields.splice(index, 1)
       }
     }
+    /* handle data returned from backend */
     if (typeof data !== 'string') {
       this.setState({
         fields: data[1].fields,
@@ -149,13 +161,10 @@ class LevelOne extends React.Component {
     const options = {lineNumbers: true}
     return (
       <Container>
-        <Row className="text-center">
-          {/* <Col md={{span: 3, offset: 3}}>{clock()}</Col> */}
-        </Row>
-
         <Row className="level-container">
           {/* flex left */}
           <Col className="item flex-child-left">
+            {/* fake terminal */}
             <div id="text-editor-wrap">
               <div className="title-bar">
                 <span className="title">
