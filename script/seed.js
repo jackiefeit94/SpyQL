@@ -8,7 +8,10 @@ async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
+  //seed suspects
   const suspects = await Promise.all(seedSuspects.map(el => Suspect.create(el)))
+
+  //seed alibis
   await Alibi.create({id: 1, place: 'Block Party'})
   await Alibi.create({id: 2, place: 'Barn Joo Restaurant'})
   await Alibi.create({id: 3, place: 'Museum of Natural History Exhibit'})
@@ -16,8 +19,10 @@ async function seed() {
   await Alibi.create({id: 5, place: 'PSY 101, Hunter College'})
   await Alibi.create({id: 6, place: 'Blink Gym Yoga Class'})
 
+  //seed guests
   const guests = await Promise.all(seedGuests.map(el => Guest.create(el)))
 
+  //assign alibis to guests
   const partyAlibi = await Alibi.findByPk(1)
   const restoAlibi = await Alibi.findByPk(2)
   const museumAlibi = await Alibi.findByPk(3)
@@ -42,6 +47,7 @@ async function seed() {
   await guiltyOne.setAlibi(partyAlibi)
   await guiltyTwo.setAlibi(partyAlibi)
 
+  //create final two suspect guests
   await Guest.create({
     first_name: guiltyOne.first_name,
     last_name: guiltyOne.last_name,
@@ -90,9 +96,6 @@ async function seed() {
   console.log(`seeded successfully`)
 }
 
-// We've separated the `seed` function from the `runSeed` function.
-// This way we can isolate the error handling and exit trapping.
-// The `seed` function is concerned only with modifying the database.
 async function runSeed() {
   console.log('seeding...')
   try {
@@ -107,12 +110,6 @@ async function runSeed() {
   }
 }
 
-// Execute the `seed` function, IF we ran this module directly (`node seed`).
-// `Async` functions always return a promise, so we can use `catch` to handle
-// any errors that might occur inside of `seed`.
 if (module === require.main) {
   runSeed()
 }
-
-// we export the seed function for testing purposes (see `./seed.spec.js`)
-module.exports = seed

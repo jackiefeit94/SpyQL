@@ -16,7 +16,6 @@ class Routes extends Component {
   render() {
     return (
       <Switch>
-        {/* Routes placed here are available to all visitors */}
         <Route exact path="/" component={Home} />
         <Route path="/home" component={Home} />
         <Route path="/levelOne" component={LevelOne} />
@@ -29,6 +28,4 @@ class Routes extends Component {
   }
 }
 
-// The `withRouter` wrapper makes sure that updates are not blocked
-// when the url changes
 export default withRouter(Routes)

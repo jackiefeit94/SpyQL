@@ -2,6 +2,8 @@ import React from 'react'
 
 const Table = props => {
   //console.log('props: ', props)
+
+  /* helper function to render table name */
   const getTitle = levelProps => {
     let title
     if (levelProps.level === 1) {
@@ -22,6 +24,7 @@ const Table = props => {
   //   }
   // }
 
+  /* get name of table */
   let title = getTitle(props)
 
   return props.fields.length ? (

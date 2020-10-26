@@ -23,6 +23,7 @@ const prohibited = [
   'value'
 ]
 
+//array of allowed terms
 const allowed = [
   'select',
   'from',
@@ -39,12 +40,15 @@ const allowed = [
   'by',
   'text',
   'primary',
-  'key'
+  'key',
+  'as'
 ]
 
+//handle postgres quotation on mixed-case column names
 const quotationIndices = ['alibiId', 'suspectId', 'guestId', 'dateId']
 
 //middleware to parse query
+
 const sqlMiddleware = (req, res, next) => {
   let query = req.params.query
   //handle quotes for joins on entire query string
@@ -57,13 +61,12 @@ const sqlMiddleware = (req, res, next) => {
     }
   }
 
-  //split on new line and trim
   let newQuery = query.split('\n')
   newQuery = newQuery.map(line => {
     return line.trim()
   })
 
-  //join on space and split on space to handle capitalization
+  //handle capitalization
   newQuery = newQuery.join(' ')
   newQuery = newQuery.split(' ')
   newQuery = newQuery.map(word => {

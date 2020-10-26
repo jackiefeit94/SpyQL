@@ -4,6 +4,7 @@ import level3Q from '../questions/level3Q'
 
 const FETCH_QUESTIONS = 'FETCH_QUESTIONS'
 
+/* action creator */
 const fetchQuestions = (questions, level) => ({
   type: FETCH_QUESTIONS,
   questions,

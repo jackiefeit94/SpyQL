@@ -7,17 +7,14 @@ class GameOver extends React.Component {
   componentDidMount() {
     const options = {
       strings: [
-        'Unfortunately, ^300 you did not stop the breach. ^700 <br> Play again? ^300 <br> Hit ENTER to restart...'
+        `Unfortunately, ^300 you did not stop the breach. ^700 <br>
+        Play again? ^300 <br>
+        Hit ENTER to restart...`
       ],
       startDelay: 1000,
-      typeSpeed: 70,
-      backSpeed: 70
+      typeSpeed: 70
     }
     this.typed = new Typed(this.el, options)
-  }
-
-  componentWillUnmount() {
-    this.typed.destroy()
   }
 
   render() {
@@ -25,7 +22,7 @@ class GameOver extends React.Component {
       <div>
         <KeyboardEventHandler
           handleKeys={['enter', 'return']}
-          onKeyEvent={(key, e) => history.push('/levelOne')}
+          onKeyEvent={() => history.push('/levelOne')}
         />
         <div className="text-editor-home">
           <div className="title-bar">
