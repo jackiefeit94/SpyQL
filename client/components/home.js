@@ -30,12 +30,13 @@ export default class Home extends React.Component {
           handleKeys={['enter', 'return']}
           onKeyEvent={(key, e) => history.push('/levelOne')}
         />
+        <br />
         <div className="text-editor-home">
           <div className="title-bar">
             <span className="title">🔒Confidential-File - bash - 80x24</span>
           </div>
           <div className="text-body-home">
-            $
+            {'>> '}
             <span
               ref={el => {
                 this.el = el
