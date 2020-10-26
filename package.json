@@ -42,7 +42,6 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.19.0",
-    "bootstrap": "^4.5.2",
     "compression": "^1.7.3",
     "connect-session-sequelize": "^6.0.0",
     "express": "^4.16.4",
@@ -56,6 +55,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-animated-popup": "^0.1.1",
+    "react-bootstrap": "^1.4.0",
     "react-codemirror": "^1.0.0",
     "react-countdown": "^2.2.2",
     "react-countdown-circle-timer": "^2.3.7",
@@ -71,6 +71,7 @@
     "redux-thunk": "^2.3.0",
     "sequelize": "^5.3.1",
     "socket.io": "^2.2.0",
+    "styled-components": "^5.2.0",
     "typed.js": "^2.0.11"
   },
   "devDependencies": {

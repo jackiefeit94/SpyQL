@@ -1,10 +1,8 @@
 import React from 'react'
 import Typed from 'typed.js'
-//May use at a later time
-//import {Button} from 'reactstrap'
-// import 'bootstrap/dist/css/bootstrap.css'; causing error, need to fix
 import history from '../history'
 import KeyboardEventHandler from 'react-keyboard-event-handler'
+import {Container, Row} from 'react-bootstrap'
 
 export default class Home extends React.Component {
   componentDidMount() {
@@ -30,11 +28,11 @@ export default class Home extends React.Component {
           handleKeys={['enter', 'return']}
           onKeyEvent={(key, e) => history.push('/levelOne')}
         />
-        <div className="text-editor-home">
-          <div className="title-bar">
+        <Container className="text-editor-home">
+          <Row className="title-bar">
             <span className="title">🔒Confidential-File - bash - 80x24</span>
-          </div>
-          <div className="text-body-home">
+          </Row>
+          <Row className="text-body-home">
             $
             <span
               ref={el => {
@@ -42,8 +40,8 @@ export default class Home extends React.Component {
               }}
             />
             <span className="typed-cursor" />
-          </div>
-        </div>
+          </Row>
+        </Container>
       </div>
     )
   }

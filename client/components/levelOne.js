@@ -8,6 +8,8 @@ import Typed from 'react-typed'
 import {getLevelOneQuestions} from '../store/questionStore'
 import history from '../history'
 import KeyboardEventHandler from 'react-keyboard-event-handler'
+import {Container, Row, Col, Jumbotron as Jumbo} from 'react-bootstrap'
+import styled from 'styled-components'
 
 class LevelOne extends React.Component {
   constructor(props) {
@@ -140,12 +142,14 @@ class LevelOne extends React.Component {
   render() {
     const options = {lineNumbers: true}
     return (
-      <div>
-        <div id="clock">{clock()}</div>
+      <Container>
+        <Row className="text-center">
+          <Col md={{span: 3, offset: 3}}>{clock()}</Col>
+        </Row>
 
-        <div className="level-container">
+        <Row className="level-container">
           {/* flex left */}
-          <div className="item flex-child-left">
+          <Col className="item flex-child-left">
             <div id="text-editor-wrap">
               <div className="title-bar">
                 <span className="title">
@@ -192,10 +196,10 @@ class LevelOne extends React.Component {
                 onKeyDown={this.enterKeyDown}
               />
             </form>
-          </div>
+          </Col>
 
           {/* flex right */}
-          <div className="item flex-child-right">
+          <Col className="item flex-child-right">
             <div id="textbox-table">
               {this.state.err ? (
                 <div />
@@ -222,9 +226,16 @@ class LevelOne extends React.Component {
               createTable={this.createTable}
               handleQuery={this.handleQuery}
             />
-          </div>
+          </Col>
+        </Row>
+        <div>
+          <p>Dreams by The Cranberries</p>
+          <audio id="player" controls="controls">
+            <source src="./1-01 Dreams.mp3" type="audio/mp3" preload="auto" />
+            Your brower does not support the audio element
+          </audio>
         </div>
-      </div>
+      </Container>
     )
   }
 }

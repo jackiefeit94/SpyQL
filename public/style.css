@@ -1,7 +1,7 @@
 * {
   margin: 0;
   /* padding: 20px; */
-  /* background-image: url('background-slow.gif'); */
+  /* background-image: url('matrix-background.jpg'); */
 }
 
 body {
@@ -81,7 +81,7 @@ form div {
 
 .flex-child-right {
   flex: 1;
-  background-image: url('fakecode.gif');
+  /* background-image: url('fakecode.gif'); */
   border: 2px solid white;
 }
 
@@ -247,11 +247,11 @@ embed {
   max-height: 250px;
 }
 
-#clock {
+/* #clock {
   display: flex;
   align-items: center;
   justify-content: center;
-}
+} */
 
 #app {
   margin: auto;
@@ -265,4 +265,14 @@ embed {
   bottom: 0;
   min-width: 100%;
   min-height: 100%;
+}
+
+/* react-bootstrap css */
+.center {
+  margin: 0;
+  position: absolute;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  /* background-color: peachpuff; */
 }
