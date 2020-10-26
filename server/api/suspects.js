@@ -4,8 +4,8 @@ const {disableMiddleware, sqlMiddleware} = require('./sqlMiddleware')
 
 router.get(
   '/:query',
-  sqlMiddleware,
   disableMiddleware,
+  sqlMiddleware,
   async (req, res, next) => {
     try {
       const data = await client.query(req.params.query)
