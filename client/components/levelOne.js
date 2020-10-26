@@ -7,7 +7,6 @@ import {CodeEditor} from './CodeEditor'
 import Typed from 'react-typed'
 import {getLevelOneQuestions} from '../store/questionStore'
 import history from '../history'
-import KeyboardEventHandler from 'react-keyboard-event-handler'
 
 class LevelOne extends React.Component {
   constructor(props) {
@@ -18,12 +17,15 @@ class LevelOne extends React.Component {
       query: '',
       err: '',
       displayMessage: `I knew I could count on you. Here’s the deal: there’s been a breach. Someone has stolen a document containing the data of millions of civilians.
-        If we don’t find the source and stop it, people’s personal information could be compromised…<br><br>
+        If we don’t find the source and stop it before the timer runs out, people’s personal information could be compromised…<br><br>
 
-        We’ve come up with a list of suspects, so your first task will be to find that list and examine it.`,
+        We’ve come up with a list of suspects, so your first task will be to find that list and examine it.<br><br>
+
+        Not sure how? Just hit "Query Hint."`,
       questionIdx: 0,
       answer: '',
-      clue: ''
+      clue: '',
+      submitField: false
     }
 
     this.updateCode = this.updateCode.bind(this)
@@ -45,7 +47,8 @@ class LevelOne extends React.Component {
       this.setState({displayMessage: this.state.err})
     } else {
       this.setState({
-        displayMessage: this.props.allQs[this.state.questionIdx].plotQuestion
+        displayMessage: this.props.allQs[this.state.questionIdx].plotQuestion,
+        submitField: true
       })
     }
   }
@@ -73,7 +76,8 @@ class LevelOne extends React.Component {
         displayMessage: this.props.allQs[this.state.questionIdx].successText,
         questionIdx: this.state.questionIdx + 1,
         answer: '',
-        clue: this.props.allQs[this.state.questionIdx].clue
+        clue: this.props.allQs[this.state.questionIdx].clue,
+        submitField: false
       })
     } else if (
       this.state.answer ===
@@ -82,7 +86,8 @@ class LevelOne extends React.Component {
     ) {
       this.setState({
         displayMessage: this.props.allQs[this.state.questionIdx].successText,
-        questionIdx: this.state.questionIdx + 1
+        questionIdx: this.state.questionIdx + 1,
+        submitField: false
       })
     } else {
       this.setState({
@@ -163,6 +168,18 @@ class LevelOne extends React.Component {
                   />
                 )}
               </div>
+              <br />
+              {this.state.submitField ? (
+                <form id="form">
+                  {'>>'}
+                  <input
+                    type="text"
+                    value={this.state.answer}
+                    onChange={this.handleChange}
+                    onKeyDown={this.enterKeyDown}
+                  />
+                </form>
+              ) : null}
               {this.state.clue.length > 0 && (
                 <button
                   type="submit"
@@ -184,14 +201,6 @@ class LevelOne extends React.Component {
                 ✉️
               </button>
             ) : null}
-            <form id="form">
-              <input
-                type="text"
-                value={this.state.answer}
-                onChange={this.handleChange}
-                onKeyDown={this.enterKeyDown}
-              />
-            </form>
           </div>
 
           {/* flex right */}
@@ -208,6 +217,13 @@ class LevelOne extends React.Component {
                 />
               )}
             </div>
+            <CodeEditor
+              options={options}
+              updateCode={this.updateCode}
+              formatQuery={this.formatQuery}
+              createTable={this.createTable}
+              handleQuery={this.handleQuery}
+            />
             <button
               className="hint-button"
               type="submit"
@@ -220,13 +236,6 @@ class LevelOne extends React.Component {
             >
               Query Hint
             </button>
-            <CodeEditor
-              options={options}
-              updateCode={this.updateCode}
-              formatQuery={this.formatQuery}
-              createTable={this.createTable}
-              handleQuery={this.handleQuery}
-            />
           </div>
         </div>
       </div>

@@ -153,6 +153,8 @@ class LevelTwo extends React.Component {
               handleQuery={this.handleQuery}
             />
             <button
+              className="hint-button"
+              type="submit"
               onClick={() => {
                 this.typed.reset()
                 this.setState({
