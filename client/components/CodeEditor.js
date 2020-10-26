@@ -14,13 +14,13 @@ export const CodeEditor = props => {
         type="submit"
         className="button1"
         onClick={async () => {
-          props.formatQuery()
+          await props.formatQuery()
           if (props.id !== undefined) {
             await props.createTable(props.id)
           } else {
             await props.createTable()
           }
-          props.handleQuery()
+          await props.handleQuery()
         }}
       >
         Submit Query!
