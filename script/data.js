@@ -1,3 +1,4 @@
+/* suspect data to seed */
 const seedSuspects = [
   {
     first_name: 'Francine',
@@ -351,6 +352,7 @@ const seedSuspects = [
   }
 ]
 
+/* guest data to seed */
 const seedGuests = [
   {
     first_name: 'Mr.',

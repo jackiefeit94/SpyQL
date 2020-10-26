@@ -1,11 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {CodeEditor} from './CodeEditor'
-import Typed from 'react-typed'
 import Axios from 'axios'
+import Typed from 'react-typed'
 import Table from './table'
+import {CodeEditor} from './CodeEditor'
 import {getLevelTwoQuestions} from '../store/questionStore'
-import clock from './clock'
 import history from '../history'
 
 class LevelTwo extends React.Component {
@@ -25,51 +24,14 @@ class LevelTwo extends React.Component {
     this.createTable = this.createTable.bind(this)
     this.formatQuery = this.formatQuery.bind(this)
     this.handleQuery = this.handleQuery.bind(this)
-    this.handleChange = this.handleChange.bind(this)
   }
 
   componentDidMount() {
     this.props.getLevelTwoQuestions()
   }
 
-  //updating state with code in editor
-  updateCode(newCode) {
-    this.setState({query: newCode})
-  }
-
-  //format query to account for '%'
-  formatQuery() {
-    let newQuery = ''
-    let query = this.state.query
-    for (let i = 0; i < query.length; i++) {
-      if (query[i] === '%') {
-        newQuery += '%25'
-      } else if (query[i] === '\n') {
-        newQuery += '%0A'
-      } else {
-        newQuery += query[i]
-      }
-    }
-    this.setState({query: newQuery})
-  }
-
-  async createTable(idx) {
-    let table = this.props.allQs[idx]
-    // check query in backend for semicolon, new-lines, parens
-    let {data} = await Axios.get(
-      `/api/alibis/${this.state.query}/${table.plotAnswer}`
-    )
-    if (typeof data !== 'string') {
-      this.setState({
-        fields: table.data.fields,
-        rows: table.data.rows,
-        err: ''
-      })
-    } else {
-      this.setState({err: data})
-    }
-  }
-
+  /* If player SQL query from code editor results in error
+  display error in terminal, otherwise, move to next question  */
   handleQuery() {
     this.typed.reset()
     if (this.state.err.length) {
@@ -89,19 +51,53 @@ class LevelTwo extends React.Component {
     }
   }
 
-  handleChange(event) {
-    this.setState({answer: event.target.value})
+  //updating state with code in editor
+  updateCode(newCode) {
+    this.setState({query: newCode})
+  }
+
+  /* handle escape chars in api request url */
+  formatQuery() {
+    let newQuery = ''
+    let query = this.state.query
+    for (let i = 0; i < query.length; i++) {
+      if (query[i] === '%') {
+        newQuery += '%25'
+      } else if (query[i] === '\n') {
+        newQuery += '%0A'
+      } else {
+        newQuery += query[i]
+      }
+    }
+    this.setState({query: newQuery})
+  }
+
+  /* make api request with player's sql query, and generate
+  table if data is returned */
+  async createTable(idx) {
+    let table = this.props.allQs[idx]
+    let {data} = await Axios.get(
+      `/api/alibis/${this.state.query}/${table.plotAnswer}`
+    )
+    if (typeof data !== 'string') {
+      this.setState({
+        fields: table.data.fields,
+        rows: table.data.rows,
+        err: ''
+      })
+    } else {
+      this.setState({err: data})
+    }
   }
 
   render() {
     const options = {lineNumbers: true}
     return (
       <div>
-        <div id="clock">{clock()}</div>
-
         <div className="level-container">
           {/* flex left */}
           <div className="item flex-child-left">
+            {/* fake terminal */}
             <div id="text-editor-wrap">
               <div className="title-bar">
                 <span className="title">
@@ -129,6 +125,7 @@ class LevelTwo extends React.Component {
               </div>
             </div>
           </div>
+
           {/* flex right */}
           <div className="item flex-child-right">
             <div id="textbox-table">
@@ -143,7 +140,6 @@ class LevelTwo extends React.Component {
                 />
               )}
             </div>
-
             <CodeEditor
               options={options}
               updateCode={this.updateCode}
