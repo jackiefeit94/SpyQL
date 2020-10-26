@@ -78,13 +78,11 @@ async function seed() {
   let allSuspects = await Suspect.findAll({
     include: [Alibi]
   })
-  console.log('suspects: ', allSuspects.length)
   function getRandom(min, max) {
     return Math.floor(Math.random() * (max - min) + min)
   }
   for (let i = 0; i < allSuspects.length; i++) {
     let num = getRandom(0, alibiArray.length)
-    console.log('num: ', num)
     if (allSuspects[i].alibiId === null) {
       await allSuspects[i].setAlibi(alibiArray[num])
     }

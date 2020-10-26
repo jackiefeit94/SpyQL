@@ -6,6 +6,7 @@ import Axios from 'axios'
 import Table from './table'
 import {getLevelTwoQuestions} from '../store/questionStore'
 import clock from './clock'
+import history from '../history'
 
 class LevelTwo extends React.Component {
   constructor(props) {
@@ -117,7 +118,7 @@ class LevelTwo extends React.Component {
                     typeSpeed={35}
                   />
                 )}
-                {this.state.questionIdx === 5 ? (
+                {this.state.questionIdx === 6 ? (
                   <button
                     onClick={() => history.push('/LevelThree')}
                     type="submit"
@@ -134,7 +135,12 @@ class LevelTwo extends React.Component {
               {this.state.err ? (
                 <div />
               ) : (
-                <Table fields={this.state.fields} rows={this.state.rows} />
+                <Table
+                  level={this.props.level}
+                  idx={this.state.questionIdx}
+                  fields={this.state.fields}
+                  rows={this.state.rows}
+                />
               )}
             </div>
 
@@ -167,7 +173,8 @@ class LevelTwo extends React.Component {
 
 const mapState = state => {
   return {
-    allQs: state.question.allQs
+    allQs: state.question.allQs,
+    level: state.question.level
   }
 }
 

@@ -209,7 +209,12 @@ class LevelOne extends React.Component {
               {this.state.err ? (
                 <div />
               ) : (
-                <Table fields={this.state.fields} rows={this.state.rows} />
+                <Table
+                  level={this.props.level}
+                  idx={this.state.questionIdx}
+                  fields={this.state.fields}
+                  rows={this.state.rows}
+                />
               )}
             </div>
             <CodeEditor
@@ -240,7 +245,8 @@ class LevelOne extends React.Component {
 
 const mapState = state => {
   return {
-    allQs: state.question.allQs
+    allQs: state.question.allQs,
+    level: state.question.level
   }
 }
 
