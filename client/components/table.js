@@ -4,17 +4,22 @@ const Table = props => {
   //ordering fields and rows for level 3
   let newPropsFields
   let newPropsRows
-  console.log('fields: ', props.fields)
+
+  //comment in to find appropriate tableIDs for conditionals below
+  //console.log('fields: ', props.fields)
+
   //helper function to order columns properly
   const orderColumns = fields => {
     let newFields = []
     for (let i = 0; i < fields.length; i++) {
-      if (fields[i].tableID === 2292866) {
+      //tableID for alibis dependent on local database (heroku tableID)
+      if (fields[i].tableID === 26254832) {
         newFields.push(fields[i])
       }
     }
     for (let i = 0; i < fields.length; i++) {
-      if (fields[i].tableID === 2292855 && fields[i].name !== 'id') {
+      //tableID for suspects dependent on local database (heroku tableID)
+      if (fields[i].tableID === 26254848 && fields[i].name !== 'id') {
         newFields.push(fields[i])
       }
     }
