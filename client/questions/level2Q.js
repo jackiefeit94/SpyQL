@@ -11,7 +11,7 @@ const level2Q = [
     Here, the information we need after CREATE table is (id integer primary key, place text)`
   },
   {
-    prompt: `Excellent. Now it’s time to take down all the information we have and put it in our database. Here is the information we need to insert: (id, place) values: <br>
+    prompt: `Excellent. Now it’s time to take down all the information we have and put it in our database. Here is the information we need to insert:<br>
     (1, Party) <br>
     (2, Barn Joo Restaurant) <br>
     (3, Museum of Natural History Exhibit) <br>
@@ -20,7 +20,7 @@ const level2Q = [
     (6, Blink Gym Yoga Class) <br>
     (7, null);`,
     plotAnswer:
-      'insert into alibis (id, place) values: (1, Party) (2, Barn Joo Restaurant) (3, Museum of Natural History Exhibit) (4, Greats of Craft Bar) (5, PSY 101, Hunter College) (6, Blink Gym Yoga Class) (7, null);',
+      'insert into alibis (id, place) values (1, Party) (2, Barn Joo Restaurant) (3, Museum of Natural History Exhibit) (4, Greats of Craft Bar) (5, PSY 101, Hunter College) (6, Blink Gym Yoga Class) (7, null);',
     data: {
       fields: [{name: 'id'}, {name: 'place'}],
       rows: [
@@ -33,11 +33,11 @@ const level2Q = [
         {id: 7}
       ]
     },
-    hint: `INSERT INTO table values: (column1_value, column2_value);<br><br>
+    hint: `INSERT INTO table_name (column1_name, column2_name) VALUES (column1_value, column2_value);<br><br>
 
-    The table name is alibis<br><br>
+    The table name is alibis and column names are (id, place)<br><br>
 
-    Here is the information we need to insert after VALUES: <br>
+    Here is the information we need to insert after VALUES <br>
     (1, Party)<br>
     (2, Barn Joo Restaurant)<br>
     (3, Museum of Natural History Exhibit)<br>

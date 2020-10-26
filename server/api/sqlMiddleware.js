@@ -18,9 +18,7 @@ const prohibited = [
   'update',
   'add',
   'column',
-  'table',
-  'value:',
-  'value'
+  'table'
 ]
 
 //array of allowed terms
@@ -41,7 +39,12 @@ const allowed = [
   'text',
   'primary',
   'key',
-  'as'
+  'as',
+  'null;',
+  'date;',
+  'value:',
+  'values',
+  'is'
 ]
 
 //handle postgres quotation on mixed-case column names

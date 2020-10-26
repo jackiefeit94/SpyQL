@@ -170,7 +170,7 @@ class LevelOne extends React.Component {
               <div className="text-body">
                 {this.props.allQs.length && (
                   <Typed
-                    strings={['$ ' + this.state.displayMessage]}
+                    strings={['>> ' + this.state.displayMessage]}
                     typedRef={typed => {
                       this.typed = typed
                     }}
