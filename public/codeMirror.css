@@ -8,6 +8,7 @@
   direction: ltr;
   text-align: left;
   /* color: white; */
+  font-size: 17px;
 }
 
 /* PADDING */
@@ -137,7 +138,7 @@
 /* DEFAULT THEME */
 
 .cm-s-default .cm-header {
-  color: blue;
+  color: red;
 }
 .cm-s-default .cm-quote {
   color: #090;
@@ -169,13 +170,15 @@
   font-size: 15px;
 }
 .cm-s-default .cm-atom {
-  color: #219;
+  color: #18d2d8;
+  font-weight: bold;
 }
 .cm-s-default .cm-number {
-  color: #164;
+  color: lightsalmon;
+  font-weight: bold;
 }
 .cm-s-default .cm-def {
-  color: #00f;
+  color: yellow;
 }
 .cm-s-default .cm-variable {
   color: #cccccc;
@@ -186,7 +189,7 @@
   /* color: rgb(146, 5, 5) */
 }
 .cm-s-default .cm-variable-2 {
-  color: #05a;
+  color: pink;
 }
 .cm-s-default .cm-variable-3,
 .cm-s-default .cm-type {
@@ -208,7 +211,7 @@
   color: #555;
 }
 .cm-s-default .cm-builtin {
-  color: #30a;
+  color: lightgreen;
 }
 .cm-s-default .cm-bracket {
   color: #997;
@@ -217,13 +220,13 @@
   color: #170;
 }
 .cm-s-default .cm-attribute {
-  color: #00c;
+  color: orchid;
 }
 .cm-s-default .cm-hr {
   color: #999;
 }
 .cm-s-default .cm-link {
-  color: #00c;
+  color: lightsalmon;
 }
 
 .cm-s-default .cm-error {

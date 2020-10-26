@@ -6,6 +6,7 @@ import Table from './table'
 import {CodeEditor} from './CodeEditor'
 import {getLevelTwoQuestions} from '../store/questionStore'
 import history from '../history'
+import Transition2 from './Transition2'
 
 class LevelTwo extends React.Component {
   constructor(props) {
@@ -115,12 +116,17 @@ class LevelTwo extends React.Component {
                   />
                 )}
                 {this.state.questionIdx === 6 ? (
-                  <button
-                    onClick={() => history.push('/LevelThree')}
-                    type="submit"
-                  >
-                    ✉️
-                  </button>
+                  <div>
+                    Unlock next level
+                    <br />
+                    <button
+                      className="unlock"
+                      onClick={() => history.push('/transition2')}
+                      type="submit"
+                    >
+                      🔑
+                    </button>
+                  </div>
                 ) : null}
               </div>
             </div>

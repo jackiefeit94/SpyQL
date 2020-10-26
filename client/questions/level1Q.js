@@ -18,7 +18,7 @@ const level1Q = [
     successText:
       'That’s right. Hm, that’s a lot of suspects. Let’s see if we can narrow it down at all. Maybe this map has some information. Click on it!',
     clue:
-      'https://www.citymetric.com/sites/default/files/images/Manhattan%20London%202.png'
+      'https://imgs.6sqft.com/wp-content/uploads/2017/02/03102701/nyc-day-versus-night.gif'
   },
   {
     prompt:
