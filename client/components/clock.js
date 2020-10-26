@@ -7,7 +7,7 @@ const clock = () => (
     isPlaying
     duration={500}
     colors={[['#0f0', 0.33], ['#a444f2', 0.33], ['#fc0f1f', 0.33]]}
-    size={70}
+    size={100}
     strokeWidth={3}
     trailColor="#0d0d0c"
   >

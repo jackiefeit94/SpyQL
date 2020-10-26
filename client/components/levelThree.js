@@ -2,7 +2,6 @@ import React from 'react'
 import {connect} from 'react-redux'
 import Axios from 'axios'
 import Table from './table'
-import clock from './clock'
 import {CodeEditor} from './CodeEditor'
 import Typed from 'react-typed'
 import {getLevelThreeQuestions} from '../store/questionStore'
@@ -128,8 +127,6 @@ class LevelThree extends React.Component {
     const options = {lineNumbers: true}
     return (
       <div>
-        <div id="clock">{clock()}</div>
-
         <div className="level-container">
           {/* flex left */}
           <div className="item flex-child-left">

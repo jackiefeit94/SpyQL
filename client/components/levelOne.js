@@ -2,14 +2,14 @@ import React from 'react'
 import {connect} from 'react-redux'
 import Axios from 'axios'
 import Table from './table'
-import clock from './clock'
 import {CodeEditor} from './CodeEditor'
 import Typed from 'react-typed'
 import {getLevelOneQuestions} from '../store/questionStore'
 import history from '../history'
 import KeyboardEventHandler from 'react-keyboard-event-handler'
-import {Container, Row, Col, Jumbotron as Jumbo} from 'react-bootstrap'
+import {Container, Row, Col, Jumbotron as Jumbo, Button} from 'react-bootstrap'
 import styled from 'styled-components'
+import Zoom from 'react-reveal/Zoom'
 
 class LevelOne extends React.Component {
   constructor(props) {
@@ -150,7 +150,7 @@ class LevelOne extends React.Component {
     return (
       <Container>
         <Row className="text-center">
-          <Col md={{span: 3, offset: 3}}>{clock()}</Col>
+          {/* <Col md={{span: 3, offset: 3}}>{clock()}</Col> */}
         </Row>
 
         <Row className="level-container">
@@ -186,8 +186,9 @@ class LevelOne extends React.Component {
                 </form>
               ) : null}
               {this.state.clue.length > 0 && (
-                <button
-                  type="submit"
+                <Button
+                  variant="dark"
+                  type="checkbox"
                   onClick={() => {
                     this.typed.reset()
                     this.setState({
@@ -197,8 +198,10 @@ class LevelOne extends React.Component {
                     })
                   }}
                 >
-                  <img id="clue" src={this.state.clue} />
-                </button>
+                  <Zoom delay={1000} duration={3000}>
+                    <img id="clue" src={this.state.clue} />
+                  </Zoom>
+                </Button>
               )}
             </div>
             {this.state.questionIdx === 5 ? (

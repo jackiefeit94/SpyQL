@@ -5,7 +5,6 @@ import Typed from 'react-typed'
 import Axios from 'axios'
 import Table from './table'
 import {getLevelTwoQuestions} from '../store/questionStore'
-import clock from './clock'
 import history from '../history'
 
 class LevelTwo extends React.Component {
@@ -97,8 +96,6 @@ class LevelTwo extends React.Component {
     const options = {lineNumbers: true}
     return (
       <div>
-        <div id="clock">{clock()}</div>
-
         <div className="level-container">
           {/* flex left */}
           <div className="item flex-child-left">
