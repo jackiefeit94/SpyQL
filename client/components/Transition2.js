@@ -16,7 +16,7 @@ const Transition2 = () => {
         <Slide bottom>
           <div className="text-editor-home">
             <div className="text-body-home">
-              $
+              {'>> '}
               <Typed
                 strings={[
                   `Nice work, Special Agent Q.^300 <br>

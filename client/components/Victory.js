@@ -12,7 +12,7 @@ const Victory = () => {
       />
       <div className="text-editor-home">
         <div className="text-body-home">
-          $
+          {'>> '}
           <Typed
             strings={[
               `Congratulations, Special Agent Q.^300 <br>

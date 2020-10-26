@@ -6,10 +6,8 @@ import Table from './table'
 import {CodeEditor} from './CodeEditor'
 import {getLevelOneQuestions} from '../store/questionStore'
 import history from '../history'
-import KeyboardEventHandler from 'react-keyboard-event-handler'
-import {Container, Row, Col, Jumbotron as Jumbo, Button} from 'react-bootstrap'
-import styled from 'styled-components'
-import {Flash, Fade} from 'react-reveal'
+import {Container, Row, Col, Button} from 'react-bootstrap'
+import {Fade} from 'react-reveal'
 
 class LevelOne extends React.Component {
   constructor(props) {
@@ -177,7 +175,7 @@ class LevelOne extends React.Component {
                   <div className="texts">
                     {this.props.allQs.length && (
                       <Typed
-                        strings={['$ ' + this.state.displayMessage]}
+                        strings={['>> ' + this.state.displayMessage]}
                         typedRef={typed => {
                           this.typed = typed
                         }}

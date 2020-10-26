@@ -5,7 +5,7 @@ import {CountdownCircleTimer} from 'react-countdown-circle-timer'
 const clock = () => (
   <CountdownCircleTimer
     isPlaying
-    duration={500}
+    duration={1800}
     colors={[['#0f0', 0.33], ['#a444f2', 0.33], ['#fc0f1f', 0.33]]}
     size={90}
     strokeWidth={3}

@@ -1,14 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
 import clock from './clock'
-import {
-  Nav,
-  Navbar as NavbarBootstrap,
-  Jumbotron as Jumbo,
-  Container
-} from 'react-bootstrap'
+import {Nav, Navbar as NavbarBootstrap} from 'react-bootstrap'
 import styled from 'styled-components'
+import {
+  getLevelOneQuestions,
+  getLevelTwoQuestions,
+  getLevelThreeQuestions
+} from '../store/questionStore'
 
 const Styles = styled.div`
   .navbar {
@@ -27,8 +26,10 @@ const Styles = styled.div`
 `
 
 class Navbar extends React.Component {
-  constructor(props) {
-    super(props)
+  componentDidMount() {
+    this.props.getLevelOneQuestions()
+    this.props.getLevelTwoQuestions()
+    this.props.getLevelThreeQuestions()
   }
 
   render() {
@@ -49,7 +50,7 @@ class Navbar extends React.Component {
                 {this.props.level === 1 ? (
                   <audio controls="controls">
                     <source
-                      src="./1-01 Dreams.mp3"
+                      src="./musicfox_demo_MF-78.mp3"
                       type="audio/mp3"
                       preload="auto"
                     />
@@ -62,7 +63,7 @@ class Navbar extends React.Component {
                 {this.props.level === 2 ? (
                   <audio controls="controls">
                     <source
-                      src="./1-01 Dreams.mp3"
+                      src="./musicfox_demo_MF-801.mp3"
                       type="audio/mp3"
                       preload="auto"
                     />
@@ -75,7 +76,7 @@ class Navbar extends React.Component {
                 {this.props.level === 3 ? (
                   <audio controls="controls">
                     <source
-                      src="./1-01 Dreams.mp3"
+                      src="./musicfox_demo_MF-892.mp3"
                       type="audio/mp3"
                       preload="auto"
                     />
@@ -101,7 +102,11 @@ const mapDispatch = dispatch => {
   return {
     getLevelOneQuestions: () => {
       dispatch(getLevelOneQuestions())
+    },
+    getLevelTwoQuestions: () => {
       dispatch(getLevelTwoQuestions())
+    },
+    getLevelThreeQuestions: () => {
       dispatch(getLevelThreeQuestions())
     }
   }

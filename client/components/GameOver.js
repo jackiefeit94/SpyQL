@@ -29,7 +29,7 @@ class GameOver extends React.Component {
             <span className="title">🔒Confidential-File - bash - 80x24</span>
           </div>
           <div className="text-body-home">
-            $
+            {'>> '}
             <span
               ref={el => {
                 this.el = el
