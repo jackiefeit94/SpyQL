@@ -17,7 +17,9 @@ export const CodeEditor = props => {
           await props.formatQuery()
           if (props.id !== undefined) {
             await props.createTable(props.id)
-          } else await props.createTable()
+          } else {
+            await props.createTable()
+          }
           await props.handleQuery()
         }}
       >

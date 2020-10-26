@@ -16,9 +16,14 @@ const prohibited = [
   'set',
   'truncate',
   'update',
-  'add'
+  'add',
+  'column',
+  'table',
+  'value:',
+  'value'
 ]
 
+//array of allowed terms
 const allowed = [
   'select',
   'from',
@@ -32,47 +37,118 @@ const allowed = [
   'right',
   'join',
   'order',
-  'by'
+  'by',
+  'text',
+  'primary',
+  'key',
+  'as'
 ]
 
+//handle postgres quotation on mixed-case column names
+const quotationIndices = ['alibiId', 'suspectId', 'guestId', 'dateId']
+
 //middleware to parse query
+
 const sqlMiddleware = (req, res, next) => {
-  //split on new line
-  let query = req.params.query.split('/\r?\n/')
-  query.forEach((word, i) => {
-    if (
-      allowed.includes(word.toLowerCase()) ||
-      prohibited.includes(word.toLowerCase())
-    ) {
-      query[i] = word.toLowerCase()
+  let query = req.params.query
+  //handle postgres quotation on mixed-case column names
+  for (let i = 0; i < quotationIndices.length; i++) {
+    query = query.split(quotationIndices[i])
+    if (query.length > 1) {
+      query = query.join(`"${quotationIndices[i]}"`)
+    } else {
+      query = query.join('')
     }
+  }
+  let newQuery = query.split('\n')
+  newQuery = newQuery.map(line => {
+    return line.trim()
   })
-  //join on space and trim
-  query = query.join(' ').trim()
-  req.params.query = query
-  if (query[query.length - 1] !== ';') {
+  //handle capitalization
+  newQuery = newQuery.join(' ')
+  newQuery = newQuery.split(' ')
+  newQuery = newQuery.map(word => {
+    let placeHolderWord = word.trim().toLowerCase()
+    if (
+      allowed.includes(placeHolderWord) ||
+      prohibited.includes(placeHolderWord)
+    ) {
+      word = placeHolderWord
+    }
+    return word
+  })
+  //handle ordering if no order by in query and no join
+  let orderBy = ' order by id '
+  let bool = false
+  if (newQuery.includes('order') || newQuery.includes('join')) {
+    bool = true
+  }
+  newQuery = newQuery.join(' ').trim()
+  //semicolon error handler
+  if (newQuery[newQuery.length - 1] !== ';') {
     res.send("Don't forget your semicolon!")
-  } else next()
+  } else if (!bool) {
+    newQuery = newQuery.split(';')
+    req.params.query = newQuery[0] + orderBy + newQuery[1]
+  } else {
+    req.params.query = newQuery
+  }
+  next()
+}
+
+const levelTwoMiddleware = (req, res, next) => {
+  let query = req.params.query
+  let newQuery = query.split('\n')
+  newQuery = newQuery.map(line => {
+    return line.trim()
+  })
+  //handle capitalization
+  newQuery = newQuery.join(' ')
+  newQuery = newQuery.split(' ')
+  newQuery = newQuery.map(word => {
+    let placeHolderWord = word.trim().toLowerCase()
+    if (
+      allowed.includes(placeHolderWord) ||
+      prohibited.includes(placeHolderWord)
+    ) {
+      word = placeHolderWord
+    }
+    return word
+  })
+  newQuery = newQuery.join(' ').trim()
+  //semicolon error handler
+  if (newQuery[newQuery.length - 1] !== ';') {
+    res.send("Don't forget your semicolon!")
+  } else {
+    req.params.query = newQuery
+  }
+  next()
 }
 
 //middleware to prohibit players from altering table
-
 const disableMiddleware = (req, res, next) => {
   let query = req.params.query
+  let newQuery = req.params.query
   if (query[query.length - 1] === ';') {
     query = query.slice(0, -1).split(' ')
   }
   let isProhibited = false
+  //search for prohibited terms in query
   for (let i = 0; i < query.length; i++) {
-    if (!prohibited.includes(query[i])) {
+    let word = query[i].toLowerCase()
+    if (!prohibited.includes(word)) {
       continue
     } else {
       isProhibited = true
     }
   }
+  //prohibited terms error handler
   if (isProhibited) {
     res.send('This command is prohibited!')
-  } else next()
+  } else {
+    req.params.query = newQuery
+  }
+  next()
 }
 
-module.exports = {sqlMiddleware, disableMiddleware}
+module.exports = {sqlMiddleware, disableMiddleware, levelTwoMiddleware}

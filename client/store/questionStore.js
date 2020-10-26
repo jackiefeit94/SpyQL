@@ -4,35 +4,43 @@ import level3Q from '../questions/level3Q'
 
 const FETCH_QUESTIONS = 'FETCH_QUESTIONS'
 
-const fetchQuestions = questions => ({type: FETCH_QUESTIONS, questions})
+/* action creator */
+const fetchQuestions = (questions, level) => ({
+  type: FETCH_QUESTIONS,
+  questions,
+  level
+})
 
 export const getLevelOneQuestions = () => {
   return dispatch => {
     const questions = level1Q
-    dispatch(fetchQuestions(questions))
+    const level = 1
+    dispatch(fetchQuestions(questions, level))
   }
 }
 
 export const getLevelTwoQuestions = () => {
   return dispatch => {
     const questions = level2Q
-    dispatch(fetchQuestions(questions))
+    const level = 2
+    dispatch(fetchQuestions(questions, level))
   }
 }
 
 export const getLevelThreeQuestions = () => {
   return dispatch => {
     const questions = level3Q
-    dispatch(fetchQuestions(questions))
+    const level = 3
+    dispatch(fetchQuestions(questions, level))
   }
 }
 
-const initialState = {allQs: [], currentQ: {}}
+const initialState = {allQs: [], level: 0}
 
 export default function questionReducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_QUESTIONS:
-      return {...state, allQs: action.questions}
+      return {...state, allQs: action.questions, level: action.level}
     default:
       return state
   }

@@ -2,16 +2,27 @@
 
 const db = require('../server/db')
 const {Suspect, Guest, Alibi} = require('../server/db/models')
-const {seedSuspects, seedAlibis, seedGuests} = require('./data')
+const {seedSuspects, seedGuests} = require('./data')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
+  //seed suspects
   const suspects = await Promise.all(seedSuspects.map(el => Suspect.create(el)))
-  const alibis = await Promise.all(seedAlibis.map(el => Alibi.create(el)))
+
+  //seed alibis
+  await Alibi.create({id: 1, place: 'Block Party'})
+  await Alibi.create({id: 2, place: 'Barn Joo Restaurant'})
+  await Alibi.create({id: 3, place: 'Museum of Natural History Exhibit'})
+  await Alibi.create({id: 4, place: 'Greats of Craft Bar'})
+  await Alibi.create({id: 5, place: 'PSY 101, Hunter College'})
+  await Alibi.create({id: 6, place: 'Blink Gym Yoga Class'})
+
+  //seed guests
   const guests = await Promise.all(seedGuests.map(el => Guest.create(el)))
 
+  //assign alibis to guests
   const partyAlibi = await Alibi.findByPk(1)
   const restoAlibi = await Alibi.findByPk(2)
   const museumAlibi = await Alibi.findByPk(3)
@@ -19,22 +30,24 @@ async function seed() {
   const classAlibi = await Alibi.findByPk(5)
   const yogaAlibi = await Alibi.findByPk(6)
 
-  const alibiArray = [
-    partyAlibi,
-    restoAlibi,
-    museumAlibi,
-    barAlibi,
-    classAlibi,
-    yogaAlibi
-  ]
+  const alibiArray = [restoAlibi, museumAlibi, barAlibi, classAlibi, yogaAlibi]
 
   //placing guilty suspects at block party
-  const guiltyOne = await Suspect.findByPk(4)
-  const guiltyTwo = await Suspect.findByPk(8)
+  const guiltyOne = await Suspect.findOne({
+    where: {
+      last_name: 'Brottslig'
+    }
+  })
+  const guiltyTwo = await Suspect.findOne({
+    where: {
+      last_name: 'Verbrecher'
+    }
+  })
 
   await guiltyOne.setAlibi(partyAlibi)
   await guiltyTwo.setAlibi(partyAlibi)
 
+  //create final two suspect guests
   await Guest.create({
     first_name: guiltyOne.first_name,
     last_name: guiltyOne.last_name,
@@ -58,7 +71,7 @@ async function seed() {
     })
   }
 
-  //assigning party-goer alibis
+  //assigning party-goer dates
   let counter = 17
   for (let i = 1; i <= 8; i++) {
     let guest = await Guest.findByPk(i)
@@ -68,17 +81,21 @@ async function seed() {
     counter = counter - 1
   }
 
-  console.log(
-    `seeded ${suspects.length} suspects, ${alibis.length} alibis, and ${
-      guests.length
-    } guests`
-  )
+  let allSuspects = await Suspect.findAll({
+    include: [Alibi]
+  })
+  function getRandom(min, max) {
+    return Math.floor(Math.random() * (max - min) + min)
+  }
+  for (let i = 0; i < allSuspects.length; i++) {
+    let num = getRandom(0, alibiArray.length)
+    if (allSuspects[i].alibiId === null) {
+      await allSuspects[i].setAlibi(alibiArray[num])
+    }
+  }
   console.log(`seeded successfully`)
 }
 
-// We've separated the `seed` function from the `runSeed` function.
-// This way we can isolate the error handling and exit trapping.
-// The `seed` function is concerned only with modifying the database.
 async function runSeed() {
   console.log('seeding...')
   try {
@@ -93,12 +110,6 @@ async function runSeed() {
   }
 }
 
-// Execute the `seed` function, IF we ran this module directly (`node seed`).
-// `Async` functions always return a promise, so we can use `catch` to handle
-// any errors that might occur inside of `seed`.
 if (module === require.main) {
   runSeed()
 }
-
-// we export the seed function for testing purposes (see `./seed.spec.js`)
-module.exports = seed

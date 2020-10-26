@@ -38,15 +38,15 @@ const level1Q = [
   },
   {
     prompt:
-      'So we know our suspect must’ve logged in one of these times. Let’s update our search to look for everyone whose activity was between the shortest and longest durations here…',
+      'So we know our suspect must’ve logged in one of these times. Let’s update our search to look for everyone whose activity was between 4.1 and 5.6 hours...',
     plotQuestion:
       'Neat-o. So how many of those suspects are NOT from Manhattan?',
-    plotAnswer: '5',
+    plotAnswer: '3',
     hint: `SELECT * FROM table-name WHERE column-name BETWEEN shortest AND longest;<br><br>
 
 The column name is ‘logged_in_duration’<br><br>
 
-BETWEEN/AND: the lowest and highest bounds of what you’re searching for.
+BETWEEN/AND: the lowest and highest bounds of what you’re searching for (4.1 and 5.6).
 `,
     successText:
       'Excellent! I’ve just received word that one of our witnesses has some information to give you.',
