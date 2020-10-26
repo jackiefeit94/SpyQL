@@ -1,6 +1,7 @@
 import React from 'react'
 
 const Table = props => {
+  //console.log('props: ', props)
   const getTitle = levelProps => {
     let title
     if (levelProps.level === 1) {
@@ -14,6 +15,12 @@ const Table = props => {
     }
     return title
   }
+
+  // const orderColumns = (fields) => {
+  //   for (let i = 0; i < fields.length; i++) {
+
+  //   }
+  // }
 
   let title = getTitle(props)
 
