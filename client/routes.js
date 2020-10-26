@@ -6,7 +6,9 @@ import {
   LevelTwo,
   LevelThree,
   GameOver,
-  Victory
+  Victory,
+  Transition,
+  Transition2
 } from './components'
 
 /**
@@ -23,6 +25,8 @@ class Routes extends Component {
         <Route path="/levelThree" component={LevelThree} />
         <Route path="/gameover" component={GameOver} />
         <Route path="/victory" component={Victory} />
+        <Route path="/transition" component={Transition} />
+        <Route path="/transition2" component={Transition2} />
       </Switch>
     )
   }

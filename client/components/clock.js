@@ -5,10 +5,9 @@ import {CountdownCircleTimer} from 'react-countdown-circle-timer'
 const clock = () => (
   <CountdownCircleTimer
     isPlaying
-    //30 minutes for gameplay
-    duration={1800}
+    duration={500}
     colors={[['#0f0', 0.33], ['#a444f2', 0.33], ['#fc0f1f', 0.33]]}
-    size={100}
+    size={90}
     strokeWidth={3}
     trailColor="#0d0d0c"
   >
