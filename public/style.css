@@ -77,11 +77,13 @@ form div {
 .flex-child-left {
   flex: 1;
   border: 2px solid white;
+  text-align: left;
 }
 
 .flex-child-right {
   flex: 1;
   /* background-image: url('fakecode.gif'); */
+  background-image: url('background-slow.gif');
   border: 2px solid white;
 }
 
@@ -225,11 +227,15 @@ button:hover {
   background-color: yellow;
 }
 
+/* submit answer field */
 input[type='text'] {
-  background-color: rgb(128, 122, 122);
-  background-position: 10px 10px;
   background-repeat: no-repeat;
-  padding-left: 40px;
+  border: none;
+  background-color: black;
+  color: white;
+  font-family: 'Courier New';
+  outline: none;
+  align-self: flex-start;
 }
 
 embed {

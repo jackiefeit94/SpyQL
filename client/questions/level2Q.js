@@ -1,26 +1,26 @@
-
 const level2Q = [
   {
     prompt:
       'We’ve got our list of suspects narrowed down. Let’s make a new table so we can start recording alibis…',
     plotAnswer: 'create table alibis (id integer primary key, place text);',
-    data: {fields: [{name: 'id'}, {name: 'location'}], rows: []},
+    data: {fields: [{name: 'id'}, {name: 'place'}], rows: []},
     hint: `CREATE table table_name (column_name column_type, column_name column_type);<br><br>
 
     Let's call the table alibis.<br><br>
 
-    Here, the information we need after CREATE table is (id integer PRIMARY KEY, place TEXT)`
+    Here, the information we need after CREATE table is (id integer primary key, place text)`
   },
   {
-    prompt: `Excellent. Now it’s time to take down all the information we have and put it in our database. Here is the information we need to insert: (id, place) values: (1, Party) (2, Barn Joo Restaurant) <br>
-
-      (3, Museum of Natural History Exhibit) (4, Greats of Craft Bar) (5, PSY 101, Hunter College) <br>
-
-      (6, Blink Gym Yoga Class) (7, null);`,
+    prompt: `Excellent. Now it’s time to take down all the information we have and put it in our database. Here is the information we need to insert: (id, place) values: <br>
+    (1, Party) <br>
+    (2, Barn Joo Restaurant) <br>
+    (3, Museum of Natural History Exhibit) <br>
+    (4, Greats of Craft Bar) (5, PSY 101, Hunter College) <br>
+    (6, Blink Gym Yoga Class) (7, null);`,
     plotAnswer:
       'insert into alibis (id, place) values: (1, Party) (2, Barn Joo Restaurant) (3, Museum of Natural History Exhibit) (4, Greats of Craft Bar) (5, PSY 101, Hunter College) (6, Blink Gym Yoga Class) (7, null);',
     data: {
-      fields: [{name: 'id'}, {name: 'location'}],
+      fields: [{name: 'id'}, {name: 'place'}],
       rows: [
         {id: 1, place: 'Party'},
         {id: 2, place: 'Barn Joo Restaurant'},
@@ -31,11 +31,12 @@ const level2Q = [
         {id: 7}
       ]
     },
-    hint: `INSERT INTO table VALUES: (column1_value, column2_value);<br><br>
+    hint: `INSERT INTO table values: (column1_value, column2_value);<br><br>
 
     The table name is alibis<br><br>
 
-    Here is the information we need to insert after VALUES: (1, Party)<br>
+    Here is the information we need to insert after VALUES: <br>
+    (1, Party)<br>
     (2, Barn Joo Restaurant)<br>
     (3, Museum of Natural History Exhibit)<br>
     (4, Greats of Craft Bar)<br>
@@ -46,7 +47,7 @@ const level2Q = [
   {
     prompt:
       'How did that last one get in there? It’s not so helpful, is it? Let’s get rid of it.',
-    plotAnswer: 'delete from alibis where location is null;',
+    plotAnswer: 'delete from alibis where place is null;',
     data: {
       fields: [{name: 'id'}, {name: 'place'}],
       rows: [
@@ -87,9 +88,9 @@ const level2Q = [
   {
     prompt:
       'A witness tells us the party in question was actually a block party. Let’s make sure to take that down.',
-    plotAnswer: 'update alibis set place = ‘block party’ where id = 1;',
+    plotAnswer: `update alibis set place = 'Block Party' where place = 'Party';`,
     data: {
-      fields: [{name: 'id'}, {name: 'place'}, {name: 'date'}],
+      fields: [{name: 'id'}, {name: 'place'}, {name: 'alibi_date'}],
       rows: [
         {id: 1, place: 'Block Party'},
         {id: 2, place: 'Barn Joo Restaurant'},
@@ -101,9 +102,9 @@ const level2Q = [
     },
     hint: `UPDATE table_name SET column_name = 'new name' WHERE condition;<br><br>
 
-    The table name is alibis and the column name is place. Let's make the new name 'block party'<br><br>
+    The table name is alibis and the column name is place. Let's make the new name 'Block Party'<br><br>
 
-    The condition is WHERE id = 1, or WHERE place = 'party'.`
+    The condition is WHERE place = 'Party'.`
   },
   {
     prompt:

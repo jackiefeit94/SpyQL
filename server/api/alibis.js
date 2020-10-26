@@ -1,8 +1,8 @@
 const router = require('express').Router()
 const {Alibi} = require('../db/models')
-const {sqlMiddleware} = require('./sqlMiddleware')
+const {levelTwoMiddleware} = require('./sqlMiddleware')
 
-router.get('/:query/:answer', sqlMiddleware, async (req, res, next) => {
+router.get('/:query/:answer', levelTwoMiddleware, async (req, res, next) => {
   try {
     const data = await Alibi.findAll()
     if (req.params.query === req.params.answer) res.send(data)

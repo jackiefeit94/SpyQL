@@ -63,7 +63,7 @@ class LevelThree extends React.Component {
     if (
       this.state.answer ===
         this.props.allQs[this.state.questionIdx].plotAnswer &&
-      this.state.questionIdx <= 3
+      this.state.questionIdx < 3
     ) {
       this.setState({
         displayMessage:
@@ -76,7 +76,7 @@ class LevelThree extends React.Component {
     } else if (
       this.state.answer ===
         this.props.allQs[this.state.questionIdx].plotAnswer &&
-      this.state.questionIdx === 4
+      this.state.questionIdx === 3
     ) {
       history.push('/victory')
       this.setState({
@@ -113,7 +113,6 @@ class LevelThree extends React.Component {
   //needs to be edited
   async createTable() {
     let {data} = await Axios.get(`/api/suspects/${this.state.query}`)
-    console.log('query: ', this.state.query)
     if (typeof data !== 'string') {
       this.setState({
         fields: data[1].fields,
@@ -184,7 +183,12 @@ class LevelThree extends React.Component {
               {this.state.err ? (
                 <div />
               ) : (
-                <Table fields={this.state.fields} rows={this.state.rows} />
+                <Table
+                  level={this.props.level}
+                  idx={this.state.questionIdx}
+                  fields={this.state.fields}
+                  rows={this.state.rows}
+                />
               )}
             </div>
             <CodeEditor
@@ -203,7 +207,8 @@ class LevelThree extends React.Component {
 
 const mapState = state => {
   return {
-    allQs: state.question.allQs
+    allQs: state.question.allQs,
+    level: state.question.level
   }
 }
 
