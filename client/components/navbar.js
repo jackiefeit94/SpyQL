@@ -94,14 +94,4 @@ const mapState = state => {
   }
 }
 
-// const mapDispatch = (dispatch) => {
-//   return {
-//     getLevelOneQuestions: () => {
-//       dispatch(getLevelOneQuestions())
-//       dispatch(getLevelTwoQuestions())
-//       dispatch(getLevelThreeQuestions())
-//     },
-//   }
-// }
-
 export default connect(mapState)(Navbar)
