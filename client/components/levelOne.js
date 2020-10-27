@@ -159,115 +159,118 @@ class LevelOne extends React.Component {
     const options = {lineNumbers: true}
     return (
       <Container>
-        <Row className="level-container">
-          {/* flex left */}
+        <Fade slow top>
+          <Row className="level-container">
+            {/* flex left */}
 
-          <Col className="item flex-child-left">
-            {/* fake terminal */}
-            <Fade slow bottom>
-              <div id="text-editor-wrap">
-                <div className="title-bar">
-                  <span className="title">
-                    🔒Confidential-File - bash - 80x24
-                  </span>
-                </div>
-                <div className="text-body">
-                  <div className="texts">
-                    {this.props.allQs.length && (
-                      <Typed
-                        strings={['>> ' + this.state.displayMessage]}
-                        typedRef={typed => {
-                          this.typed = typed
-                        }}
-                        typeSpeed={35}
-                      />
-                    )}
+            <Col className="item flex-child-left">
+              {/* fake terminal */}
+              <Fade slow left>
+                <div id="text-editor-wrap">
+                  <div className="title-bar">
+                    <span className="title">
+                      🔒Confidential-File - bash - 80x24
+                    </span>
                   </div>
-                  <br />
-                  <div align="bottom" className="input-box">
-                    {this.state.submitField ? (
-                      <form>
-                        {'>> '}
-                        <input
-                          type="text"
-                          value={this.state.answer}
-                          onChange={this.handleChange}
-                          onKeyDown={this.enterKeyDown}
-                          autoFocus="autofocus"
+                  <div className="text-body">
+                    <div className="texts">
+                      {this.props.allQs.length && (
+                        <Typed
+                          strings={['>> ' + this.state.displayMessage]}
+                          typedRef={typed => {
+                            this.typed = typed
+                          }}
+                          typeSpeed={35}
                         />
-                      </form>
-                    ) : null}
-                  </div>
-                  <div align="bottom">
-                    {this.state.clue.length > 0 && (
-                      <Button
-                        onClick={() => {
-                          this.typed.reset()
-                          this.setState({
-                            displayMessage: this.props.allQs[
-                              this.state.questionIdx
-                            ].prompt,
-                            clue: ''
-                          })
-                        }}
-                      >
-                        <img id="clue" src={this.state.clue} />
-                      </Button>
-                    )}
+                      )}
+                    </div>
+                    <br />
+                    <div align="bottom" className="input-box">
+                      {this.state.submitField ? (
+                        <form>
+                          {'>> '}
+                          <input
+                            type="text"
+                            value={this.state.answer}
+                            onChange={this.handleChange}
+                            onKeyDown={this.enterKeyDown}
+                            autoFocus="autofocus"
+                          />
+                        </form>
+                      ) : null}
+                    </div>
+                    <div align="bottom">
+                      {this.state.clue.length > 0 && (
+                        <Button
+                          onClick={() => {
+                            this.typed.reset()
+                            this.setState({
+                              displayMessage: this.props.allQs[
+                                this.state.questionIdx
+                              ].prompt,
+                              clue: ''
+                            })
+                          }}
+                        >
+                          <img id="clue" src={this.state.clue} />
+                        </Button>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Fade>
-            {this.state.questionIdx === 5 ? (
-              <div>
-                Unlock Next Level
-                <br />
-                <Button
-                  className="unlock"
-                  onClick={() => history.push('/transition')}
-                  type="submit"
-                >
-                  🔑
-                </Button>
-              </div>
-            ) : null}
-          </Col>
+              </Fade>
+              {this.state.questionIdx === 5 ? (
+                <div>
+                  Unlock Next Level
+                  <br />
+                  <Button
+                    className="unlock"
+                    onClick={() => history.push('/transition')}
+                    type="submit"
+                  >
+                    🔑
+                  </Button>
+                </div>
+              ) : null}
+            </Col>
 
-          {/* flex right */}
+            {/* flex right */}
 
-          <Col className="item flex-child-right">
-            <div id="textbox-table">
-              {this.state.err ? (
-                <div />
-              ) : (
-                <Table
-                  level={this.props.level}
-                  idx={this.state.questionIdx}
-                  fields={this.state.fields}
-                  rows={this.state.rows}
-                />
-              )}
-            </div>
-            <CodeEditor
-              options={options}
-              updateCode={this.updateCode}
-              formatQuery={this.formatQuery}
-              createTable={this.createTable}
-              handleQuery={this.handleQuery}
-            />
-            <Button
-              type="submit"
-              onClick={() => {
-                this.typed.reset()
-                this.setState({
-                  displayMessage: this.props.allQs[this.state.questionIdx].hint
-                })
-              }}
-            >
-              Query Hint
-            </Button>
-          </Col>
-        </Row>
+            <Col className="item flex-child-right">
+              <div id="textbox-table">
+                {this.state.err ? (
+                  <div />
+                ) : (
+                  <Table
+                    level={this.props.level}
+                    idx={this.state.questionIdx}
+                    fields={this.state.fields}
+                    rows={this.state.rows}
+                  />
+                )}
+              </div>
+              <CodeEditor
+                options={options}
+                updateCode={this.updateCode}
+                formatQuery={this.formatQuery}
+                createTable={this.createTable}
+                handleQuery={this.handleQuery}
+              />
+              <Button
+                type="submit"
+                onClick={() => {
+                  this.typed.reset()
+                  this.setState({
+                    displayMessage: this.props.allQs[this.state.questionIdx]
+                      .hint
+                  })
+                }}
+              >
+                Query Hint
+              </Button>
+            </Col>
+          </Row>
+        </Fade>
       </Container>
     )
   }

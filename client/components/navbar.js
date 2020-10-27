@@ -3,17 +3,15 @@ import {connect} from 'react-redux'
 import clock from './clock'
 import {Nav, Navbar as NavbarBootstrap} from 'react-bootstrap'
 import styled from 'styled-components'
-import {
-  getLevelOneQuestions,
-  getLevelTwoQuestions,
-  getLevelThreeQuestions
-} from '../store/questionStore'
 
 const Styles = styled.div`
   .navbar {
-    background: url('1.jpg');
-    background-size: 60%;
+    background: url('https://images.pexels.com/photos/239107/pexels-photo-239107.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+    opacity: 1;
+    background-size: cover;
     background-position: right;
+    background-repeat: no-repeat;
+    background-color: black;
   }
   a,
   .navbar-brand,
@@ -29,10 +27,11 @@ class Navbar extends React.Component {
   constructor(props) {
     super(props)
   }
+
   render() {
     return (
       <Styles>
-        {this.state.level ? (
+        {this.props.level ? (
           <NavbarBootstrap align="center">
             <NavbarBootstrap.Brand href="/">
               <h1>SpyQL</h1>
@@ -47,7 +46,7 @@ class Navbar extends React.Component {
                 {this.props.level === 1 ? (
                   <audio controls="controls">
                     <source
-                      src="./musicfox_demo_MF-78.mp3"
+                      src="./1-01 Dreams.mp3"
                       type="audio/mp3"
                       preload="auto"
                     />
@@ -60,7 +59,7 @@ class Navbar extends React.Component {
                 {this.props.level === 2 ? (
                   <audio controls="controls">
                     <source
-                      src="./musicfox_demo_MF-801.mp3"
+                      src="./1-01 Dreams.mp3"
                       type="audio/mp3"
                       preload="auto"
                     />
@@ -73,7 +72,7 @@ class Navbar extends React.Component {
                 {this.props.level === 3 ? (
                   <audio controls="controls">
                     <source
-                      src="./musicfox_demo_MF-892.mp3"
+                      src="./1-01 Dreams.mp3"
                       type="audio/mp3"
                       preload="auto"
                     />
@@ -99,6 +98,8 @@ const mapDispatch = dispatch => {
   return {
     getLevelOneQuestions: () => {
       dispatch(getLevelOneQuestions())
+      dispatch(getLevelTwoQuestions())
+      dispatch(getLevelThreeQuestions())
     }
   }
 }
