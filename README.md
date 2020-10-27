@@ -9,8 +9,11 @@ Libraries that were used in this project:
 ## Styling:
 
 Typed.js - text typing on display | https://github.com/mattboldt/typed.js/
+
 React-Typed - A React wrapper for Typed.js | https://github.com/ssbeefeater/react-typed
+
 React-Bootstrap - Bootstrap 4 components built with React | https://github.com/react-bootstrap/react-bootstrap
+
 React-Countdown-Circle-Timer - Lightweight React countdown timer component | https://github.com/vydimitrov/react-countdown-circle-timer
 
 ## Functionality:
