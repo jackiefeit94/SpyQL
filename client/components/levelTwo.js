@@ -108,17 +108,20 @@ class LevelTwo extends React.Component {
                   </span>
                 </div>
                 <div className="text-body">
-                  {this.props.allQs.length && (
-                    <Typed
-                      strings={['>> ' + this.state.displayMessage]}
-                      typedRef={typed => {
-                        this.typed = typed
-                      }}
-                      typeSpeed={35}
-                    />
-                  )}
+                  <div className="texts">
+                    {this.props.allQs.length && (
+                      <Typed
+                        strings={['>> ' + this.state.displayMessage]}
+                        typedRef={typed => {
+                          this.typed = typed
+                        }}
+                        typeSpeed={70}
+                      />
+                    )}
+                  </div>
+                  <br />
                   {this.state.questionIdx === 6 ? (
-                    <div>
+                    <div align="top">
                       Unlock next level
                       <br />
                       <Button
