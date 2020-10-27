@@ -6,6 +6,8 @@ import Table from './table'
 import {CodeEditor} from './CodeEditor'
 import {getLevelThreeQuestions} from '../store/questionStore'
 import history from '../history'
+import {Container, Row, Col, Button} from 'react-bootstrap'
+import Roll from 'react-reveal/Roll'
 
 class LevelThree extends React.Component {
   constructor(props) {
@@ -140,78 +142,86 @@ class LevelThree extends React.Component {
   render() {
     const options = {lineNumbers: true}
     return (
-      <div>
-        <div className="level-container">
-          {/* flex left */}
-          <div className="item flex-child-left">
-            {/* fake terminal */}
-            <div id="text-editor-wrap">
-              <div className="title-bar">
-                <span className="title">
-                  🔒Confidential-File - bash - 80x24
-                </span>
+      <Container>
+        <Roll top>
+          <Row className="level-container">
+            {/* flex left */}
+            <Col className="item flex-child-left">
+              {/* fake terminal */}
+              <div id="text-editor-wrap">
+                <div className="title-bar">
+                  <span className="title">
+                    🔒Confidential-File - bash - 80x24
+                  </span>
+                </div>
+                <div className="text-body">
+                  <div className="texts">
+                    {this.props.allQs.length && (
+                      <Typed
+                        strings={['>> ' + this.state.displayMessage]}
+                        typedRef={typed => {
+                          this.typed = typed
+                        }}
+                        typeSpeed={50}
+                      />
+                    )}
+                  </div>
+                  <br />
+                  <div align="bottom" className="input-box">
+                    {this.state.submitField ? (
+                      <form>
+                        {'>> '}
+                        <input
+                          type="text"
+                          value={this.state.answer}
+                          onChange={this.handleChange}
+                          onKeyDown={this.enterKeyDown}
+                          autoFocus="autofocus"
+                        />
+                      </form>
+                    ) : null}
+                  </div>
+                </div>
               </div>
-              <div className="text-body">
-                {this.props.allQs.length && (
-                  <Typed
-                    strings={['$ ' + this.state.displayMessage]}
-                    typedRef={typed => {
-                      this.typed = typed
-                    }}
-                    typeSpeed={35}
+            </Col>
+
+            {/* flex right */}
+            <Col className="item flex-child-right">
+              <div id="textbox-table">
+                {this.state.err ? (
+                  <div />
+                ) : (
+                  <Table
+                    level={this.props.level}
+                    idx={this.state.questionIdx}
+                    fields={this.state.fields}
+                    rows={this.state.rows}
                   />
                 )}
               </div>
-              <br />
-              {this.state.submitField ? (
-                <form id="form">
-                  {'>>'}
-                  <input
-                    type="text"
-                    value={this.state.answer}
-                    onChange={this.handleChange}
-                    onKeyDown={this.enterKeyDown}
-                  />
-                </form>
-              ) : null}
-            </div>
-          </div>
-
-          {/* flex right */}
-          <div className="item flex-child-right">
-            <div id="textbox-table">
-              {this.state.err ? (
-                <div />
-              ) : (
-                <Table
-                  level={this.props.level}
-                  idx={this.state.questionIdx}
-                  fields={this.state.fields}
-                  rows={this.state.rows}
-                />
-              )}
-            </div>
-            <CodeEditor
-              options={options}
-              updateCode={this.updateCode}
-              formatQuery={this.formatQuery}
-              createTable={this.createTable}
-              handleQuery={this.handleQuery}
-            />
-            <button
-              type="submit"
-              onClick={() => {
-                this.typed.reset()
-                this.setState({
-                  displayMessage: this.props.allQs[this.state.questionIdx].hint
-                })
-              }}
-            >
-              Query Hint
-            </button>
-          </div>
-        </div>
-      </div>
+              <CodeEditor
+                options={options}
+                updateCode={this.updateCode}
+                formatQuery={this.formatQuery}
+                createTable={this.createTable}
+                handleQuery={this.handleQuery}
+              />
+              <Button
+                type="submit"
+                onClick={() => {
+                  this.typed.reset()
+                  this.setState({
+                    displayMessage: this.props.allQs[this.state.questionIdx]
+                      .hint
+                  })
+                }}
+              >
+                Query Hint
+              </Button>
+            </Col>
+          </Row>
+        </Roll>
+      </Container>
     )
   }
 }

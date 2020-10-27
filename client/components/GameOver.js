@@ -1,7 +1,9 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import Typed from 'typed.js'
 import KeyboardEventHandler from 'react-keyboard-event-handler'
 import history from '../history'
+import {getVictoryLevel} from '../store/questionStore'
 
 class GameOver extends React.Component {
   componentDidMount() {
@@ -12,9 +14,10 @@ class GameOver extends React.Component {
         Hit ENTER to restart...`
       ],
       startDelay: 1000,
-      typeSpeed: 70
+      typeSpeed: 50
     }
     this.typed = new Typed(this.el, options)
+    this.props.getVictoryLevel()
   }
 
   render() {
@@ -29,7 +32,7 @@ class GameOver extends React.Component {
             <span className="title">🔒Confidential-File - bash - 80x24</span>
           </div>
           <div className="text-body-home">
-            $
+            {'>> '}
             <span
               ref={el => {
                 this.el = el
@@ -43,4 +46,18 @@ class GameOver extends React.Component {
   }
 }
 
-export default GameOver
+const mapState = state => {
+  return {
+    level: state.question.level
+  }
+}
+
+const mapDispatch = dispatch => {
+  return {
+    getVictoryLevel: () => {
+      dispatch(getVictoryLevel())
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch)(GameOver)
