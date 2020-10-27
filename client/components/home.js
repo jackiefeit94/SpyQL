@@ -12,7 +12,7 @@ export default class Home extends React.Component {
         'Welcome, ^300 Special Agent Q. ^700 <br> I’m Spymaster L. ^300 <br> Today ^300 we’ve got a top-secret mission. ^1000 <br> Hit ENTER to accept...'
       ],
       startDelay: 1000,
-      typeSpeed: 70
+      typeSpeed: 50
     }
     this.typed = new Typed(this.el, options)
   }

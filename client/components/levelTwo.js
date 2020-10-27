@@ -115,7 +115,7 @@ class LevelTwo extends React.Component {
                         typedRef={typed => {
                           this.typed = typed
                         }}
-                        typeSpeed={70}
+                        typeSpeed={50}
                       />
                     )}
                   </div>

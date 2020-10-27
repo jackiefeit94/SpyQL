@@ -14,7 +14,7 @@ class GameOver extends React.Component {
         Hit ENTER to restart...`
       ],
       startDelay: 1000,
-      typeSpeed: 70
+      typeSpeed: 50
     }
     this.typed = new Typed(this.el, options)
     this.props.getVictoryLevel()

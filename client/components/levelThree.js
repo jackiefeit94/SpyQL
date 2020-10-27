@@ -162,7 +162,7 @@ class LevelThree extends React.Component {
                         typedRef={typed => {
                           this.typed = typed
                         }}
-                        typeSpeed={35}
+                        typeSpeed={50}
                       />
                     )}
                   </div>
