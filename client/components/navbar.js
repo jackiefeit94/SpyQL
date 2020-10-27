@@ -8,7 +8,7 @@ const Styles = styled.div`
   .navbar {
     background: url('https://images.pexels.com/photos/239107/pexels-photo-239107.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
     opacity: 1;
-    background-size: cover;
+    background-size: 50%;
     background-position: right;
     background-repeat: no-repeat;
     background-color: black;
