@@ -6,7 +6,8 @@ import Table from './table'
 import {CodeEditor} from './CodeEditor'
 import {getLevelTwoQuestions} from '../store/questionStore'
 import history from '../history'
-import Transition2 from './Transition2'
+import {Container, Row, Col, Button} from 'react-bootstrap'
+import Flip from 'react-reveal/Flip'
 
 class LevelTwo extends React.Component {
   constructor(props) {
@@ -94,58 +95,62 @@ class LevelTwo extends React.Component {
   render() {
     const options = {lineNumbers: true}
     return (
-      <div>
-        <div className="level-container">
+      <Container>
+        <Row className="level-container">
           {/* flex left */}
-          <div className="item flex-child-left">
+          <Col className="item flex-child-left">
             {/* fake terminal */}
-            <div id="text-editor-wrap">
-              <div className="title-bar">
-                <span className="title">
-                  🔒Confidential-File - bash - 80x24
-                </span>
+            <Flip bottom cascade>
+              <div id="text-editor-wrap">
+                <div className="title-bar">
+                  <span className="title">
+                    🔒Confidential-File - bash - 80x24
+                  </span>
+                </div>
+                <div className="text-body">
+                  {this.props.allQs.length && (
+                    <Typed
+                      strings={['>> ' + this.state.displayMessage]}
+                      typedRef={typed => {
+                        this.typed = typed
+                      }}
+                      typeSpeed={35}
+                    />
+                  )}
+                  {this.state.questionIdx === 6 ? (
+                    <div>
+                      Unlock next level
+                      <br />
+                      <button
+                        className="unlock"
+                        onClick={() => history.push('/transition2')}
+                        type="submit"
+                      >
+                        🔑
+                      </button>
+                    </div>
+                  ) : null}
+                </div>
               </div>
-              <div className="text-body">
-                {this.props.allQs.length && (
-                  <Typed
-                    strings={['>> ' + this.state.displayMessage]}
-                    typedRef={typed => {
-                      this.typed = typed
-                    }}
-                    typeSpeed={35}
-                  />
-                )}
-                {this.state.questionIdx === 6 ? (
-                  <div>
-                    Unlock next level
-                    <br />
-                    <button
-                      className="unlock"
-                      onClick={() => history.push('/transition2')}
-                      type="submit"
-                    >
-                      🔑
-                    </button>
-                  </div>
-                ) : null}
-              </div>
-            </div>
-          </div>
+            </Flip>
+          </Col>
 
           {/* flex right */}
-          <div className="item flex-child-right">
-            <div id="textbox-table">
-              {this.state.err ? (
-                <div />
-              ) : (
-                <Table
-                  level={this.props.level}
-                  idx={this.state.questionIdx}
-                  fields={this.state.fields}
-                  rows={this.state.rows}
-                />
-              )}
-            </div>
+          <Col className="item flex-child-right">
+            <Flip top>
+              <div id="textbox-table">
+                {this.state.err ? (
+                  <div />
+                ) : (
+                  <Table
+                    level={this.props.level}
+                    idx={this.state.questionIdx}
+                    fields={this.state.fields}
+                    rows={this.state.rows}
+                  />
+                )}
+              </div>
+            </Flip>
             <CodeEditor
               options={options}
               updateCode={this.updateCode}
@@ -154,7 +159,7 @@ class LevelTwo extends React.Component {
               id={this.state.questionIdx}
               handleQuery={this.handleQuery}
             />
-            <button
+            <Button
               className="hint-button"
               type="submit"
               onClick={() => {
@@ -165,10 +170,10 @@ class LevelTwo extends React.Component {
               }}
             >
               Query Hint
-            </button>
-          </div>
-        </div>
-      </div>
+            </Button>
+          </Col>
+        </Row>
+      </Container>
     )
   }
 }
