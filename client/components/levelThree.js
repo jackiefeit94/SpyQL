@@ -166,18 +166,20 @@ class LevelThree extends React.Component {
                   )}
                 </div>
                 <br />
-                {this.state.submitField ? (
-                  <form id="form">
-                    {'>> '}
-                    <input
-                      type="text"
-                      value={this.state.answer}
-                      onChange={this.handleChange}
-                      onKeyDown={this.enterKeyDown}
-                      autoFocus="autofocus"
-                    />
-                  </form>
-                ) : null}
+                <div align="bottom" className="input-box">
+                  {this.state.submitField ? (
+                    <form>
+                      {'>> '}
+                      <input
+                        type="text"
+                        value={this.state.answer}
+                        onChange={this.handleChange}
+                        onKeyDown={this.enterKeyDown}
+                        autoFocus="autofocus"
+                      />
+                    </form>
+                  ) : null}
+                </div>
               </div>
             </Col>
 

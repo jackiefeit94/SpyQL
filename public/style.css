@@ -87,6 +87,7 @@ nav a {
   flex: 1;
   /* border: 2px solid white; */
   /* background-image: url('matrix-background.jpg'); */
+  height: auto;
   position: relative;
   background-image: url('background-slow.gif');
   text-align: left;

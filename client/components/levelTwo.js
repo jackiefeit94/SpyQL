@@ -121,13 +121,13 @@ class LevelTwo extends React.Component {
                     <div>
                       Unlock next level
                       <br />
-                      <button
+                      <Button
                         className="unlock"
                         onClick={() => history.push('/transition2')}
                         type="submit"
                       >
                         🔑
-                      </button>
+                      </Button>
                     </div>
                   ) : null}
                 </div>
