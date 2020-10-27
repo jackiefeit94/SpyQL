@@ -35,6 +35,14 @@ export const getLevelThreeQuestions = () => {
   }
 }
 
+export const getVictoryLevel = () => {
+  return dispatch => {
+    const questions = []
+    const level = 0
+    dispatch(fetchQuestions(questions, level))
+  }
+}
+
 const initialState = {allQs: [], level: 0}
 
 export default function questionReducer(state = initialState, action) {

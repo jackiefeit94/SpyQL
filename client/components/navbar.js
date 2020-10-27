@@ -46,7 +46,7 @@ class Navbar extends React.Component {
                 {this.props.level === 1 ? (
                   <audio controls="controls">
                     <source
-                      src="./1-01 Dreams.mp3"
+                      src="./musicfox_demo_MF-78.mp3"
                       type="audio/mp3"
                       preload="auto"
                     />
@@ -59,7 +59,7 @@ class Navbar extends React.Component {
                 {this.props.level === 2 ? (
                   <audio controls="controls">
                     <source
-                      src="./1-01 Dreams.mp3"
+                      src="./musicfox_demo_MF-801.mp3"
                       type="audio/mp3"
                       preload="auto"
                     />
@@ -72,7 +72,7 @@ class Navbar extends React.Component {
                 {this.props.level === 3 ? (
                   <audio controls="controls">
                     <source
-                      src="./1-01 Dreams.mp3"
+                      src="./musicfox_demo_MF-892.mp3"
                       type="audio/mp3"
                       preload="auto"
                     />
@@ -94,14 +94,14 @@ const mapState = state => {
   }
 }
 
-const mapDispatch = dispatch => {
-  return {
-    getLevelOneQuestions: () => {
-      dispatch(getLevelOneQuestions())
-      dispatch(getLevelTwoQuestions())
-      dispatch(getLevelThreeQuestions())
-    }
-  }
-}
+// const mapDispatch = (dispatch) => {
+//   return {
+//     getLevelOneQuestions: () => {
+//       dispatch(getLevelOneQuestions())
+//       dispatch(getLevelTwoQuestions())
+//       dispatch(getLevelThreeQuestions())
+//     },
+//   }
+// }
 
-export default connect(mapState, mapDispatch)(Navbar)
+export default connect(mapState)(Navbar)
