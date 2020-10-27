@@ -287,24 +287,23 @@ embed {
 }
 
 #transition {
-  background-image: url('https://images.pexels.com/photos/813787/pexels-photo-813787.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+  background-image: url('https://images.pexels.com/photos/162389/lost-places-old-decay-ruin-162389.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
   position: fixed;
   right: 0;
   bottom: 0;
+  background-size: cover;
   min-width: 100%;
   min-height: 100%;
 }
 
 #transition2 {
   background-image: url('https://images.pexels.com/photos/2157191/pexels-photo-2157191.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: fixed;
   right: 0;
   bottom: 0;
-  margin: auto;
-  min-width: 50%;
-  min-height: 50%;
+  background-size: cover;
+  min-width: 100%;
+  min-height: 100%;
 }
 
 /* react-bootstrap css */
