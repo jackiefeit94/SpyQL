@@ -155,29 +155,33 @@ class LevelThree extends React.Component {
                   </span>
                 </div>
                 <div className="text-body">
-                  {this.props.allQs.length && (
-                    <Typed
-                      strings={['>> ' + this.state.displayMessage]}
-                      typedRef={typed => {
-                        this.typed = typed
-                      }}
-                      typeSpeed={35}
-                    />
-                  )}
+                  <div className="texts">
+                    {this.props.allQs.length && (
+                      <Typed
+                        strings={['>> ' + this.state.displayMessage]}
+                        typedRef={typed => {
+                          this.typed = typed
+                        }}
+                        typeSpeed={35}
+                      />
+                    )}
+                  </div>
+                  <br />
+                  <div align="bottom" className="input-box">
+                    {this.state.submitField ? (
+                      <form>
+                        {'>> '}
+                        <input
+                          type="text"
+                          value={this.state.answer}
+                          onChange={this.handleChange}
+                          onKeyDown={this.enterKeyDown}
+                          autoFocus="autofocus"
+                        />
+                      </form>
+                    ) : null}
+                  </div>
                 </div>
-                <br />
-                {this.state.submitField ? (
-                  <form id="form">
-                    {'>> '}
-                    <input
-                      type="text"
-                      value={this.state.answer}
-                      onChange={this.handleChange}
-                      onKeyDown={this.enterKeyDown}
-                      autoFocus="autofocus"
-                    />
-                  </form>
-                ) : null}
               </div>
             </Col>
 

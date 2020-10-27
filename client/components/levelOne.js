@@ -180,7 +180,7 @@ class LevelOne extends React.Component {
                           typedRef={typed => {
                             this.typed = typed
                           }}
-                          typeSpeed={35}
+                          typeSpeed={70}
                         />
                       )}
                     </div>
@@ -216,22 +216,22 @@ class LevelOne extends React.Component {
                         </Button>
                       )}
                     </div>
+                    {this.state.questionIdx === 5 ? (
+                      <div align="top">
+                        Unlock Next Level
+                        <br />
+                        <Button
+                          className="unlock"
+                          onClick={() => history.push('/transition')}
+                          type="submit"
+                        >
+                          🔑
+                        </Button>
+                      </div>
+                    ) : null}
                   </div>
                 </div>
               </Fade>
-              {this.state.questionIdx === 5 ? (
-                <div>
-                  Unlock Next Level
-                  <br />
-                  <Button
-                    className="unlock"
-                    onClick={() => history.push('/transition')}
-                    type="submit"
-                  >
-                    🔑
-                  </Button>
-                </div>
-              ) : null}
             </Col>
 
             {/* flex right */}
