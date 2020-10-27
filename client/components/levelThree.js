@@ -127,6 +127,7 @@ class LevelThree extends React.Component {
   table based on query */
   async createTable() {
     let {data} = await Axios.get(`/api/suspects/${this.state.query}`)
+    console.log('data: ', data)
     /* handle data returned from backend */
     if (typeof data !== 'string') {
       this.setState({

@@ -6,7 +6,7 @@ const Table = props => {
   let newPropsRows
 
   //comment in to find appropriate tableIDs for conditionals below
-  //console.log('fields: ', props.fields)
+  console.log('fields: ', props.fields)
 
   //helper function to order columns properly
   const orderColumns = fields => {
