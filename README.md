@@ -19,10 +19,11 @@ CodeMirror - in-browser code editor | https://github.com/codemirror/CodeMirror
 
 ### Setup
 
-To run SpyQL locally, you'll need to ake the following steps:
+To run SpyQL locally, you'll need to take the following steps:
 
-* Fork and clone github repo (only recommended to review code as seeding is random and answers may change)
+* Fork and clone github repo
 * npm install
 * npm run seed
-* uncomment console.log in table component to find local db tableIDs and edit accordingly
 * npm run start-dev
+
+(Note: running the game locally is not recommended due to random seeding; if you do want to play the full game on localhost, be sure to uncomment the console.log in the Table component and use your local database's tableId.)
